@@ -1,11 +1,24 @@
-<h1>This is custom announcement section</h1>
+<h1>{{ section.settings.announcement_text }}</h1>
 
 
 {% schema %}
   {
     "name": "Custom Announcement",
     "tag": "section",
-    "settings": [],
+    "settings": [
+        {
+            "type": "text",
+            "id": "announcement_text",
+            "label": "Announcement Text",
+            "default": "Welcome to our store!"
+        },
+        {
+            "type": "url",
+            "id": "announcement_link",
+            "label": "Announcement Link",
+            "default": "/collections/all"
+        }
+    ],
     "presets": [
       {
         "name": "Custom Announcement",
