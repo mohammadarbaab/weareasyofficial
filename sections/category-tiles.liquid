@@ -1,72 +1,57 @@
-<div class="category-tiles-section">
-  <h2 class="category-tiles-title">Shop by Category</h2>
-  <div class="category-tiles-grid">
-    {% assign categories = 
-      "Tshirts,/collections/tshirts|Pants,/collections/pants|Jackets,/collections/jackets" | split: "|" %}
-
-    {% for cat in categories %}
-      {% assign parts = cat | split: "," %}
-      {% assign name = parts[0] %}
-      {% assign link = parts[1] %}
-      <a href="{{ link }}" class="category-tile">
-        <div class="category-tile-inner">
-          <div class="category-tile-name">{{ name }}</div>
-        </div>
-      </a>
-    {% endfor %}
-  </div>
+<div class="category-tiles">
+  {% assign collections_list = "t-shirts,pants,jackets" | split: "," %}
+  
+  {% for handle in collections_list %}
+    {% assign collection = collections[handle] %}
+    {% if collection %}
+      <div class="category-tile">
+        <a href="{{ collection.url }}">
+          <img src="{{ collection.image | img_url: '600x' }}" alt="{{ collection.title }}" />
+          <h3>{{ collection.title }}</h3>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
 </div>
 
 <style>
-.category-tiles-section {
-  padding: 40px 20px;
-  text-align: center;
-}
-.category-tiles-title {
-  font-size: 28px;
-  margin-bottom: 30px;
-}
-.category-tiles-grid {
+.category-tiles {
   display: flex;
-  justify-content: center;
   gap: 20px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 .category-tile {
-  display: block;
   width: 200px;
-  height: 150px;
-  background: #f5f5f5;
-  border-radius: 12px;
-  text-decoration: none;
-  color: #000;
-  transition: all 0.3s ease;
+  text-align: center;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .category-tile:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-.category-tile-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+.category-tile img {
+  width: 100%;
+  border-radius: 5px;
+  object-fit: cover;
 }
-.category-tile-name {
-  font-size: 18px;
-  font-weight: 600;
+.category-tile h3 {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: #333;
 }
 </style>
 
 {% schema %}
 {
   "name": "Category Tiles",
-  "tag": "section",
   "settings": [],
   "presets": [
     {
-      "name": "Category Tiles",
-      "category": "Custom"
+      "name": "Category Tiles"
     }
   ]
 }

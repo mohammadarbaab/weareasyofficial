@@ -1,0 +1,78 @@
+<section class="collection-grid">
+  <div class="grid">
+    {% for block in section.blocks %}
+      <a href="{{ block.settings.collection.url }}" class="item">
+        <img 
+          src="{{ block.settings.image | img_url: '600x' }}" 
+          alt="{{ block.settings.title }}">
+        <p>{{ block.settings.title }}</p>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.collection-grid {
+  padding: 60px 40px;
+}
+.collection-grid .grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.collection-grid .item {
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+}
+.collection-grid img {
+  width: 100%;
+  height: auto;
+}
+.collection-grid p {
+  margin-top: 10px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+@media(max-width: 768px){
+  .collection-grid .grid{
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Collection Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Collection Grid"
+    }
+  ]
+}
+{% endschema %}

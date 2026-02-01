@@ -4,10 +4,10 @@
       "type": "hero",
       "settings": {}
     },
-    "category-tiles": {
+    "category_tiles": {
       "type": "category-tiles",
       "settings": {}
     }
   },
-  "order": ["hero", "category-tiles"]
+  "order": ["hero","category_tiles"]
 }
