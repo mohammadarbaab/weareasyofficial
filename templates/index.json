@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -7,7 +16,29 @@
     "category_tiles": {
       "type": "category-tiles",
       "settings": {}
+    },
+    "collection_grid_FQ6ryr": {
+      "type": "collection-grid",
+      "blocks": {
+        "item_xhAPzW": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/heroimage-2.png",
+            "title": "T-shirts",
+            "collection": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_xhAPzW"
+      ],
+      "name": "Collection Grid",
+      "settings": {}
     }
   },
-  "order": ["hero","category_tiles"]
+  "order": [
+    "hero",
+    "category_tiles",
+    "collection_grid_FQ6ryr"
+  ]
 }
