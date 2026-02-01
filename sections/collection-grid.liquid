@@ -1,12 +1,21 @@
 <section class="collection-grid">
   <div class="grid">
     {% for block in section.blocks %}
-      <a href="{{ block.settings.collection.url }}" class="item">
-        <img 
-          src="{{ block.settings.image | img_url: '600x' }}" 
-          alt="{{ block.settings.title }}">
-        <p>{{ block.settings.title }}</p>
-      </a>
+      <div class="item" {{ block.shopify_attributes }}>
+        
+        {% if block.settings.image != blank %}
+          <a href="{{ block.settings.collection.url }}">
+            <img 
+              src="{{ block.settings.image | img_url: '600x' }}" 
+              alt="{{ block.settings.title }}">
+          </a>
+        {% endif %}
+
+        {% if block.settings.title != blank %}
+          <p>{{ block.settings.title }}</p>
+        {% endif %}
+
+      </div>
     {% endfor %}
   </div>
 </section>
@@ -22,24 +31,17 @@
 }
 .collection-grid .item {
   text-align: center;
-  text-decoration: none;
-  color: #000;
 }
 .collection-grid img {
   width: 100%;
-  height: auto;
 }
 .collection-grid p {
   margin-top: 10px;
   font-size: 12px;
   letter-spacing: 1px;
 }
-@media(max-width: 768px){
-  .collection-grid .grid{
-    grid-template-columns: 1fr;
-  }
-}
 </style>
+
 
 
 {% schema %}
@@ -63,12 +65,11 @@
         {
           "type": "collection",
           "id": "collection",
-          "label": "Select Collection"
+          "label": "Collection"
         }
       ]
     }
   ],
-  "max_blocks": 3,
   "presets": [
     {
       "name": "Collection Grid"
