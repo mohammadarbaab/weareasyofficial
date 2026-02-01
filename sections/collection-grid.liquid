@@ -2,17 +2,15 @@
   <div class="grid">
     {% for block in section.blocks %}
       <div class="item" {{ block.shopify_attributes }}>
-        
+
         {% if block.settings.image != blank %}
           <a href="{{ block.settings.collection.url }}">
-            <img 
-              src="{{ block.settings.image | img_url: '600x' }}" 
-              alt="{{ block.settings.title }}">
+            <img src="{{ block.settings.image | img_url: '600x' }}" alt="{{ block.settings.title }}">
           </a>
         {% endif %}
 
         {% if block.settings.title != blank %}
-          <p>{{ block.settings.title }}</p>
+          <p class="arrow-text">{{ block.settings.title }}</p>
         {% endif %}
 
       </div>
@@ -21,59 +19,92 @@
 </section>
 
 <style>
-.collection-grid {
-  padding: 60px 40px;
+  .collection-grid {
+    /* background-color: orange; */
+    display: flex;
+    justify-content: center;
+  }
+
+  .grid {
+    /* background-color: red; */
+    max-width: 1200px;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    display: flex;
+    justify-content: center;
+    /* 👈 CENTER GROUP */
+    gap: 30px;
+    flex-wrap: wrap;
+    /* 👈 responsive */
+    flex-direction: row;
+  }
+
+  .item {
+    width: 380px;
+    /* 👈 fixed card width */
+    text-align: center;
+  }
+
+  .item img {
+    width: 100%;
+    display: block;
+  }
+  .item p {
+    margin-top: 10px;
+    font-size: 14px;
+    display: flex;
+  }
+  .arrow-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+cursor: pointer;
+  transition: color 0.3s ease;
 }
-.collection-grid .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+
+.arrow-text::after {
+  content: "→";
+  transition: transform 0.3s ease;
 }
-.collection-grid .item {
-  text-align: center;
+
+.item:hover .arrow-text::after {
+  transform: translateX(6px);
 }
-.collection-grid img {
-  width: 100%;
-}
-.collection-grid p {
-  margin-top: 10px;
-  font-size: 12px;
-  letter-spacing: 1px;
-}
+
+
 </style>
 
 
-
 {% schema %}
-{
-  "name": "Collection Grid",
-  "blocks": [
-    {
-      "type": "item",
-      "name": "Collection Item",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title"
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
-        }
-      ]
-    }
-  ],
-  "presets": [
-    {
-      "name": "Collection Grid"
-    }
-  ]
-}
+  {
+    "name": "Collection Grid",
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Collection Item",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }, {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          }, {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection Grid"
+      }
+    ]
+  }
 {% endschema %}
