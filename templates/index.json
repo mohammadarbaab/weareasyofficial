@@ -20,6 +20,14 @@
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
       "blocks": {
+        "item_Ym3nzt": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_1_2026_02_24_15_PM.png",
+            "title": "Gurkha Paints",
+            "collection": ""
+          }
+        },
         "item_rnj8k3": {
           "type": "item",
           "settings": {
@@ -38,6 +46,7 @@
         }
       },
       "block_order": [
+        "item_Ym3nzt",
         "item_rnj8k3",
         "item_xhAPzW"
       ],
