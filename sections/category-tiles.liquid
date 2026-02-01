@@ -1,0 +1,40 @@
+<section class="category-tiles">
+  <div class="category-tiles__wrapper">
+    <a href="/collections/all" class="category-tile">
+      <img src="https://via.placeholder.com/600x800" alt="">
+      <span class="category-tile__title">T-SHIRTS</span>
+    </a>
+
+    <a href="/collections/all" class="category-tile">
+      <img src="https://via.placeholder.com/600x800" alt="">
+      <span class="category-tile__title">PANTS</span>
+    </a>
+
+    <a href="/collections/all" class="category-tile">
+      <img src="https://via.placeholder.com/600x800" alt="">
+      <span class="category-tile__title">JACKETS</span>
+    </a>
+  </div>
+</section>
+
+<style>
+.category-tiles__wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.category-tile img {
+  width: 100%;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Category Tiles",
+  "presets": [
+    {
+      "name": "Category Tiles"
+    }
+  ]
+}
+{% endschema %}
