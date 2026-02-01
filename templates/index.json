@@ -20,6 +20,14 @@
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
       "blocks": {
+        "item_rnj8k3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/heroimage-1.png",
+            "title": "Jackets",
+            "collection": ""
+          }
+        },
         "item_xhAPzW": {
           "type": "item",
           "settings": {
@@ -30,6 +38,7 @@
         }
       },
       "block_order": [
+        "item_rnj8k3",
         "item_xhAPzW"
       ],
       "name": "Collection Grid",
