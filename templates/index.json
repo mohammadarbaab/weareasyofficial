@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -53,11 +62,13 @@
       }
     },
     "shop_tees_1": {
-      "type": "featured-products",
+      "type": "collection-custom",
       "settings": {
         "heading": "Shop Tees",
         "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
-        "products": [],
+        "products": [
+          "textured-knit-polo-tee"
+        ],
         "products_limit": 4
       }
     }
