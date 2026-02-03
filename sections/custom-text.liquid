@@ -1,7 +1,26 @@
 <section>
-  <h2>{{ section.settings.heading }}</h2>
+  {% comment %} <h2>{{ section.settings.heading }}</h2> {% endcomment %}
   <p>{{ section.settings.text }}</p>
 </section>
+
+<style>
+    section {
+        padding: 20px;
+        background-color: gray;
+        border-radius: 8px;
+    }
+    
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+    p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+    }
+</style>
 
 {% schema %}
 {
