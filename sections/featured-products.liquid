@@ -14,15 +14,18 @@
         {% for product in section.settings.products limit: section.settings.products_limit %}
           <div class="fc-card">
             <a href="{{ product.url }}">
+              
               <div class="fc-image">
                 <img
-                  src="{{ product.featured_image | image_url: width: 600 }}"
+                  src="{{ product.featured_image | image_url: width: 800 }}"
                   alt="{{ product.title }}"
                   loading="lazy"
                 >
               </div>
+
               <h3 class="fc-title">{{ product.title }}</h3>
               <p class="fc-price">{{ product.price | money }}</p>
+
             </a>
           </div>
         {% endfor %}
@@ -35,55 +38,83 @@
 </section>
 
 <style>
+/* Section spacing */
 .featured-collection {
   padding: 60px 20px;
 }
 
+/* Container */
 .page-width {
   max-width: 1300px;
   margin: auto;
 }
 
+/* Heading */
 .fc-heading {
   font-size: 28px;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
 
+/* Description */
 .fc-description {
   font-size: 15px;
   margin-bottom: 40px;
   color: #555;
 }
 
+/* Grid */
 .fc-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
 }
 
+/* Card */
+.fc-card {
+  height: 100%;
+}
+
 .fc-card a {
   text-decoration: none;
   color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
+/* Image wrapper (IMPORTANT PART) */
 .fc-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;   /* 👈 sab images same size */
+  /* aspect-ratio: 3 / 4; */
+
   background: #f2f2f2;
-  padding: 20px;
+  overflow: hidden;
 }
 
+/* Image */
 .fc-image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;    /* 👈 crop hoga but equal size */
   display: block;
+  transition: transform 0.4s ease;
 }
 
+/* Hover effect (optional but sexy 😄) */
+.fc-card a:hover .fc-image img {
+  transform: scale(1.08);
+}
+
+/* Title */
 .fc-title {
   font-size: 14px;
   margin-top: 12px;
   text-transform: uppercase;
 }
 
+/* Price */
 .fc-price {
   font-size: 14px;
   margin-top: 5px;
