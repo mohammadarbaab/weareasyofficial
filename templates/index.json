@@ -53,11 +53,11 @@
       }
     },
     "shop_tees_1": {
-      "type": "collection-custom",
+      "type": "featured-products",
       "settings": {
         "heading": "Shop Tees",
         "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
-        "collection": "",
+        "products": [],
         "products_limit": 4
       }
     }
