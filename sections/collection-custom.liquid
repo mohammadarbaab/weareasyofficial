@@ -9,9 +9,9 @@
       <p class="fc-description">{{ section.settings.description }}</p>
     {% endif %}
 
-    {% if section.settings.collection != blank %}
+    {% if section.settings.products.size > 0 %}
       <div class="fc-grid">
-        {% for product in section.settings.collection.products limit: section.settings.products_limit %}
+        {% for product in section.settings.products limit: section.settings.products_limit %}
           <div class="fc-card">
             <a href="{{ product.url }}">
               <div class="fc-image">
@@ -28,7 +28,7 @@
         {% endfor %}
       </div>
     {% else %}
-      <p>Select a collection</p>
+      <p>Select products</p>
     {% endif %}
 
   </div>
@@ -110,7 +110,7 @@
 
 {% schema %}
 {
-  "name": "Featured Collection",
+  "name": "Featured Products",
   "settings": [
     {
       "type": "text",
@@ -125,15 +125,15 @@
       "default": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula."
     },
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Select collection"
+      "type": "product_list",
+      "id": "products",
+      "label": "Select Products"
     },
     {
       "type": "range",
       "id": "products_limit",
       "label": "Products to show",
-      "min": 2,
+      "min": 1,
       "max": 12,
       "step": 1,
       "default": 4
@@ -141,7 +141,7 @@
   ],
   "presets": [
     {
-      "name": "Featured Collection Custom"
+      "name": "Featured Products"
     }
   ]
 }
