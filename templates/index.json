@@ -53,7 +53,7 @@
       }
     },
     "shop_tees_1": {
-      "type": "featured-collection",
+      "type": "collection-custom",
       "settings": {
         "heading": "Shop Tees",
         "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
