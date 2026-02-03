@@ -67,7 +67,10 @@
         "heading": "Shop Tees",
         "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
         "products": [
-          "textured-knit-polo-tee"
+          "textured-knit-polo-tee",
+          "olive-green-knit-polo-tee",
+          "Blue Knit Polo",
+          "White Shade Line Tshirt"
         ],
         "products_limit": 4
       }
