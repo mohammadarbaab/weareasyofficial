@@ -1,0 +1,85 @@
+<section class="info-boxes">
+  <div class="page-width info-grid">
+
+    <div class="info-box">
+      <h3>FREE SHIPPING</h3>
+      <p>
+        Maecenas tincidunt, metus at consectetur mollis,
+        est tortor vulputate leo, vitae tincidunt diam quam
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h3>SIGN UP FOR 15% OFF</h3>
+      <p>
+        Maecenas tincidunt, metus at consectetur mollis,
+        est tortor vulputate leo, vitae tincidunt diam quam
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h3>EASY RETURNS</h3>
+      <p>
+        Maecenas tincidunt, metus at consectetur mollis,
+        est tortor vulputate leo, vitae tincidunt diam quam
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.info-boxes {
+  padding: 30px 20px;
+  background: #fff;
+  /* background: red; */
+}
+
+.page-width {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.info-box {
+  background: #f6f6f6;
+  padding: 25px 30px;
+  text-align: center;
+}
+
+.info-box h3 {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.info-box p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Info Boxes",
+  "presets": [
+    {
+      "name": "Info Boxes"
+    }
+  ]
+}
+{% endschema %}

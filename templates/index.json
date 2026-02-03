@@ -74,13 +74,25 @@
         ],
         "products_limit": 4
       }
-    }
+    },
+    "info_boxes": {
+      "type": "info-boxes",
+      "settings": {}
+    },
+    "image-text-split": {
+      "type": "image-text-split",
+      "settings": {}
+    },
+
   },
   "order": [
     "hero",
     "category_tiles",
     "collection_grid_FQ6ryr",
     "custom_text_zNUkR6",
-    "shop_tees_1"
+    "shop_tees_1",
+    "info_boxes",
+    "image-text-split"
+
   ]
 }
