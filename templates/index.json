@@ -87,8 +87,18 @@
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
         "button_label": "SHOP NOW",
         "button_link": ""
-      }
-    }
+      },
+    },
+     "image-text-split-s": {
+      "type": "image-text-split-s",
+      "settings": {
+        "image": "shopify://shop_images/model-1.webp",
+        "heading": "DISCOVER DENIM",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
+        "button_label": "SHOP NOW",
+        "button_link": ""
+      },
+    },
   },
   "order": [
     "hero",
@@ -97,6 +107,7 @@
     "custom_text_zNUkR6",
     "shop_tees_1",
     "info_boxes",
-    "image-text-split"
+    "image-text-split",
+    "image-text-split-s"
   ]
 }
