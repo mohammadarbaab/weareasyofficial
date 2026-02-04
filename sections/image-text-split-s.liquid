@@ -1,19 +1,21 @@
 <section class="image-text-split-2">
   <div class="its2-wrapper">
 
-    <!-- LEFT IMAGE -->
+    <!-- LEFT CONTENT -->
     <div class="its2-content">
+     <div class="content-inside2">
       <h2>{{ section.settings.heading }}</h2>
       <p>{{ section.settings.text }}</p>
 
       {% if section.settings.button_label != blank %}
-        <a href="{{ section.settings.button_link }}" class="its2-btn">
+        <a href="{{ section.settings.button_link }}" class="its-btn">
           {{ section.settings.button_label }}
         </a>
       {% endif %}
     </div>
+    </div>
 
-    <!-- RIGHT CONTENT -->
+    <!-- RIGHT IMAGE -->
     <div class="its2-image">
       {% if section.settings.image != blank %}
         <img
@@ -26,119 +28,144 @@
   </div>
 </section>
 
-
 <style>
-  .image-text-split-2 {
-    padding: 40px 20px;
-    background: orange;
-  }
+    /* =========================
+   SECTION
+========================= */
+.image-text-split-2 {
+  /* padding: 40px 20px; */
+  /* background-color: bisque; */
+  overflow-x: hidden;
+}
 
+/* =========================
+   WRAPPER
+========================= */
+.its2-wrapper {
+  display: flex;
+  max-width: 1300px;
+  margin: auto;
+  box-sizing: border-box;
+  /* background-color: lightskyblue; */
+  justify-content: space-between;
+}
+
+/* =========================
+   49% / 49%
+========================= */
+.its2-content,
+.its2-image {
+  width: 50%;
+  box-sizing: border-box;
+}
+
+.content-inside2{
+  /* background-color: blue; */
+  width: 80%;
+}
+/* =========================
+   CONTENT
+========================= */
+.its2-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.its2-content h2 {
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.its2-content p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.its2-btn {
+  display: inline-block;
+  padding: 10px 22px;
+  background: #000;
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.its2-btn:hover {
+  background: #333;
+}
+
+/* =========================
+   IMAGE
+========================= */
+.its2-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.its2-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* max-width: 100%; */
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1023px) {
   .its2-wrapper {
-    display: flex;
-    max-width: 1300px;
-    margin: auto;
-    gap: 20px;
-    background-color: chartreuse;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  /* Image */
-  .its2-image img {
-    /* width: 90%; */
-    height: 100%;
-    display: block;
-  }
-
-  /* Content */
-  .its2-content {
-    max-width: 460px;
-    display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    gap: 0;
+  }
+
+  .its2-content,
+  .its2-image {
+    width: 100%;
+  }
+
+  .its2-content {
     text-align: center;
-    background-color: aqua;
+    align-items: center;
+  }
+  /* 🔥 IMAGE FIRST ON MOBILE */
+  .its2-image {
+    order: -1; /* image upar */
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+  .image-text-split-2 {
+    padding: 30px 15px;
   }
 
   .its2-content h2 {
-    font-size: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 15px;
+    font-size: 13px;
   }
 
   .its2-content p {
-    font-size: 13px;
-    line-height: 1.7;
-    color: #555;
-    margin-bottom: 25px;
+    font-size: 12.5px;
   }
-
-  /* Button */
-  .its2-btn {
-    display: inline-block;
-    padding: 10px 22px;
-    background: #000;
-    color: #fff;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-
-  .its2-btn:hover {
-    background: #333;
-  }
-
-  /* Tablet */
-  @media (max-width: 1023px) {
-    .its2-wrapper {
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .its2-image {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .its2-image img {
-      max-width: 100%;
-    }
-
-    .its2-content {
-      max-width: 100%;
-      padding: 0 15px;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .its2-wrapper {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-
-  /* Small mobile */
-  @media (max-width: 480px) {
-    .image-text-split-2 {
-      padding: 40px 15px;
-    }
-
-    .its2-content h2 {
-      font-size: 13px;
-    }
-
-    .its2-content p {
-      font-size: 12.5px;
-    }
-  }
+}
 
 </style>
+
 {% schema %}
   {
     "name": "Image Text Split",
