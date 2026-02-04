@@ -82,14 +82,14 @@
     "image-text-split": {
       "type": "image-text-split",
       "settings": {
-        "image": "shopify://shop_images/model-1.webp",
+        "image": "shopify://shop_images/model-2.jpg",
         "heading": "DISCOVER DENIM",
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
         "button_label": "SHOP NOW",
         "button_link": ""
-      },
+      }
     },
-     "image-text-split-s": {
+    "image-text-split-s": {
       "type": "image-text-split-s",
       "settings": {
         "image": "shopify://shop_images/model-1.webp",
@@ -97,8 +97,8 @@
         "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
         "button_label": "SHOP NOW",
         "button_link": ""
-      },
-    },
+      }
+    }
   },
   "order": [
     "hero",
