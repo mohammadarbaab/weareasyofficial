@@ -102,6 +102,16 @@
     "news-blog": {
       "type": "news-blog",
       "blocks": {
+        "news_Kag4in": {
+          "type": "news",
+          "settings": {
+            "image": "shopify://shop_images/d3057775-2f17-4727-9237-0e357166ec4d.jpg",
+            "title": "How To Style Oversized Clothing | Latitude 22/23",
+            "date": "JULY 2026Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sodales sed nibh id vehicula. Curabitur dignissim quis lacus sed ullamcorper. Curabitur mauris ex, gravida et nibh sit amet, finibus tempus nulla. Curabitur fermentum, libero sit amet congue finibus, tortor felis ullamcorper orci, vitae scelerisque mi risus vitae augue. Sed sed ullamcorper velit. Morbi id elit in diam euismod eleifend viverra ut nibh. Integer augue augue, scelerisque eu sapien ut, luctus imperdiet velit. Fusce semper arcu sapien, eu aliquet mi finibus sed.",
+            "text": "",
+            "link": ""
+          }
+        },
         "news_xRK3Kw": {
           "type": "news",
           "settings": {
@@ -124,6 +134,7 @@
         }
       },
       "block_order": [
+        "news_Kag4in",
         "news_xRK3Kw",
         "news_6Hicz8"
       ],
