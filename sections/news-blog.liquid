@@ -1,153 +1,155 @@
-<section class="news">
-  <div class="news__wrapper page-width">
+<section class="news-section">
+  <div class="page-width">
 
     {% if section.settings.heading != blank %}
-      <h2 class="news__heading">
-        {{ section.settings.heading }}
-      </h2>
+      <h2 class="news-heading">{{ section.settings.heading }}</h2>
     {% endif %}
 
-    <div class="news__grid">
-      {% for article in blogs[section.settings.blog].articles limit: 3 %}
-        <article class="news__item">
-          <a href="{{ article.url }}" class="news__image">
-            {% if article.image %}
-              <img
-                src="{{ article.image | image_url: width: 900 }}"
-                alt="{{ article.title }}"
-                loading="lazy">
-            {% endif %}
-          </a>
-
-          <div class="news__content">
-            <a href="{{ article.url }}" class="news__title">
-              {{ article.title }}
+    <div class="news-grid">
+      {% for block in section.blocks %}
+        <div class="news-card" {{ block.shopify_attributes }}>
+          
+          {% if block.settings.image != blank %}
+            <a href="{{ block.settings.link }}">
+              <img 
+                src="{{ block.settings.image | img_url: '800x' }}" 
+                alt="{{ block.settings.title }}">
             </a>
+          {% endif %}
 
-            <span class="news__date">
-              {{ article.published_at | date: "%B %d, %Y" }}
-            </span>
+          {% if block.settings.title != blank %}
+            <h3 class="news-title">
+              <a href="{{ block.settings.link }}">
+                {{ block.settings.title }} →
+              </a>
+            </h3>
+          {% endif %}
 
-            <p class="news__excerpt">
-              {{ article.excerpt | strip_html | truncate: 160 }}
-            </p>
-          </div>
-        </article>
+          {% if block.settings.date != blank %}
+            <p class="news-date">{{ block.settings.date }}</p>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <p class="news-text">{{ block.settings.text }}</p>
+          {% endif %}
+
+        </div>
       {% endfor %}
     </div>
 
   </div>
 </section>
 
-{% style %}
-    /* NEWS SECTION */
-.news {
+<style>
+.news-section {
   padding: 80px 0;
 }
 
-.news__heading {
-  font-size: 32px;
-  font-weight: 500;
+.news-heading {
+  font-size: 20px;
   letter-spacing: 2px;
   margin-bottom: 40px;
 }
 
-.news__grid {
+.news-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: 40px;
 }
 
-.news__image {
-  display: block;
-  overflow: hidden;
-}
-
-.news__image img {
+.news-card img {
   width: 100%;
-  height: 420px;
-  object-fit: cover;
   display: block;
+  margin-bottom: 16px;
 }
 
-.news__content {
-  padding-top: 16px;
-}
-
-.news__title {
+.news-title {
   font-size: 14px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: underline;
-  color: #000;
-  display: inline-block;
   margin-bottom: 8px;
 }
 
-.news__date {
-  display: block;
-  font-size: 12px;
-  color: #888;
+.news-title a {
+  text-decoration: underline;
+  color: #000;
+}
+
+.news-date {
+  font-size: 11px;
+  color: #777;
   margin-bottom: 12px;
 }
 
-.news__excerpt {
-  font-size: 14px;
-  line-height: 1.7;
-  color: #555;
+.news-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
 }
 
-/* Tablet */
+/* ---------- RESPONSIVE ---------- */
 @media (max-width: 1024px) {
-  .news__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .news__image img {
-    height: 360px;
+  .news-grid {
+    gap: 30px;
   }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-  .news {
-    padding: 60px 0;
-  }
-
-  .news__grid {
+  .news-grid {
     grid-template-columns: 1fr;
   }
 
-  .news__image img {
-    height: 300px;
-  }
-
-  .news__heading {
-    font-size: 26px;
+  .news-section {
+    padding: 50px 20px;
   }
 }
-
-{% endstyle %}
+</style>
 
 {% schema %}
 {
-  "name": "News / Blog Grid",
+  "name": "News Grid",
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "NEWS"
-    },
+    }
+  ],
+  "blocks": [
     {
-      "type": "blog",
-      "id": "blog",
-      "label": "Select blog"
+      "type": "news",
+      "name": "News Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "News / Blog Grid"
+      "name": "News Grid"
     }
   ]
 }
