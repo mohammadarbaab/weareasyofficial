@@ -1,0 +1,154 @@
+<section class="news">
+  <div class="news__wrapper page-width">
+
+    {% if section.settings.heading != blank %}
+      <h2 class="news__heading">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <div class="news__grid">
+      {% for article in blogs[section.settings.blog].articles limit: 3 %}
+        <article class="news__item">
+          <a href="{{ article.url }}" class="news__image">
+            {% if article.image %}
+              <img
+                src="{{ article.image | image_url: width: 900 }}"
+                alt="{{ article.title }}"
+                loading="lazy">
+            {% endif %}
+          </a>
+
+          <div class="news__content">
+            <a href="{{ article.url }}" class="news__title">
+              {{ article.title }}
+            </a>
+
+            <span class="news__date">
+              {{ article.published_at | date: "%B %d, %Y" }}
+            </span>
+
+            <p class="news__excerpt">
+              {{ article.excerpt | strip_html | truncate: 160 }}
+            </p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% style %}
+    /* NEWS SECTION */
+.news {
+  padding: 80px 0;
+}
+
+.news__heading {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+.news__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.news__image {
+  display: block;
+  overflow: hidden;
+}
+
+.news__image img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.news__content {
+  padding-top: 16px;
+}
+
+.news__title {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: underline;
+  color: #000;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.news__date {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.news__excerpt {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .news__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .news__image img {
+    height: 360px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .news {
+    padding: 60px 0;
+  }
+
+  .news__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .news__image img {
+    height: 300px;
+  }
+
+  .news__heading {
+    font-size: 26px;
+  }
+}
+
+{% endstyle %}
+
+{% schema %}
+{
+  "name": "News / Blog Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "NEWS"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": "News / Blog Grid"
+    }
+  ]
+}
+{% endschema %}
