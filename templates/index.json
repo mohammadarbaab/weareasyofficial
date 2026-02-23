@@ -141,7 +141,14 @@
       "settings": {
         "heading": "NEWS"
       }
-    }
+    },
+"custom_newsletter": {
+  "type": "custom-newsletter",
+  "settings": {
+    "heading": "SUBSCRIBE TO OUR EMAILS",
+    "subtext": "Be the first to know about new collections and exclusive offers."
+  }
+}
   },
   "order": [
     "hero",
@@ -152,6 +159,7 @@
     "info_boxes",
     "image-text-split",
     "image-text-split-s",
-    "news-blog"
+    "news-blog",
+"custom_newsletter"
   ]
 }
