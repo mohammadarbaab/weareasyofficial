@@ -1,0 +1,63 @@
+<div class="main-footer-container">
+    <div class="footer-top-container">
+        <div class=""></div>
+    </div>
+    <div class="footer-bottom-container">   
+    </div>
+</div>
+
+
+
+<style>
+    .main-footer-container {
+        background: #222;
+        color: #fff;
+        padding: 40px 20px;
+        text-align: center;
+    }
+</style>
+
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo / Brand Name",
+      "default": "YOUR BRAND"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Add your brand description here."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link",
+      "name": "Footer Link",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Link Label",
+          "default": "Privacy Policy"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
+{% endschema %}

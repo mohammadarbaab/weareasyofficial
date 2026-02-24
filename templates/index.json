@@ -132,13 +132,20 @@
         "heading": "NEWS"
       }
     },
-    "custom_newsletter": {
-      "type": "custom-newsletter",
+        "custom_newsletter": {
+          "type": "custom-newsletter",
+          "settings": {
+            "heading": "SUBSCRIBE TO OUR EMAILS",
+            "subtext": "Be the first to know about new collections and exclusive offers."
+          }
+    },
+    "custom_footer": {
+      "type": "custom-footer",
       "settings": {
-        "heading": "SUBSCRIBE TO OUR EMAILS",
-        "subtext": "Be the first to know about new collections and exclusive offers."
+        "logo_text": "YOUR BRAND",
+        "description": "Add your brand description here."
       }
-    }
+        }
   },
   "order": [
     "hero",
@@ -150,5 +157,7 @@
     "image-text-split",
     "news-blog",
     "custom_newsletter"
+    "custom_newsletter",
+"custom_footer"
   ]
 }
