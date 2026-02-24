@@ -1,62 +1,54 @@
 <div class="main-footer-container">
 
-  <!-- ================= TOP FOOTER ================= -->
+  <!-- TOP FOOTER -->
   <div class="footer-top-container">
     <div class="footer-navbar">
 
-      <!-- LOGO -->
       <div class="footer-logo">
-        <h4>{{ section.settings.logo_text }}</h4>
+        <h4>WearEasy Official</h4>
       </div>
 
-      <!-- MENU 1 -->
       <div class="links">
-        <h4>{{ section.settings.menu_1_title }}</h4>
-        {% for link in linklists[section.settings.menu_1].links %}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
+        <h4>LINKS</h4>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact</a>
       </div>
 
-        <div class="links">
-        <h4>{{ section.settings.menu_2_title }}</h4>
-        {% for link in linklists[section.settings.menu_1].links %}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
-      </div>
-
-        <div class="links">
-        <h4>{{ section.settings.menu_3_title }}</h4>
-        {% for link in linklists[section.settings.menu_1].links %}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
-      </div>
-
-      <!-- MENU 2 -->
       <div class="links">
-        <h4>{{ section.settings.menu_2_title }}</h4>
-        {% for link in linklists[section.settings.menu_2].links %}
-          <a href="{{ link.url }}">{{ link.title }}</a>
-        {% endfor %}
+        <h4>LEGAL</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Refund Policy</a>
+        <a href="#">Shipping Policy</a>
+        <a href="#">Terms of Service</a>
       </div>
 
-      <!-- BRAND DESCRIPTION -->
       <div class="brand">
-        <h4>{{ section.settings.brand_title }}</h4>
-        <p>{{ section.settings.description }}</p>
+        <h4>THE BRANDS</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Nisi cupiditate ipsa perspiciatis numquam soluta sapiente.
+        </p>
       </div>
 
     </div>
   </div>
 
-
-  <!-- ================= NEWSLETTER + SOCIAL ================= -->
+  <!-- NEWSLETTER + SOCIAL -->
   <div class="input-main-container">
 
-    <!-- NEWSLETTER -->
     <div class="input-container">
-      <p class="newsletter-title">{{ section.settings.newsletter_text }}</p>
+      <p class="newsletter-title">Sign up for 15% off</p>
 
-      {% form 'customer' %}
+      <form method="post"
+            action="/contact#contact_form"
+            accept-charset="UTF-8"
+            class="newsletter-form-footer">
+
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="contact[tags]" value="newsletter">
+
         <div class="newsletter-input-wrapper-footer">
           <input type="email"
                  name="contact[email]"
@@ -67,35 +59,25 @@
             →
           </button>
         </div>
-      {% endform %}
+
+      </form>
     </div>
 
-    <!-- SOCIAL ICONS (Theme Settings se auto) -->
+    <!-- Social Media -->
     <div class="social-media-container">
-      {% if settings.social_facebook_link != blank %}
-        <a href="{{ settings.social_facebook_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"></a>
-      {% endif %}
-
-      {% if settings.social_twitter_link != blank %}
-        <a href="{{ settings.social_twitter_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"></a>
-      {% endif %}
-
-      {% if settings.social_instagram_link != blank %}
-        <a href="{{ settings.social_instagram_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png"></a>
-      {% endif %}
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
+      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn"></a>
     </div>
 
   </div>
 
-
-  <!-- ================= COPYRIGHT ================= -->
   <div class="copyright-section">
-    <p>
-      © {{ 'now' | date: "%Y" }} {{ section.settings.logo_text }}.
-      {{ section.settings.copyright_text }}
+    <p style="text-align: center; font-size: 12px; color: #777;">
+      &copy; 2024 WearEasy. All rights reserved.
     </p>
   </div>
-
 </div>
 
 <style>
@@ -274,78 +256,43 @@
 </style>
 
 {% schema %}
-{
-  "name": "Custom Footer",
-  "settings": [
-    {
-      "type": "text",
-      "id": "logo_text",
-      "label": "Logo Text",
-      "default": "WearEasy Official"
-    },
-    {
-      "type": "text",
-      "id": "menu_1_title",
-      "label": "Menu 1 Title",
-      "default": "LINKS"
-    },
-    {
-      "type": "text",
-      "id": "menu_2_title",
-      "label": "Menu 2 Title",
-      "default": "LEGAL"
-    },
-    {
-      "type": "text",
-      "id": "menu_3_title",
-      "label": "Menu 3 Title",
-      "default": "ABOUT"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_1",
-      "label": "Select Menu 1"
-    },
-    {
-      "type": "text",
-      "id": "menu_2_title",
-      "label": "Menu 2 Title",
-      "default": "LEGAL"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_2",
-      "label": "Select Menu 2"
-    },
-    {
-      "type": "text",
-      "id": "brand_title",
-      "label": "Brand Title",
-      "default": "THE BRANDS"
-    },
-    {
-      "type": "textarea",
-      "id": "description",
-      "label": "Brand Description",
-      "default": "Add your brand description here."
-    },
-    {
-      "type": "text",
-      "id": "newsletter_text",
-      "label": "Newsletter Text",
-      "default": "Sign up for 15% off"
-    },
-    {
-      "type": "text",
-      "id": "copyright_text",
-      "label": "Copyright Text",
-      "default": "All rights reserved."
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Footer"
-    }
-  ]
-}
+  {
+    "name": "Custom Footer",
+    "settings": [
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Logo / Brand Name",
+        "default": "YOUR BRAND"
+      }, {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description",
+        "default": "Add your brand description here."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "link",
+        "name": "Footer Link",
+        "settings": [
+          {
+            "type": "text",
+            "id": "label",
+            "label": "Link Label",
+            "default": "Privacy Policy"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link URL"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Custom Footer"
+      }
+    ]
+  }
 {% endschema %}
