@@ -1,245 +1,324 @@
-<footer class="footer">
-  <div class="footer-top">
-    
-    <!-- Brand -->
-    <div class="footer-col brand">
-      <h2>{{ shop.name }}</h2>
-    </div>
+<div class="main-footer-container">
 
-    <!-- Links -->
-    <div class="footer-col">
-      <h4>LINKS</h4>
-      <ul>
-        {% for link in linklists[section.settings.footer_menu_1].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+  <!-- ================= TOP FOOTER ================= -->
+  <div class="footer-top-container">
+    <div class="footer-navbar">
+
+      <!-- LOGO -->
+      <div class="footer-logo">
+        <h4>{{ section.settings.logo_text }}</h4>
+      </div>
+
+      <!-- MENU 1 -->
+      <div class="links">
+        <h4>{{ section.settings.menu_1_title }}</h4>
+        {% for link in linklists[section.settings.menu_1].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
         {% endfor %}
-      </ul>
-    </div>
+      </div>
 
-    <!-- Legal -->
-    <div class="footer-col">
-      <h4>LEGAL</h4>
-      <ul>
-        {% for link in linklists[section.settings.footer_menu_2].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      <!-- MENU 2 -->
+      <div class="links">
+        <h4>{{ section.settings.menu_2_title }}</h4>
+        {% for link in linklists[section.settings.menu_2].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
         {% endfor %}
-      </ul>
-    </div>
+      </div>
 
-    <!-- About -->
-    <div class="footer-col about">
-      <h4>THE BRAND</h4>
-      <p>{{ section.settings.about_text }}</p>
-    </div>
+      <!-- BRAND DESCRIPTION -->
+      <div class="brand">
+        <h4>{{ section.settings.brand_title }}</h4>
+        <p>{{ section.settings.description }}</p>
+      </div>
 
+    </div>
   </div>
 
-  <!-- Newsletter + Social -->
-  <div class="footer-middle">
 
-    <div class="newsletter">
-      <h4>SIGN UP FOR 15% OFF</h4>
+  <!-- ================= NEWSLETTER + SOCIAL ================= -->
+  <div class="input-main-container">
+
+    <!-- NEWSLETTER -->
+    <div class="input-container">
+      <p class="newsletter-title">{{ section.settings.newsletter_text }}</p>
 
       {% form 'customer' %}
-        <div class="email-box">
+        <div class="newsletter-input-wrapper-footer">
           <input type="email"
                  name="contact[email]"
+                 class="newsletter-input-footer"
                  placeholder="EMAIL"
                  required>
-          <button type="submit">→</button>
+          <button type="submit" class="newsletter-button-footer">
+            →
+          </button>
         </div>
       {% endform %}
     </div>
 
-    <div class="socials">
-      {% if settings.social_twitter_link != blank %}
-        <a href="{{ settings.social_twitter_link }}"><i class="fab fa-twitter"></i></a>
+    <!-- SOCIAL ICONS (Theme Settings se auto) -->
+    <div class="social-media-container">
+      {% if settings.social_facebook_link != blank %}
+        <a href="{{ settings.social_facebook_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png"></a>
       {% endif %}
 
-      {% if settings.social_facebook_link != blank %}
-        <a href="{{ settings.social_facebook_link }}"><i class="fab fa-facebook-f"></i></a>
+      {% if settings.social_twitter_link != blank %}
+        <a href="{{ settings.social_twitter_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png"></a>
       {% endif %}
 
       {% if settings.social_instagram_link != blank %}
-        <a href="{{ settings.social_instagram_link }}"><i class="fab fa-instagram"></i></a>
-      {% endif %}
-
-      {% if settings.social_youtube_link != blank %}
-        <a href="{{ settings.social_youtube_link }}"><i class="fab fa-youtube"></i></a>
+        <a href="{{ settings.social_instagram_link }}"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png"></a>
       {% endif %}
     </div>
 
   </div>
 
-  <!-- Bottom -->
-  <div class="footer-bottom">
-    <div class="payments">
-      {{ shop.enabled_payment_types | payment_type_svg_tag }}
-    </div>
 
+  <!-- ================= COPYRIGHT ================= -->
+  <div class="copyright-section">
     <p>
-      © {{ 'now' | date: "%Y" }}, {{ shop.name }}. 
-      All rights reserved.
+      © {{ 'now' | date: "%Y" }} {{ section.settings.logo_text }}.
+      {{ section.settings.copyright_text }}
     </p>
   </div>
-</footer>
 
-{%- style -%}
-  .footer {
-  background: orange;
-  padding: 60px 80px 30px;
-  color: #000;
+</div>
+
+<style>
+
+/* MAIN FOOTER */
+
+.copyright-section{
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
+}
+.main-footer-container {
+  padding: 60px 40px 30px;
 }
 
-.footer-top {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr 1.5fr;
-  gap: 60px;
+/* TOP SECTION */
+.footer-top-container {
+  /* max-width: 1200px; */
+  margin: auto;
+  padding-bottom: 40px;
 }
 
-.footer-col h4 {
+.footer-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.footer-navbar h4,
+.footer-navbar p {
+  margin: 0;
+}
+
+/* LOGO */
+.footer-logo h4 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* LINKS */
+.links {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.links h4 {
+  margin-bottom: 15px;
   font-size: 13px;
   letter-spacing: 1px;
-  margin-bottom: 15px;
 }
 
-.footer-col ul {
-  list-style: none;
-}
-
-.footer-col ul li {
-  margin-bottom: 8px;
-}
-
-.footer-col ul li a {
+.links a {
   text-decoration: none;
   color: #000;
   font-size: 14px;
+  margin-bottom: 8px;
+  transition: 0.3s ease;
 }
 
-.brand h2 {
-  font-size: 28px;
-  letter-spacing: 2px;
+.links a:hover {
+  opacity: 0.6;
 }
 
-.about p {
+/* BRAND */
+.brand {
+  width: 300px;
+}
+
+.brand h4 {
+  margin-bottom: 15px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.brand p {
   font-size: 14px;
   line-height: 1.6;
-  color: #333;
 }
 
-.footer-middle {
+/* BOTTOM SECTION */
+.input-main-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 50px 0;
+  /* max-width: 1200px; */
+  margin: auto;
+  /* padding-top: 25px; */
+  /* border-top: 1px solid #e5e5e5; */
 }
 
-.newsletter h4 {
+/* NEWSLETTER */
+.input-container {
+  max-width: 400px;
+  width: 100%;
+}
+
+.newsletter-title {
   font-size: 13px;
   margin-bottom: 10px;
+  letter-spacing: 1px;
 }
 
-.email-box {
+.newsletter-input-wrapper-footer {
   display: flex;
-  align-items: center;
   border: 1px solid #ddd;
-  width: 260px;
 }
 
-.email-box input {
+.newsletter-input-footer {
+  flex: 1;
   border: none;
-  padding: 12px;
-  width: 100%;
+  padding: 12px 15px;
+  font-size: 12px;
+  text-transform: uppercase;
   outline: none;
 }
 
-.email-box button {
-  padding: 0 15px;
+.newsletter-button-footer {
+  width: 55px;
   border: none;
   background: transparent;
   cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
 }
 
-.socials i {
-  margin-left: 18px;
-  font-size: 16px;
-  cursor: pointer;
+.newsletter-button-footer:hover {
+  background: #f5f5f5;
 }
 
-.footer-bottom {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-  text-align: center;
+/* SOCIAL MEDIA PERFECT SIZE */
+.social-media-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.payments {
-  margin-bottom: 15px;
+.social-media-container img {
+  width: 18px;     /* Perfect professional size */
+  height: 18px;
+  object-fit: contain;
+  transition: 0.3s ease;
 }
 
-.footer-bottom p {
-  font-size: 12px;
-  color: #555;
-  line-height: 1.6;
+.social-media-container img:hover {
+  opacity: 0.6;
+  transform: translateY(-2px);
 }
 
 /* RESPONSIVE */
 @media (max-width: 992px) {
-  .footer {
-    padding: 40px 30px;
+
+  .footer-navbar {
+    flex-wrap: wrap;
   }
 
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-
-  .footer-middle {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 30px;
-  }
-
-  .socials i {
-    margin-left: 0;
-    margin-right: 18px;
-  }
-}
-
-@media (max-width: 576px) {
-  .footer-top {
-    grid-template-columns: 1fr;
-  }
-
-  .email-box {
+  .footer-logo,
+  .links,
+  .brand {
     width: 100%;
   }
 
-  .footer-bottom p {
-    font-size: 11px;
+  .input-main-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .social-media-container {
+    margin-top: 10px;
   }
 }
-{%- endstyle -%}
+
+</style>
 
 {% schema %}
 {
   "name": "Custom Footer",
   "settings": [
     {
-      "type": "link_list",
-      "id": "footer_menu_1",
-      "label": "Footer Menu 1"
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "WearEasy Official"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Menu 1 Title",
+      "default": "LINKS"
     },
     {
       "type": "link_list",
-      "id": "footer_menu_2",
-      "label": "Footer Menu 2"
+      "id": "menu_1",
+      "label": "Select Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Menu 2 Title",
+      "default": "LEGAL"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Select Menu 2"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand Title",
+      "default": "THE BRANDS"
     },
     {
       "type": "textarea",
-      "id": "about_text",
-      "label": "About Text",
-      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      "id": "description",
+      "label": "Brand Description",
+      "default": "Add your brand description here."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Newsletter Text",
+      "default": "Sign up for 15% off"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All rights reserved."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
     }
   ]
 }
