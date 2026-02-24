@@ -89,16 +89,6 @@
         "button_link": ""
       }
     },
-    "image-text-split-s": {
-      "type": "image-text-split-s",
-      "settings": {
-        "image": "shopify://shop_images/model-2.jpg",
-        "heading": "DISCOVER DENIM",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
-        "button_label": "SHOP NOW",
-        "button_link": ""
-      }
-    },
     "news-blog": {
       "type": "news-blog",
       "blocks": {
@@ -142,13 +132,13 @@
         "heading": "NEWS"
       }
     },
-"custom_newsletter": {
-  "type": "custom-newsletter",
-  "settings": {
-    "heading": "SUBSCRIBE TO OUR EMAILS",
-    "subtext": "Be the first to know about new collections and exclusive offers."
-  }
-}
+    "custom_newsletter": {
+      "type": "custom-newsletter",
+      "settings": {
+        "heading": "SUBSCRIBE TO OUR EMAILS",
+        "subtext": "Be the first to know about new collections and exclusive offers."
+      }
+    }
   },
   "order": [
     "hero",
@@ -158,8 +148,7 @@
     "shop_tees_1",
     "info_boxes",
     "image-text-split",
-    "image-text-split-s",
     "news-blog",
-"custom_newsletter"
+    "custom_newsletter"
   ]
 }
