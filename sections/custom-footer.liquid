@@ -17,6 +17,20 @@
         {% endfor %}
       </div>
 
+        <div class="links">
+        <h4>{{ section.settings.menu_2_title }}</h4>
+        {% for link in linklists[section.settings.menu_1].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
+        <div class="links">
+        <h4>{{ section.settings.menu_3_title }}</h4>
+        {% for link in linklists[section.settings.menu_1].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+
       <!-- MENU 2 -->
       <div class="links">
         <h4>{{ section.settings.menu_2_title }}</h4>
@@ -274,6 +288,18 @@
       "id": "menu_1_title",
       "label": "Menu 1 Title",
       "default": "LINKS"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Menu 2 Title",
+      "default": "LEGAL"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_title",
+      "label": "Menu 3 Title",
+      "default": "ABOUT"
     },
     {
       "type": "link_list",
