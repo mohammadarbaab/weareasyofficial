@@ -23,9 +23,9 @@
         "item_Ym3nzt": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Feb_1_2026_02_24_15_PM.png",
-            "title": "Gurkha Paints",
-            "collection": ""
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_24_2026_08_45_45_AM.png",
+            "title": "Girls Trousers",
+            "collection": "girls-trousers"
           }
         },
         "item_rnj8k3": {
@@ -89,7 +89,7 @@
         "button_link": ""
       }
     },
-     "image-text-split-s": {
+    "image-text-split-s": {
       "type": "image-text-split-s",
       "settings": {
         "image": "shopify://shop_images/model-1.webp",
@@ -151,7 +151,10 @@
     },
     "custom_footer": {
       "type": "custom-footer",
-      "settings": {}
+      "settings": {
+        "logo_text": "YOUR BRAND",
+        "description": "Add your brand description here."
+      }
     }
   },
   "order": [
@@ -165,7 +168,6 @@
     "image-text-split-s",
     "news-blog",
     "custom_newsletter",
-    "custom_footer",
-    
+    "custom_footer"
   ]
 }
