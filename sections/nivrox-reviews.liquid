@@ -6,7 +6,7 @@
     <div class="nr-wrapper">
       <button class="nr-arrow left">&#10094;</button>
 
-      <div class="nr-slider" id="nrSlider">
+      <div class="nr-slider">
 
         {% assign review_products = section.settings.products %}
 
@@ -14,7 +14,7 @@
         <div class="nr-card">
           
           <div class="nr-product">
-            <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+            <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title }}">
             <span class="nr-product-title">{{ product.title }}</span>
           </div>
 
@@ -39,135 +39,149 @@
 
 <style>
 .nivrox-reviews {
-  padding: 120px 20px;
+  padding: 90px 20px;
   background: #f3f3f3;
   overflow: hidden;
 }
 
 .page-width {
-  max-width: 1300px;
+  max-width: 1200px;
   margin: auto;
 }
 
 .nr-heading {
   text-align: center;
-  font-size: 30px;
-  letter-spacing: 3px;
-  margin-bottom: 80px;
+  font-size: 24px;
+  letter-spacing: 2px;
+  margin-bottom: 60px;
   text-transform: uppercase;
 }
 
 .nr-wrapper {
   position: relative;
+  overflow: hidden;
 }
 
 .nr-slider {
   display: flex;
-  gap: 40px;
-  overflow: hidden;
-  scroll-behavior: smooth;
+  gap: 25px;
+  transition: transform 0.6s ease-in-out;
 }
 
 .nr-card {
-  min-width: 380px;
+  min-width: 300px;
   background: #ffffff;
-  padding: 35px;
-  border-radius: 18px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-  transition: all 0.5s ease;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+  transition: 0.4s ease;
 }
 
 .nr-card:hover {
-  transform: translateY(-10px) scale(1.02);
-}
-
-.nr-product {
-  margin-bottom: 20px;
+  transform: translateY(-6px);
 }
 
 .nr-product img {
   width: 100%;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .nr-product-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
 }
 
 .nr-stars {
   color: #c7a14a;
-  font-size: 15px;
-  letter-spacing: 4px;
-  margin-bottom: 15px;
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin: 10px 0;
 }
 
 .nr-text {
-  font-size: 14px;
-  color: #444;
-  line-height: 1.8;
-  margin-bottom: 25px;
+  font-size: 13px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 18px;
 }
 
 .nr-author {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 1px;
 }
 
 .nr-arrow {
   position: absolute;
-  top: 45%;
+  top: 40%;
   transform: translateY(-50%);
   background: #111;
   color: #fff;
   border: none;
-  width: 45px;
-  height: 45px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s ease;
-  z-index: 5;
+  z-index: 10;
+  transition: 0.3s;
 }
 
 .nr-arrow:hover {
   background: #333;
 }
 
-.nr-arrow.left {
-  left: -20px;
-}
-
-.nr-arrow.right {
-  right: -20px;
-}
+.nr-arrow.left { left: -15px; }
+.nr-arrow.right { right: -15px; }
 
 @media (max-width: 768px) {
-  .nr-card {
-    min-width: 300px;
-  }
+  .nr-card { min-width: 260px; }
 }
 </style>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const slider = document.getElementById("nrSlider");
-  const left = document.querySelector(".nr-arrow.left");
-  const right = document.querySelector(".nr-arrow.right");
+  const slider = document.querySelector(".nr-slider");
+  const cards = document.querySelectorAll(".nr-card");
+  const leftBtn = document.querySelector(".nr-arrow.left");
+  const rightBtn = document.querySelector(".nr-arrow.right");
 
-  right.addEventListener("click", () => {
-    slider.scrollBy({ left: 400, behavior: "smooth" });
+  let index = 0;
+  const visibleCards = 3;
+  const cardWidth = cards[0]?.offsetWidth + 25;
+
+  function updateSlider() {
+    slider.style.transform = `translateX(-${index * cardWidth}px)`;
+  }
+
+  rightBtn.addEventListener("click", () => {
+    if (index >= cards.length - visibleCards) {
+      index = 0;
+    } else {
+      index++;
+    }
+    updateSlider();
   });
 
-  left.addEventListener("click", () => {
-    slider.scrollBy({ left: -400, behavior: "smooth" });
+  leftBtn.addEventListener("click", () => {
+    if (index <= 0) {
+      index = cards.length - visibleCards;
+    } else {
+      index--;
+    }
+    updateSlider();
   });
 
-  // Auto Slide
   setInterval(() => {
-    slider.scrollBy({ left: 400, behavior: "smooth" });
+    if (index >= cards.length - visibleCards) {
+      index = 0;
+    } else {
+      index++;
+    }
+    updateSlider();
   }, 4000);
 });
 </script>
