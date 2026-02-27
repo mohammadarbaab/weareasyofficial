@@ -153,7 +153,15 @@
       "type": "custom-footer",
       "settings": {
         "logo_text": "YOUR BRAND",
-        "description": "Add your brand description here."
+        "menu_1_title": "LINKS",
+        "footer_menu_1": "home",
+        "menu_2_title": "LEGAL",
+        "footer_menu_2": "legal",
+        "description": "Add your brand description here.",
+        "facebook": "",
+        "instagram": "",
+        "twitter": "",
+        "linkedin": ""
       }
     }
   },
