@@ -1,0 +1,192 @@
+<section class="nivrox-reviews">
+  <div class="page-width">
+
+    <h2 class="nr-heading">What Nivrox Customers Say</h2>
+
+    <div class="nr-wrapper">
+      <button class="nr-arrow left">&#10094;</button>
+
+      <div class="nr-slider" id="nrSlider">
+
+        {% assign review_products = section.settings.products %}
+
+        {% for product in review_products limit: 5 %}
+        <div class="nr-card">
+          
+          <div class="nr-product">
+            <img src="{{ product.featured_image | image_url: width: 400 }}" alt="{{ product.title }}">
+            <span class="nr-product-title">{{ product.title }}</span>
+          </div>
+
+          <div class="nr-stars">★★★★★</div>
+
+          <p class="nr-text">
+            Premium quality and perfect fit. Absolutely love this {{ product.title }} from Nivrox.
+          </p>
+
+          <span class="nr-author">— Verified Buyer</span>
+
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <button class="nr-arrow right">&#10095;</button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.nivrox-reviews {
+  padding: 120px 20px;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+
+.page-width {
+  max-width: 1300px;
+  margin: auto;
+}
+
+.nr-heading {
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 3px;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+}
+
+.nr-wrapper {
+  position: relative;
+}
+
+.nr-slider {
+  display: flex;
+  gap: 40px;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.nr-card {
+  min-width: 380px;
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  transition: all 0.5s ease;
+}
+
+.nr-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+
+.nr-product {
+  margin-bottom: 20px;
+}
+
+.nr-product img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.nr-product-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nr-stars {
+  color: #c7a14a;
+  font-size: 15px;
+  letter-spacing: 4px;
+  margin-bottom: 15px;
+}
+
+.nr-text {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+.nr-author {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.nr-arrow {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  background: #111;
+  color: #fff;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s ease;
+  z-index: 5;
+}
+
+.nr-arrow:hover {
+  background: #333;
+}
+
+.nr-arrow.left {
+  left: -20px;
+}
+
+.nr-arrow.right {
+  right: -20px;
+}
+
+@media (max-width: 768px) {
+  .nr-card {
+    min-width: 300px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const slider = document.getElementById("nrSlider");
+  const left = document.querySelector(".nr-arrow.left");
+  const right = document.querySelector(".nr-arrow.right");
+
+  right.addEventListener("click", () => {
+    slider.scrollBy({ left: 400, behavior: "smooth" });
+  });
+
+  left.addEventListener("click", () => {
+    slider.scrollBy({ left: -400, behavior: "smooth" });
+  });
+
+  // Auto Slide
+  setInterval(() => {
+    slider.scrollBy({ left: 400, behavior: "smooth" });
+  }, 4000);
+});
+</script>
+
+{% schema %}
+{
+  "name": "Nivrox Premium Reviews",
+  "settings": [
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Select Products for Reviews",
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Nivrox Premium Reviews"
+    }
+  ]
+}
+{% endschema %}
