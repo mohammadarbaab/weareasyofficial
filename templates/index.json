@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -75,9 +84,9 @@
       "settings": {
         "image": "shopify://shop_images/model-1.webp",
         "heading": "DISCOVER DENIM",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
+        "text": "Elevate your wardrobe with contemporary denim designed for a sharp silhouette, superior comfort, and a clean premium look.",
         "button_label": "SHOP NOW",
-        "button_link": ""
+        "button_link": "shopify://collections"
       }
     },
     "image-text-split-s": {
@@ -85,9 +94,9 @@
       "settings": {
         "image": "shopify://shop_images/model-1.webp",
         "heading": "DISCOVER DENIM",
-        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec cursus venenatis diam id porta. In aliquet tristique felis blandit vehicula. Ut laoreet ipsum in diam tempor lobortis.",
+        "text": "Explore our premium Korean-inspired denim collection, crafted with modern fits and refined details for effortless everyday style and lasting comfort.",
         "button_label": "SHOP NOW",
-        "button_link": ""
+        "button_link": "shopify://collections"
       }
     },
     "news-blog": {
