@@ -2,174 +2,1231 @@
   <div class="page-width">
     
     {% if section.settings.heading != blank %}
-      <h2 class="fc-heading">{{ section.settings.heading }}</h2>
-    {% endif %}
-
-    {% if section.settings.description != blank %}
-      <p class="fc-description">{{ section.settings.description }}</p>
+      <div class="fc-header">
+        <span class="fc-subtitle">Premium Collection</span>
+        <h2 class="fc-heading">{{ section.settings.heading }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="fc-description">{{ section.settings.description }}</p>
+        {% endif %}
+        <div class="fc-divider">
+          <span class="fc-divider-line"></span>
+          <span class="fc-divider-diamond">◆</span>
+          <span class="fc-divider-line"></span>
+        </div>
+      </div>
     {% endif %}
 
     {% if section.settings.products.size > 0 %}
-      <div class="fc-grid">
-        {% for product in section.settings.products limit: section.settings.products_limit %}
-          <div class="fc-card">
+      <div class="fc-wrapper">
+        <!-- Desktop Grid -->
+        <div class="fc-grid">
+          {% for product in section.settings.products limit: section.settings.products_limit %}
+            <div class="fc-card" data-index="{{ forloop.index0 }}">
+              <div class="fc-card-inner">
+                
+                <!-- Badge for sale/new -->
+                <div class="fc-badge-wrapper">
+                  {% if product.compare_at_price > product.price %}
+                    <span class="fc-badge fc-badge-sale">SALE</span>
+                  {% endif %}
+                  {% if forloop.first %}
+                    <span class="fc-badge fc-badge-new">NEW</span>
+                  {% endif %}
+                </div>
 
-              <div class="fc-image">
-                <img
-                  src="{{ product.featured_image | image_url: width: 800 }}"
-                  alt="{{ product.title }}"
-                  loading="lazy"
-                >
+                <!-- Image with quick view -->
+                <div class="fc-image-wrapper">
+                  <div class="fc-image">
+                    <img
+                      src="{{ product.featured_image | image_url: width: 800 }}"
+                      alt="{{ product.title }}"
+                      loading="lazy"
+                      class="fc-image-front"
+                    >
+                    {% if product.images.size > 1 %}
+                      <img
+                        src="{{ product.images[1] | image_url: width: 800 }}"
+                        alt="{{ product.title }}"
+                        loading="lazy"
+                        class="fc-image-hover"
+                      >
+                    {% endif %}
+                  </div>
+                  
+                  <!-- Quick action buttons -->
+                  <div class="fc-actions">
+                    <button class="fc-action-btn fc-quick-view" onclick="quickView('{{ product.handle }}', this)">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z"></path>
+                      </svg>
+                    </button>
+                    <button class="fc-action-btn fc-wishlist" onclick="addToWishlist('{{ product.handle }}', this)">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Product info -->
+                <div class="fc-info">
+                  <div class="fc-vendor">{{ product.vendor | default: 'NIVROX' }}</div>
+                  <h3 class="fc-title">{{ product.title }}</h3>
+                  
+                  <!-- Rating -->
+                  <div class="fc-rating">
+                    <div class="fc-stars">
+                      <span class="fc-star">★</span>
+                      <span class="fc-star">★</span>
+                      <span class="fc-star">★</span>
+                      <span class="fc-star">★</span>
+                      <span class="fc-star">★</span>
+                    </div>
+                    <span class="fc-reviews">({{ product.metafields.reviews.count | default: 12 }})</span>
+                  </div>
+
+                  <!-- Price -->
+                  <div class="fc-price-wrapper">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="fc-price-compare">{{ product.compare_at_price | money }}</span>
+                      <span class="fc-price-sale">{{ product.price | money }}</span>
+                    {% else %}
+                      <span class="fc-price">{{ product.price | money }}</span>
+                    {% endif %}
+                  </div>
+
+                  <!-- Color options (static example) -->
+                  <div class="fc-colors">
+                    <span class="fc-color-dot" style="background: #000;" title="Black"></span>
+                    <span class="fc-color-dot" style="background: #6b4f3c;" title="Brown"></span>
+                    <span class="fc-color-dot" style="background: #8b8b8b;" title="Grey"></span>
+                    <span class="fc-color-dot" style="background: #c7a14a;" title="Gold"></span>
+                  </div>
+
+                  <!-- Add to cart form -->
+                  <form method="post" action="/cart/add" class="fc-form">
+                    <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                    <button type="submit" class="fc-btn" onclick="addToCart(event, this)">
+                      <span class="fc-btn-text">Add to Cart</span>
+                      <svg class="fc-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                      </svg>
+                    </button>
+                  </form>
+                </div>
               </div>
+            </div>
+          {% endfor %}
+        </div>
 
-              <h3 class="fc-title">{{ product.title }}</h3>
-              <p class="fc-price">{{ product.price | money }}</p>
+        <!-- Mobile Slider -->
+        <div class="fc-mobile-slider-container">
+          <button class="fc-mobile-arrow fc-mobile-prev" aria-label="Previous products">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"/>
+            </svg>
+          </button>
+          <div class="fc-mobile-slider">
+            {% for product in section.settings.products limit: section.settings.products_limit %}
+              <div class="fc-mobile-slide">
+                <div class="fc-card">
+                  <div class="fc-card-inner">
+                    
+                    <!-- Badge for sale/new (mobile) -->
+                    <div class="fc-badge-wrapper">
+                      {% if product.compare_at_price > product.price %}
+                        <span class="fc-badge fc-badge-sale">SALE</span>
+                      {% endif %}
+                      {% if forloop.first %}
+                        <span class="fc-badge fc-badge-new">NEW</span>
+                      {% endif %}
+                    </div>
 
-              <form method="post" action="/cart/add" class="fc-form">
-                <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                <button type="submit" class="fc-btn">
-                  Add to Cart
-                </button>
-              </form>
+                    <div class="fc-image-wrapper">
+                      <div class="fc-image">
+                        <img
+                          src="{{ product.featured_image | image_url: width: 600 }}"
+                          alt="{{ product.title }}"
+                          loading="lazy"
+                          class="fc-image-front"
+                        >
+                      </div>
+                    </div>
 
+                    <div class="fc-info">
+                      <div class="fc-vendor">{{ product.vendor | default: 'NIVROX' }}</div>
+                      <h3 class="fc-title">{{ product.title }}</h3>
+                      
+                      <div class="fc-rating">
+                        <div class="fc-stars">★★★★★</div>
+                        <span class="fc-reviews">({{ product.metafields.reviews.count | default: 12 }})</span>
+                      </div>
+
+                      <div class="fc-price-wrapper">
+                        {% if product.compare_at_price > product.price %}
+                          <span class="fc-price-compare">{{ product.compare_at_price | money }}</span>
+                          <span class="fc-price-sale">{{ product.price | money }}</span>
+                        {% else %}
+                          <span class="fc-price">{{ product.price | money }}</span>
+                        {% endif %}
+                      </div>
+
+                      <form method="post" action="/cart/add" class="fc-form">
+                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                        <button type="submit" class="fc-btn" onclick="addToCart(event, this)">
+                          <span class="fc-btn-text">Add to Cart</span>
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
           </div>
-        {% endfor %}
+          <button class="fc-mobile-arrow fc-mobile-next" aria-label="Next products">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Dots -->
+        <div class="fc-mobile-dots">
+          {% for product in section.settings.products limit: section.settings.products_limit %}
+            <span class="fc-mobile-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+          {% endfor %}
+        </div>
       </div>
     {% else %}
-      <p>Select products</p>
+      <div class="fc-empty">
+        <p>Select products from the theme settings</p>
+      </div>
     {% endif %}
 
   </div>
 </section>
 
 <style>
+/* ========== VARIABLES ========== */
+:root {
+  --fc-primary: #c7a14a;
+  --fc-primary-dark: #b38f3a;
+  --fc-text-dark: #1a1a1a;
+  --fc-text-light: #666666;
+  --fc-background: #ffffff;
+  --fc-card-bg: #ffffff;
+  --fc-border: #eaeaea;
+  --fc-shadow: rgba(0, 0, 0, 0.04);
+  --fc-shadow-hover: rgba(199, 161, 74, 0.15);
+  --fc-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ========== BASE STYLES ========== */
 .featured-collection {
-  padding: 90px 20px;
-  background: #ffffff;
+  padding: 80px 20px;
+  background: var(--fc-background);
+  overflow: hidden;
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .page-width {
-  max-width: 1300px;
-  margin: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
-/* Heading */
-.fc-heading {
-  font-size: 30px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
+/* ========== HEADER STYLES ========== */
+.fc-header {
   text-align: center;
+  margin-bottom: 50px;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.fc-subtitle {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--fc-primary);
+  margin-bottom: 10px;
+}
+
+.fc-heading {
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--fc-text-dark);
+  margin: 0 0 15px;
+  line-height: 1.2;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
 .fc-description {
-  font-size: 15px;
-  color: #666;
-  text-align: center;
+  font-size: 16px;
+  color: var(--fc-text-light);
   max-width: 600px;
-  margin: 0 auto 60px;
+  margin: 0 auto 20px;
   line-height: 1.6;
 }
 
-/* Grid */
+.fc-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.fc-divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--fc-primary), transparent);
+}
+
+.fc-divider-diamond {
+  color: var(--fc-primary);
+  font-size: 12px;
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+/* ========== GRID LAYOUT (DESKTOP) ========== */
 .fc-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
+  gap: 30px;
+  margin-bottom: 40px;
 }
 
-/* Card */
+/* ========== CARD STYLES ========== */
 .fc-card {
+  background: transparent;
+  perspective: 1000px;
+  animation: cardAppear 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Stagger animation */
+{% for i in (1..12) %}
+.fc-card:nth-child({{ i }}) {
+  animation-delay: {{ i | times: 0.1 }}s;
+}
+{% endfor %}
+
+.fc-card-inner {
+  background: var(--fc-card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px var(--fc-shadow);
+  transition: var(--fc-transition);
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease;
 }
 
-.fc-card:hover {
-  transform: translateY(-6px);
+.fc-card-inner:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px var(--fc-shadow-hover);
 }
 
-/* Image */
+/* ========== BADGE STYLES ========== */
+.fc-badge-wrapper {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.fc-badge {
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  animation: badgePop 0.4s ease;
+  pointer-events: none;
+}
+
+.fc-badge-sale {
+  background: #ff4b4b;
+  color: white;
+}
+
+.fc-badge-new {
+  background: var(--fc-primary);
+  color: white;
+}
+
+/* ========== IMAGE STYLES - FIXED ========== */
+.fc-image-wrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #f9f9f9;
+  cursor: pointer;
+}
+
 .fc-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background: #f5f5f5;
-  overflow: hidden;
-  border-radius: 6px;
+  height: 100%;
+  position: relative;
 }
 
 .fc-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.5s ease;
+  display: block;
 }
 
-.fc-card:hover .fc-image img {
-  transform: scale(1.08);
+.fc-image-front {
+  position: relative;
+  z-index: 1;
 }
 
-/* Title */
-.fc-title {
-  font-size: 15px;
-  font-weight: 500;
-  margin-top: 18px;
+.fc-image-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+/* Fixed hover effect - image swap properly */
+.fc-image-wrapper:hover .fc-image-front {
+  transform: scale(1.05);
+}
+
+.fc-image-wrapper:hover .fc-image-hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* ========== QUICK ACTION BUTTONS - FIXED ========== */
+.fc-actions {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 30;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.fc-image-wrapper:hover .fc-actions {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.fc-action-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fc-text-dark);
+  position: relative;
+  z-index: 31;
+}
+
+.fc-action-btn:hover {
+  background: var(--fc-primary);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 8px 25px rgba(199, 161, 74, 0.3);
+}
+
+.fc-action-btn:active {
+  transform: scale(0.95);
+}
+
+.fc-action-btn svg {
+  stroke: currentColor;
+  transition: all 0.2s ease;
+}
+
+.fc-action-btn.fc-wishlist.active svg {
+  fill: #ff4b4b;
+  stroke: #ff4b4b;
+}
+
+/* ========== PRODUCT INFO ========== */
+.fc-info {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fc-vendor {
+  font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1.5px;
+  color: var(--fc-text-light);
+  margin-bottom: 5px;
+}
+
+.fc-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--fc-text-dark);
+  margin-bottom: 8px;
+  line-height: 1.4;
+  transition: color 0.2s ease;
+}
+
+.fc-card:hover .fc-title {
+  color: var(--fc-primary);
+}
+
+/* Rating */
+.fc-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.fc-stars {
+  color: #ffd700;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.fc-star {
+  display: inline-block;
+}
+
+.fc-reviews {
+  font-size: 12px;
+  color: var(--fc-text-light);
 }
 
 /* Price */
-.fc-price {
-  font-size: 14px;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  color: #111;
-  font-weight: 500;
+.fc-price-wrapper {
+  margin-bottom: 15px;
 }
 
-/* Button */
+.fc-price {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--fc-text-dark);
+}
+
+.fc-price-compare {
+  font-size: 15px;
+  color: var(--fc-text-light);
+  text-decoration: line-through;
+  margin-right: 8px;
+}
+
+.fc-price-sale {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ff4b4b;
+}
+
+/* Color options */
+.fc-colors {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.fc-color-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.fc-color-dot:hover {
+  transform: scale(1.15);
+  border-color: var(--fc-primary);
+  box-shadow: 0 4px 12px rgba(199, 161, 74, 0.3);
+}
+
+.fc-color-dot:active {
+  transform: scale(0.95);
+}
+
+/* Add to cart button */
+.fc-form {
+  margin-top: auto;
+}
+
 .fc-btn {
   width: 100%;
-  height: 44px;
+  height: 48px;
   background: transparent;
-  border: 1px solid #111;
-  color: #111;
+  border: 1.5px solid var(--fc-text-dark);
+  color: var(--fc-text-dark);
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 1.5px;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-radius: 3px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.fc-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(199, 161, 74, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
 .fc-btn:hover {
-  background: #111;
-  color: #fff;
+  background: var(--fc-text-dark);
+  color: white;
+  border-color: var(--fc-text-dark);
+  gap: 15px;
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
+.fc-btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+.fc-btn-icon {
+  transition: transform 0.3s ease;
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.fc-btn:hover .fc-btn-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.fc-btn.fc-btn-added {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+  pointer-events: none;
+}
+
+/* ========== MOBILE SLIDER STYLES - FIXED ========== */
+.fc-mobile-slider-container {
+  display: none;
+  position: relative;
+  margin: 0 -10px;
+}
+
+.fc-mobile-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 10px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+
+.fc-mobile-slider::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.fc-mobile-slide {
+  flex: 0 0 calc(85% - 20px);
+  scroll-snap-align: start;
+}
+
+.fc-mobile-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--fc-border);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fc-mobile-slider-container:hover .fc-mobile-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fc-mobile-arrow:hover {
+  background: var(--fc-primary);
+  color: white;
+  border-color: var(--fc-primary);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.fc-mobile-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.fc-mobile-arrow svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+.fc-mobile-prev {
+  left: 5px;
+}
+
+.fc-mobile-next {
+  right: 5px;
+}
+
+.fc-mobile-dots {
+  display: none;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.fc-mobile-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--fc-border);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fc-mobile-dot:hover {
+  background: var(--fc-primary);
+  transform: scale(1.2);
+}
+
+.fc-mobile-dot.active {
+  background: var(--fc-primary);
+  width: 28px;
+  border-radius: 12px;
+}
+
+/* ========== EMPTY STATE ========== */
+.fc-empty {
+  text-align: center;
+  padding: 60px 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  color: var(--fc-text-light);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes badgePop {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ========== RESPONSIVE BREAKPOINTS ========== */
+@media (max-width: 1200px) {
+  .fc-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+  }
+}
+
+@media (max-width: 900px) {
   .fc-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    gap: 20px;
   }
 }
 
-/* Mobile */
-@media (max-width: 600px) {
-  .fc-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 768px) {
+  .featured-collection {
+    padding: 60px 15px;
   }
 
+  .fc-heading {
+    font-size: 28px;
+  }
+
+  .fc-description {
+    font-size: 15px;
+    padding: 0 15px;
+  }
+
+  /* Hide desktop grid on mobile */
+  .fc-grid {
+    display: none;
+  }
+
+  /* Show mobile slider */
+  .fc-mobile-slider-container {
+    display: block;
+  }
+
+  .fc-mobile-arrow {
+    opacity: 1;
+    pointer-events: auto;
+    width: 40px;
+    height: 40px;
+  }
+
+  .fc-mobile-dots {
+    display: flex;
+  }
+
+  .fc-actions {
+    display: none; /* Hide on mobile for better touch UX */
+  }
+
+  .fc-colors {
+    justify-content: center;
+  }
+  
+  .fc-mobile-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
   .fc-heading {
     font-size: 24px;
   }
 
-  .fc-description {
-    font-size: 14px;
-    margin-bottom: 40px;
+  .fc-subtitle {
+    font-size: 12px;
   }
+
+  .fc-mobile-slide {
+    flex: 0 0 90%;
+  }
+
+  .fc-info {
+    padding: 15px;
+  }
+
+  .fc-title {
+    font-size: 15px;
+  }
+
+  .fc-price, .fc-price-sale {
+    font-size: 16px;
+  }
+
+  .fc-btn {
+    height: 44px;
+    font-size: 12px;
+  }
+  
+  .fc-mobile-prev {
+    left: 0;
+  }
+  
+  .fc-mobile-next {
+    right: 0;
+  }
+}
+
+/* ========== TOUCH DEVICE OPTIMIZATION ========== */
+@media (hover: none) {
+  .fc-image-wrapper:hover .fc-image-front {
+    transform: none;
+  }
+  
+  .fc-image-wrapper:hover .fc-image-hover {
+    opacity: 0;
+  }
+  
+  .fc-actions {
+    display: none;
+  }
+  
+  .fc-card-inner:hover {
+    transform: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // ========== WISHLIST FUNCTIONALITY ==========
+  window.addToWishlist = function(handle, button) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    button.classList.toggle('active');
+    
+    // Get wishlist from localStorage
+    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    
+    if (button.classList.contains('active')) {
+      // Add to wishlist
+      if (!wishlist.includes(handle)) {
+        wishlist.push(handle);
+        showNotification('Added to wishlist ❤️');
+      }
+    } else {
+      // Remove from wishlist
+      wishlist = wishlist.filter(item => item !== handle);
+      showNotification('Removed from wishlist');
+    }
+    
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+  };
+
+  // ========== QUICK VIEW FUNCTIONALITY ==========
+  window.quickView = function(handle, button) {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Add loading animation
+    button.style.transform = 'scale(0.9)';
+    setTimeout(() => {
+      button.style.transform = '';
+    }, 200);
+    
+    showNotification('Quick view: ' + handle);
+    // You can replace this with your actual quick view modal
+    console.log('Quick view for:', handle);
+  };
+
+  // ========== ADD TO CART FUNCTIONALITY ==========
+  window.addToCart = function(event, button) {
+    event.preventDefault();
+    
+    // Add loading state
+    button.classList.add('fc-btn-added');
+    const originalText = button.querySelector('.fc-btn-text').textContent;
+    button.querySelector('.fc-btn-text').textContent = 'ADDED!';
+    
+    // Show success notification
+    showNotification('Added to cart successfully! 🛒');
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      button.classList.remove('fc-btn-added');
+      button.querySelector('.fc-btn-text').textContent = originalText;
+    }, 2000);
+  };
+
+  // ========== NOTIFICATION SYSTEM ==========
+  function showNotification(message) {
+    // Remove existing notification
+    const existingNotif = document.querySelector('.fc-notification');
+    if (existingNotif) {
+      existingNotif.remove();
+    }
+    
+    // Create notification
+    const notification = document.createElement('div');
+    notification.className = 'fc-notification';
+    notification.textContent = message;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--fc-text-dark);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      animation: slideIn 0.3s ease;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Remove after 2 seconds
+    setTimeout(() => {
+      notification.style.animation = 'slideOut 0.3s ease';
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }, 2000);
+  }
+
+  // Add animation styles
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // ========== MOBILE SLIDER FUNCTIONALITY ==========
+  const slider = document.querySelector('.fc-mobile-slider');
+  const prevBtn = document.querySelector('.fc-mobile-prev');
+  const nextBtn = document.querySelector('.fc-mobile-next');
+  const dots = document.querySelectorAll('.fc-mobile-dot');
+  const slides = document.querySelectorAll('.fc-mobile-slide');
+  
+  if (slider && slides.length) {
+    let currentIndex = 0;
+    let slideWidth = slides[0]?.offsetWidth + 20;
+    let maxIndex = slides.length - 1;
+    let isScrolling = false;
+    let autoplayInterval;
+
+    function updateSlideWidth() {
+      slideWidth = slides[0]?.offsetWidth + 20;
+    }
+
+    function updateDots(index) {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function scrollToSlide(index, smooth = true) {
+      if (isScrolling || index < 0 || index > maxIndex) return;
+      
+      isScrolling = true;
+      currentIndex = index;
+      
+      slider.scrollTo({
+        left: currentIndex * slideWidth,
+        behavior: smooth ? 'smooth' : 'auto'
+      });
+      
+      updateDots(currentIndex);
+      
+      setTimeout(() => {
+        isScrolling = false;
+      }, 500);
+    }
+
+    // Next slide
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentIndex < maxIndex) {
+          scrollToSlide(currentIndex + 1);
+        } else {
+          scrollToSlide(0); // Loop back
+        }
+      });
+    }
+
+    // Previous slide
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentIndex > 0) {
+          scrollToSlide(currentIndex - 1);
+        } else {
+          scrollToSlide(maxIndex); // Loop to end
+        }
+      });
+    }
+
+    // Dot navigation
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        scrollToSlide(index);
+      });
+    });
+
+    // Update on scroll
+    slider.addEventListener('scroll', () => {
+      if (isScrolling) return;
+      
+      const scrollPosition = slider.scrollLeft;
+      const newIndex = Math.round(scrollPosition / slideWidth);
+      
+      if (newIndex !== currentIndex && newIndex >= 0 && newIndex <= maxIndex) {
+        currentIndex = newIndex;
+        updateDots(currentIndex);
+      }
+    });
+
+    // Touch events
+    let touchStartX = 0;
+    slider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    slider.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > 50) {
+        if (diff > 0 && currentIndex < maxIndex) {
+          scrollToSlide(currentIndex + 1);
+        } else if (diff < 0 && currentIndex > 0) {
+          scrollToSlide(currentIndex - 1);
+        }
+      }
+    }, { passive: true });
+
+    // Auto-play
+    function startAutoplay() {
+      autoplayInterval = setInterval(() => {
+        if (currentIndex < maxIndex) {
+          scrollToSlide(currentIndex + 1);
+        } else {
+          scrollToSlide(0);
+        }
+      }, 5000);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    // Start autoplay
+    startAutoplay();
+
+    // Pause on hover/touch
+    slider.addEventListener('mouseenter', stopAutoplay);
+    slider.addEventListener('mouseleave', startAutoplay);
+    slider.addEventListener('touchstart', stopAutoplay);
+    slider.addEventListener('touchend', startAutoplay);
+
+    // Update on resize
+    window.addEventListener('resize', () => {
+      updateSlideWidth();
+      scrollToSlide(currentIndex, false);
+    });
+  }
+
+  // ========== COLOR DOT FUNCTIONALITY ==========
+  document.querySelectorAll('.fc-color-dot').forEach(dot => {
+    dot.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      // Remove active class from siblings
+      this.parentElement.querySelectorAll('.fc-color-dot').forEach(d => {
+        d.style.borderColor = 'transparent';
+      });
+      
+      // Add active class to clicked dot
+      this.style.borderColor = 'var(--fc-primary)';
+      
+      // Show notification
+      showNotification(`Color selected: ${this.title || 'color'}`);
+    });
+  });
+
+  // ========== RESTORE WISHLIST STATE ==========
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  wishlist.forEach(handle => {
+    const wishlistBtn = document.querySelector(`.fc-wishlist[onclick*="${handle}"]`);
+    if (wishlistBtn) {
+      wishlistBtn.classList.add('active');
+    }
+  });
+});
+</script>
+
+<style>
+/* Additional notification style */
+.fc-notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--fc-text-dark);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 9999;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
 }
 </style>
 
