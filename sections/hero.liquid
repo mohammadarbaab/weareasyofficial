@@ -4,9 +4,12 @@
 
   <!-- HERO TEXT OVERLAY -->
   <div class="custom-hero__content">
-    <h1>NEW BLANKS JUST DROPPED</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <a href="/collections/all" class="custom-hero__btn">SHOP NOW</a>
+    <h1>Premium Trousers & T-Shirts Collection</h1>
+    <p>Simple. Stylish. Comfortable. Discover your new everyday essentials.</p>
+    <div class="hero-buttons">
+      <a href="/collections/all" class="custom-hero__btn">WOMEN</a>
+    <a href="/collections/all" class="custom-hero__btn">MEN</a>
+    </div>
   </div>
 
   <!-- IMAGE 1 (HIDE ON MOBILE) -->
@@ -99,6 +102,10 @@
   align-items: center;
   justify-content: center;
 
+   width: 120px;     
+  height: 48px;     
+  padding: 0;
+
   background-color: #f4f4f4;     /* soft light gray */
   color: #111111;
 
@@ -151,41 +158,32 @@
   }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 767px) {
+
+  .hero-buttons {
+    flex-direction: column;   /* stack vertically */
+    gap: 12px;
+    align-items: center;
+  }
+
+  .custom-hero__btn {
+    width: 90%;              /* full width mobile */
+    height: 44px;
+    padding: 0;              /* width perfect rahe */
+
+    font-size: 11px;
+  }
 
   .custom-hero__content h1 {
     font-size: 18px;
-    /* letter-spacing: 2px; */
     margin-bottom: 0;
     color: black;
   }
 
   .custom-hero__content p {
     font-size: 14px;
-    /* margin-bottom: 20px; */
     color: black;
   }
-  .custom-hero__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: #f4f4f4;     /* soft light gray */
-  color: #111111;
-
-  padding: 8px 18px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
-
-  text-decoration: none;
-  border-radius: 2px;
-  border: 1px solid #e0e0e0;
-
-  transition: all 0.25s ease;
-  cursor: pointer;
-  pointer-events: auto;
 }
 
 /* HOVER */
