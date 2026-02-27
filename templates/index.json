@@ -64,8 +64,8 @@
     "shop_tees_1": {
       "type": "featured-products",
       "settings": {
-        "heading": "Shop Tees",
-        "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
+        "heading": "BEST SELLING TEES",
+        "description": "Premium knit polos designed for everyday confidence.",
         "products": [
           "textured-knit-polo-tee",
           "olive-green-knit-polo-tee",
