@@ -13,10 +13,6 @@
       "type": "hero",
       "settings": {}
     },
-    "category_tiles": {
-      "type": "category-tiles",
-      "settings": {}
-    },
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
       "blocks": {
@@ -135,7 +131,6 @@
   },
   "order": [
     "hero",
-    "category_tiles",
     "collection_grid_FQ6ryr",
     "custom_text_zNUkR6",
     "shop_tees_1",
