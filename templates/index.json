@@ -33,7 +33,7 @@
           "settings": {
             "image": "shopify://shop_images/baggy_fit_trwoser.png",
             "title": "Boys Trousers",
-            "collection": ""
+            "collection": "boys-trousers"
           }
         },
         "item_xhAPzW": {
@@ -41,7 +41,7 @@
           "settings": {
             "image": "shopify://shop_images/3d3b8189-e88f-4a70-8aa6-e56e9be4737e.jpg",
             "title": "Boys T-Shirts",
-            "collection": ""
+            "collection": "boys-t-shirts"
           }
         }
       },
