@@ -62,21 +62,33 @@
       </form>
     </div>
 
-    <!-- SOCIAL LINKS -->
     <div class="social-media-container">
-      {% if section.settings.facebook != blank %}
-        <a href="{{ section.settings.facebook }}" target="_blank">Facebook</a>
-      {% endif %}
-      {% if section.settings.instagram != blank %}
-        <a href="{{ section.settings.instagram }}" target="_blank">Instagram</a>
-      {% endif %}
-      {% if section.settings.twitter != blank %}
-        <a href="{{ section.settings.twitter }}" target="_blank">Twitter</a>
-      {% endif %}
-      {% if section.settings.linkedin != blank %}
-        <a href="{{ section.settings.linkedin }}" target="_blank">LinkedIn</a>
-      {% endif %}
-    </div>
+
+  {% if section.settings.facebook != blank %}
+    <a href="{{ section.settings.facebook }}" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+    </a>
+  {% endif %}
+
+  {% if section.settings.instagram != blank %}
+    <a href="{{ section.settings.instagram }}" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram">
+    </a>
+  {% endif %}
+
+  {% if section.settings.twitter != blank %}
+    <a href="{{ section.settings.twitter }}" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+    </a>
+  {% endif %}
+
+  {% if section.settings.linkedin != blank %}
+    <a href="{{ section.settings.linkedin }}" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn">
+    </a>
+  {% endif %}
+
+</div>
 
   </div>
 
