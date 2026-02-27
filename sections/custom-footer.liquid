@@ -4,32 +4,31 @@
   <div class="footer-top-container">
     <div class="footer-navbar">
 
+      <!-- LOGO -->
       <div class="footer-logo">
-        <h4>WearEasy Official</h4>
+        <h4>{{ section.settings.logo_text }}</h4>
       </div>
 
+      <!-- LINKS COLUMN 1 -->
       <div class="links">
-        <h4>LINKS</h4>
-        <a href="#">Home</a>
-        <a href="#">Shop</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact</a>
+        <h4>{{ section.settings.menu_1_title }}</h4>
+        {% for link in linklists[section.settings.footer_menu_1].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
       </div>
 
+      <!-- LINKS COLUMN 2 -->
       <div class="links">
-        <h4>LEGAL</h4>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Refund Policy</a>
-        <a href="#">Shipping Policy</a>
-        <a href="#">Terms of Service</a>
+        <h4>{{ section.settings.menu_2_title }}</h4>
+        {% for link in linklists[section.settings.footer_menu_2].links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
       </div>
 
+      <!-- BRAND DESCRIPTION -->
       <div class="brand">
-        <h4>THE BRANDS</h4>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Nisi cupiditate ipsa perspiciatis numquam soluta sapiente.
-        </p>
+        <h4>THE BRAND</h4>
+        <p>{{ section.settings.description }}</p>
       </div>
 
     </div>
@@ -63,22 +62,32 @@
       </form>
     </div>
 
-    <!-- Social Media -->
+    <!-- SOCIAL LINKS -->
     <div class="social-media-container">
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733558.png" alt="Instagram"></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733561.png" alt="LinkedIn"></a>
+      {% if section.settings.facebook != blank %}
+        <a href="{{ section.settings.facebook }}" target="_blank">Facebook</a>
+      {% endif %}
+      {% if section.settings.instagram != blank %}
+        <a href="{{ section.settings.instagram }}" target="_blank">Instagram</a>
+      {% endif %}
+      {% if section.settings.twitter != blank %}
+        <a href="{{ section.settings.twitter }}" target="_blank">Twitter</a>
+      {% endif %}
+      {% if section.settings.linkedin != blank %}
+        <a href="{{ section.settings.linkedin }}" target="_blank">LinkedIn</a>
+      {% endif %}
     </div>
 
   </div>
 
   <div class="copyright-section">
-    <p style="text-align: center; font-size: 12px; color: #777;">
-      &copy; 2024 WearEasy. All rights reserved.
+    <p style="text-align:center;font-size:12px;color:#777;">
+      © {{ 'now' | date: "%Y" }} {{ section.settings.logo_text }}. All rights reserved.
     </p>
   </div>
+
 </div>
+
 
 <style>
 
@@ -256,43 +265,68 @@
 </style>
 
 {% schema %}
-  {
-    "name": "Custom Footer",
-    "settings": [
-      {
-        "type": "text",
-        "id": "logo_text",
-        "label": "Logo / Brand Name",
-        "default": "YOUR BRAND"
-      }, {
-        "type": "textarea",
-        "id": "description",
-        "label": "Description",
-        "default": "Add your brand description here."
-      }
-    ],
-    "blocks": [
-      {
-        "type": "link",
-        "name": "Footer Link",
-        "settings": [
-          {
-            "type": "text",
-            "id": "label",
-            "label": "Link Label",
-            "default": "Privacy Policy"
-          }, {
-            "type": "url",
-            "id": "link",
-            "label": "Link URL"
-          }
-        ]
-      }
-    ],
-    "presets": [
-      {
-        "name": "Custom Footer"
-      }
-    ]
-  }
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Brand Name",
+      "default": "WearEasy Official"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Menu 1 Heading",
+      "default": "LINKS"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_1",
+      "label": "Footer Menu 1"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Menu 2 Heading",
+      "default": "LEGAL"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu_2",
+      "label": "Footer Menu 2"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Brand Description",
+      "default": "Premium everyday essentials designed with comfort and modern style in mind."
+    },
+    {
+      "type": "url",
+      "id": "facebook",
+      "label": "Facebook Link"
+    },
+    {
+      "type": "url",
+      "id": "instagram",
+      "label": "Instagram Link"
+    },
+    {
+      "type": "url",
+      "id": "twitter",
+      "label": "Twitter Link"
+    },
+    {
+      "type": "url",
+      "id": "linkedin",
+      "label": "LinkedIn Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer"
+    }
+  ]
+}
 {% endschema %}
