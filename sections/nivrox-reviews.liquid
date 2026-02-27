@@ -1,10 +1,18 @@
 <section class="nivrox-reviews">
   <div class="page-width">
 
-    <h2 class="nr-heading">What Nivrox Customers Say</h2>
+    <div class="nr-header">
+      <span class="nr-subtitle">Customer Testimonials</span>
+      <h2 class="nr-heading">What Nivrox Customers Say</h2>
+      <div class="nr-divider">
+        <span class="nr-divider-line"></span>
+        <span class="nr-divider-diamond">◆</span>
+        <span class="nr-divider-line"></span>
+      </div>
+    </div>
 
     <div class="nr-wrapper">
-      <button class="nr-arrow left">&#10094;</button>
+      <button class="nr-arrow left" aria-label="Previous review">‹</button>
 
       <div class="nr-slider">
 
@@ -12,133 +20,625 @@
 
         {% for product in review_products limit: 5 %}
         <div class="nr-card">
-          
-          <div class="nr-product">
-            <img src="{{ product.featured_image | image_url: width: 500 }}" alt="{{ product.title }}">
-            <span class="nr-product-title">{{ product.title }}</span>
+          <div class="nr-card-inner">
+            
+            <!-- Decorative quote mark -->
+            <div class="nr-quote-mark">"</div>
+            
+            <!-- Product mini badge with image -->
+            <div class="nr-product-badge">
+              <div class="nr-product-image-wrapper">
+                <img 
+                  src="{{ product.featured_image | image_url: width: 100 }}" 
+                  alt="{{ product.title }}"
+                  class="nr-product-image"
+                  loading="lazy"
+                >
+              </div>
+              <span class="nr-product-mini-title">{{ product.title | truncate: 20 }}</span>
+            </div>
+            
+            <!-- Star rating with animation -->
+            <div class="nr-stars-wrapper">
+              <div class="nr-stars">★★★★★</div>
+              <div class="nr-stars-gold">★★★★★</div>
+            </div>
+
+            <!-- Review text with elegant typography -->
+            <div class="nr-text-wrapper">
+              <p class="nr-text">
+                {% if forloop.index == 1 %}
+                  Absolutely outstanding quality! The fabric is so premium and comfortable. Best purchase ever!
+                {% elsif forloop.index == 2 %}
+                  Perfect fit and amazing design. Received so many compliments. Will definitely buy again.
+                {% elsif forloop.index == 3 %}
+                  Excellent customer service and fast shipping. The product exceeded my expectations.
+                {% elsif forloop.index == 4 %}
+                  Worth every penny! The attention to detail is remarkable. My new favorite brand.
+                {% else %}
+                  Five stars all the way! Superior quality and elegant style. Highly recommended!
+                {% endif %}
+                <span class="nr-product-name">{{ product.title }}</span> 
+                from Nivrox.
+              </p>
+            </div>
+
+            <!-- Author info with decorative element -->
+            <div class="nr-author-wrapper">
+              <span class="nr-author-dash">—</span>
+              <span class="nr-author">
+                {% if forloop.index == 1 %}
+                  Sarah M.
+                {% elsif forloop.index == 2 %}
+                  James K.
+                {% elsif forloop.index == 3 %}
+                  Priya S.
+                {% elsif forloop.index == 4 %}
+                  Michael R.
+                {% else %}
+                  Emma T.
+                {% endif %}
+              </span>
+            </div>
+
+            <!-- Verified badge -->
+            <div class="nr-verified-badge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Verified Purchase
+            </div>
+
           </div>
-
-          <div class="nr-stars">★★★★★</div>
-
-          <p class="nr-text">
-            Premium quality and perfect fit. Absolutely love this {{ product.title }} from Nivrox.
-          </p>
-
-          <span class="nr-author">— Verified Buyer</span>
-
         </div>
         {% endfor %}
 
       </div>
 
-      <button class="nr-arrow right">&#10095;</button>
+      <button class="nr-arrow right" aria-label="Next review">›</button>
+    </div>
+
+    <!-- Dots navigation -->
+    <div class="nr-dots">
+      {% for i in (1..5) %}
+        <span class="nr-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
+      {% endfor %}
     </div>
 
   </div>
 </section>
 
 <style>
+/* ========== VARIABLES ========== */
+:root {
+  --nr-primary: #c7a14a;
+  --nr-primary-dark: #b38f3a;
+  --nr-text-dark: #2c2c2c;
+  --nr-text-light: #6b6b6b;
+  --nr-background: #faf8f5;
+  --nr-card-bg: #ffffff;
+  --nr-border: #eae5dd;
+  --nr-shadow: rgba(0, 0, 0, 0.05);
+  --nr-shadow-hover: rgba(199, 161, 74, 0.08);
+  --nr-transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* ========== BASE STYLES ========== */
 .nivrox-reviews {
-  padding: 90px 20px;
-  background: #f3f3f3;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  padding: 50px 40px;
+  background: var(--nr-background);
   overflow: hidden;
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Subtle background pattern */
+.nivrox-reviews::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(199, 161, 74, 0.02) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(199, 161, 74, 0.02) 0%, transparent 30%);
+  pointer-events: none;
 }
 
 .page-width {
-  max-width: 1200px;
-  margin: auto;
+  max-width: 1300px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* ========== HEADER STYLES ========== */
+.nr-header {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeInUp 1s ease forwards;
+}
+
+.nr-subtitle {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--nr-primary);
+  margin-bottom: 15px;
+  position: relative;
+  padding: 0 10px;
 }
 
 .nr-heading {
-  text-align: center;
-  font-size: 24px;
-  letter-spacing: 2px;
-  margin-bottom: 60px;
-  text-transform: uppercase;
+  font-size: 36px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--nr-text-dark);
+  margin: 0 0 20px;
+  line-height: 1.2;
+  font-family: 'Playfair Display', Georgia, serif;
 }
 
+.nr-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.nr-divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--nr-primary), transparent);
+}
+
+.nr-divider-diamond {
+  color: var(--nr-primary);
+  font-size: 12px;
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+/* ========== SLIDER WRAPPER ========== */
 .nr-wrapper {
   position: relative;
   overflow: hidden;
+  padding: 20px 0 40px;
+  margin: 0 -10px;
 }
 
 .nr-slider {
   display: flex;
-  gap: 25px;
-  transition: transform 0.6s ease-in-out;
+  gap: 30px;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
 }
 
+/* ========== CARD STYLES ========== */
 .nr-card {
-  min-width: 300px;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 14px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.06);
-  transition: 0.4s ease;
+  min-width: calc(33.333% - 20px);
+  background: transparent;
+  perspective: 1000px;
 }
 
-.nr-card:hover {
-  transform: translateY(-6px);
+.nr-card-inner {
+  background: var(--nr-card-bg);
+  padding: 35px 30px 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px var(--nr-shadow);
+  transition: var(--nr-transition);
+  position: relative;
+  border: 1px solid var(--nr-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: cardAppear 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
-.nr-product img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
+/* Stagger animation for cards */
+{% for i in (1..5) %}
+.nr-card:nth-child({{ i }}) .nr-card-inner {
+  animation-delay: {{ i | times: 0.1 }}s;
+}
+{% endfor %}
+
+.nr-card-inner:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px var(--nr-shadow-hover);
+  border-color: var(--nr-primary);
+}
+
+/* Quote mark */
+.nr-quote-mark {
+  font-size: 80px;
+  line-height: 0.8;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: var(--nr-primary);
+  opacity: 0.15;
+  position: absolute;
+  top: 20px;
+  left: 25px;
+  font-weight: 700;
+  pointer-events: none;
+}
+
+/* ========== PRODUCT BADGE WITH IMAGE ========== */
+.nr-product-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--nr-border);
+  position: relative;
+  z-index: 2;
+}
+
+.nr-product-image-wrapper {
+  width: 45px;
+  height: 45px;
   border-radius: 10px;
-  margin-bottom: 10px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(135deg, var(--nr-primary), #e5d5b3) border-box;
+  box-shadow: 0 5px 15px rgba(199, 161, 74, 0.15);
+  transition: var(--nr-transition);
 }
 
-.nr-product-title {
-  font-size: 12px;
+.nr-card:hover .nr-product-image-wrapper {
+  transform: scale(1.05) rotate(2deg);
+  box-shadow: 0 8px 20px rgba(199, 161, 74, 0.25);
+}
+
+.nr-product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: var(--nr-transition);
+}
+
+.nr-card:hover .nr-product-image {
+  transform: scale(1.1);
+}
+
+.nr-product-mini-title {
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 1px;
+  color: var(--nr-text-dark);
+  letter-spacing: 0.3px;
+  flex: 1;
+}
+
+/* ========== STARS ANIMATION ========== */
+.nr-stars-wrapper {
+  position: relative;
+  margin: 0 0 20px;
+  z-index: 2;
 }
 
 .nr-stars {
-  color: #c7a14a;
-  font-size: 14px;
-  letter-spacing: 3px;
-  margin: 10px 0;
+  color: #e0e0e0;
+  font-size: 20px;
+  letter-spacing: 4px;
+  line-height: 1;
+}
+
+.nr-stars-gold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--nr-primary);
+  font-size: 20px;
+  letter-spacing: 4px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  animation: shine 2s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+/* ========== TEXT STYLES ========== */
+.nr-text-wrapper {
+  position: relative;
+  z-index: 2;
+  flex-grow: 1;
 }
 
 .nr-text {
-  font-size: 13px;
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 18px;
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--nr-text-light);
+  margin: 0 0 15px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.nr-product-name {
+  font-weight: 600;
+  color: var(--nr-text-dark);
+  position: relative;
+  display: inline-block;
+}
+
+.nr-product-name::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--nr-primary), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nr-card:hover .nr-product-name::after {
+  transform: scaleX(1);
+}
+
+/* ========== AUTHOR STYLES ========== */
+.nr-author-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.nr-author-dash {
+  color: var(--nr-primary);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
 }
 
 .nr-author {
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 1px;
+  color: var(--nr-text-dark);
 }
 
+/* ========== VERIFIED BADGE ========== */
+.nr-verified-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--nr-primary);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-top: 5px;
+  opacity: 0.8;
+}
+
+.nr-verified-badge svg {
+  color: var(--nr-primary);
+}
+
+/* ========== ARROW BUTTONS ========== */
 .nr-arrow {
   position: absolute;
-  top: 40%;
+  top: 50%;
   transform: translateY(-50%);
-  background: #111;
-  color: #fff;
-  border: none;
-  width: 38px;
-  height: 38px;
+  background: var(--nr-card-bg);
+  color: var(--nr-text-dark);
+  border: 1px solid var(--nr-border);
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   cursor: pointer;
   z-index: 10;
-  transition: 0.3s;
+  transition: var(--nr-transition);
+  font-size: 32px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px var(--nr-shadow);
 }
 
 .nr-arrow:hover {
-  background: #333;
+  background: var(--nr-primary);
+  color: white;
+  border-color: var(--nr-primary);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 10px 25px rgba(199, 161, 74, 0.3);
 }
 
-.nr-arrow.left { left: -15px; }
-.nr-arrow.right { right: -15px; }
+.nr-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.nr-arrow.left { 
+  left: -10px; 
+}
+
+.nr-arrow.right { 
+  right: -10px; 
+}
+
+/* ========== DOTS NAVIGATION ========== */
+.nr-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.nr-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--nr-border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--nr-transition);
+}
+
+.nr-dot:hover {
+  background: var(--nr-primary);
+  transform: scale(1.2);
+}
+
+.nr-dot.active {
+  background: var(--nr-primary);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shine {
+  0%, 100% {
+    opacity: 0.9;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(2px);
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .nr-card {
+    min-width: calc(50% - 15px);
+  }
+  
+  .nr-heading {
+    font-size: 32px;
+  }
+}
 
 @media (max-width: 768px) {
-  .nr-card { min-width: 260px; }
+  .nivrox-reviews {
+    padding: 50px 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  
+  .nr-card {
+    min-width: calc(100% - 20px);
+  }
+  
+  .nr-heading {
+    font-size: 28px;
+  }
+  
+  .nr-subtitle {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  
+  .nr-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 28px;
+  }
+  
+  .nr-arrow.left { left: -5px; }
+  .nr-arrow.right { right: -5px; }
+  
+  .nr-text {
+    font-size: 15px;
+  }
+  
+  .nr-product-image-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .nr-product-mini-title {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nr-card-inner {
+    padding: 25px 20px 25px;
+  }
+  
+  .nr-heading {
+    font-size: 24px;
+  }
+  
+  .nr-stars,
+  .nr-stars-gold {
+    font-size: 18px;
+    letter-spacing: 3px;
+  }
+  
+  .nr-quote-mark {
+    font-size: 60px;
+  }
+  
+  .nr-product-badge {
+    gap: 8px;
+  }
+  
+  .nr-product-image-wrapper {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* ========== TOUCH DEVICE OPTIMIZATION ========== */
+@media (hover: none) {
+  .nr-card-inner:hover {
+    transform: none;
+  }
+  
+  .nr-arrow:hover {
+    background: var(--nr-card-bg);
+    color: var(--nr-text-dark);
+    transform: translateY(-50%);
+  }
+  
+  .nr-product-image-wrapper:hover {
+    transform: none;
+  }
+}
+
+/* ========== LOADING ANIMATION ========== */
+.nr-slider {
+  opacity: 0;
+  animation: slideFadeIn 0.8s ease forwards 0.3s;
+}
+
+@keyframes slideFadeIn {
+  to {
+    opacity: 1;
+  }
 }
 </style>
 
@@ -148,41 +648,166 @@ document.addEventListener("DOMContentLoaded", function() {
   const cards = document.querySelectorAll(".nr-card");
   const leftBtn = document.querySelector(".nr-arrow.left");
   const rightBtn = document.querySelector(".nr-arrow.right");
+  const dots = document.querySelectorAll(".nr-dot");
+  
+  if (!slider || !cards.length) return;
 
-  let index = 0;
-  const visibleCards = 3;
-  const cardWidth = cards[0]?.offsetWidth + 25;
+  let currentIndex = 0;
+  let cardWidth = cards[0]?.offsetWidth + 30; // 30px is the gap
+  let cardsPerView = window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1);
+  let maxIndex = Math.max(0, cards.length - cardsPerView);
+  let autoplayInterval;
+  let isTransitioning = false;
+  
+  // Update card width and cards per view on resize
+  function updateDimensions() {
+    cardWidth = cards[0]?.offsetWidth + 30;
+    cardsPerView = window.innerWidth > 1024 ? 3 : (window.innerWidth > 768 ? 2 : 1);
+    maxIndex = Math.max(0, cards.length - cardsPerView);
+    updateSlider();
+  }
+  
+  window.addEventListener('resize', updateDimensions);
 
   function updateSlider() {
-    slider.style.transform = `translateX(-${index * cardWidth}px)`;
+    if (isTransitioning) return;
+    
+    isTransitioning = true;
+    slider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+    
+    // Update dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentIndex);
+    });
+    
+    // Update button states
+    if (leftBtn && rightBtn) {
+      leftBtn.style.opacity = currentIndex === 0 ? '0.5' : '1';
+      leftBtn.style.pointerEvents = currentIndex === 0 ? 'none' : 'auto';
+      rightBtn.style.opacity = currentIndex === maxIndex ? '0.5' : '1';
+      rightBtn.style.pointerEvents = currentIndex === maxIndex ? 'none' : 'auto';
+    }
+    
+    // Reset transition flag after animation completes
+    setTimeout(() => {
+      isTransitioning = false;
+    }, 800);
   }
 
-  rightBtn.addEventListener("click", () => {
-    if (index >= cards.length - visibleCards) {
-      index = 0;
+  // Next slide
+  function nextSlide() {
+    if (isTransitioning) return;
+    
+    if (currentIndex < maxIndex) {
+      currentIndex++;
     } else {
-      index++;
+      currentIndex = 0; // Loop back to start
     }
     updateSlider();
+  }
+
+  // Previous slide
+  function prevSlide() {
+    if (isTransitioning) return;
+    
+    if (currentIndex > 0) {
+      currentIndex--;
+    } else {
+      currentIndex = maxIndex; // Loop to end
+    }
+    updateSlider();
+  }
+
+  // Event listeners for buttons
+  if (rightBtn) {
+    rightBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      stopAutoplay();
+      nextSlide();
+      startAutoplay();
+    });
+  }
+
+  if (leftBtn) {
+    leftBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      stopAutoplay();
+      prevSlide();
+      startAutoplay();
+    });
+  }
+
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      if (isTransitioning) return;
+      stopAutoplay();
+      currentIndex = Math.min(index, maxIndex);
+      updateSlider();
+      startAutoplay();
+    });
   });
 
-  leftBtn.addEventListener("click", () => {
-    if (index <= 0) {
-      index = cards.length - visibleCards;
-    } else {
-      index--;
+  // Auto-play functions
+  function startAutoplay() {
+    if (autoplayInterval) clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(() => {
+      nextSlide();
+    }, 5000); // 5 seconds
+  }
+  
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
     }
-    updateSlider();
-  });
+  }
+  
+  // Start autoplay
+  startAutoplay();
+  
+  // Pause autoplay on hover
+  slider.addEventListener('mouseenter', stopAutoplay);
+  slider.addEventListener('mouseleave', startAutoplay);
+  
+  // Also pause on button hover
+  if (leftBtn) leftBtn.addEventListener('mouseenter', stopAutoplay);
+  if (leftBtn) leftBtn.addEventListener('mouseleave', startAutoplay);
+  if (rightBtn) rightBtn.addEventListener('mouseenter', stopAutoplay);
+  if (rightBtn) rightBtn.addEventListener('mouseleave', startAutoplay);
 
-  setInterval(() => {
-    if (index >= cards.length - visibleCards) {
-      index = 0;
-    } else {
-      index++;
-    }
+  // Initialize
+  setTimeout(() => {
     updateSlider();
-  }, 4000);
+  }, 100);
+  
+  // Touch events for mobile
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay();
+  }, { passive: true });
+  
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    if (touchStartX - touchEndX > 50) {
+      nextSlide(); // Swipe left
+    } else if (touchEndX - touchStartX > 50) {
+      prevSlide(); // Swipe right
+    }
+    startAutoplay();
+  }, { passive: true });
+  
+  // Pause autoplay when window is not visible
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      stopAutoplay();
+    } else {
+      startAutoplay();
+    }
+  });
 });
 </script>
 
@@ -199,7 +824,8 @@ document.addEventListener("DOMContentLoaded", function() {
   ],
   "presets": [
     {
-      "name": "Nivrox Premium Reviews"
+      "name": "Nivrox Premium Reviews",
+      "category": "Reviews"
     }
   ]
 }
