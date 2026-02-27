@@ -31,16 +31,16 @@
         "item_rnj8k3": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/heroimage-1.png",
-            "title": "Jackets",
+            "image": "shopify://shop_images/baggy_fit_trwoser.png",
+            "title": "Boys Trousers",
             "collection": ""
           }
         },
         "item_xhAPzW": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/heroimage-2.png",
-            "title": "T-shirts",
+            "image": "shopify://shop_images/3d3b8189-e88f-4a70-8aa6-e56e9be4737e.jpg",
+            "title": "Boys T-Shirts",
             "collection": ""
           }
         }
