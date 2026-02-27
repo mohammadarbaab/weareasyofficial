@@ -14,25 +14,25 @@
         "item_Ym3nzt": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Feb_1_2026_02_24_15_PM.png",
-            "title": "Gurkha Paints",
-            "collection": ""
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_24_2026_08_45_45_AM.png",
+            "title": "Girls Trousers",
+            "collection": "girls-trousers"
           }
         },
         "item_rnj8k3": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/heroimage-1.png",
-            "title": "Jackets",
-            "collection": ""
+            "image": "shopify://shop_images/baggy_fit_trwoser.png",
+            "title": "Boys Trousers",
+            "collection": "boys-trousers"
           }
         },
         "item_xhAPzW": {
           "type": "item",
           "settings": {
-            "image": "shopify://shop_images/heroimage-2.png",
-            "title": "T-shirts",
-            "collection": ""
+            "image": "shopify://shop_images/3d3b8189-e88f-4a70-8aa6-e56e9be4737e.jpg",
+            "title": "Boys T-Shirts",
+            "collection": "boys-t-shirts"
           }
         }
       },
@@ -49,14 +49,14 @@
       "name": "Custom Text",
       "settings": {
         "heading": "Share information about your brand",
-        "text": "Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store."
+        "text": "Welcome to Nivrox – where modern style meets everyday comfort. Discover premium trousers and t-shirts designed for a perfect fit, clean look, and confident feel."
       }
     },
     "shop_tees_1": {
       "type": "featured-products",
       "settings": {
-        "heading": "Shop Tees",
-        "description": "Lorem ipsum dolor sit amet, consectetur donec sodales sed nibh id vehicula.",
+        "heading": "BEST SELLING TEES",
+        "description": "Premium knit polos designed for everyday confidence.",
         "products": [
           "textured-knit-polo-tee",
           "olive-green-knit-polo-tee",
@@ -80,7 +80,7 @@
         "button_link": ""
       }
     },
-     "image-text-split-s": {
+    "image-text-split-s": {
       "type": "image-text-split-s",
       "settings": {
         "image": "shopify://shop_images/model-1.webp",
@@ -142,7 +142,10 @@
     },
     "custom_footer": {
       "type": "custom-footer",
-      "settings": {}
+      "settings": {
+        "logo_text": "YOUR BRAND",
+        "description": "Add your brand description here."
+      }
     }
   },
   "order": [
@@ -156,7 +159,6 @@
     "image-text-split-s",
     "news-blog",
     "custom_newsletter",
-    "custom_footer",
-    
+    "custom_footer"
   ]
 }
