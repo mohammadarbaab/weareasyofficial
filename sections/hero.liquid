@@ -192,6 +192,7 @@
   #{{ section_id }} .new-collections__item {
     flex: 0 0 100%;
   }
+  
 }
 
 /* Mobile: 1 item */
@@ -207,8 +208,13 @@
     flex: 0 0 100%;
   }
 }
-</style>
-
+@media (max-width: 426px) {
+  #{{ section_id }} .new-collections__title,
+  #{{ section_id }} .new-collections__description {
+    display: none;
+  }
+}
+</style>  
 <script>
 (function() {
   var section = document.getElementById('{{ section_id }}');
@@ -218,6 +224,7 @@
   var prevBtn = section.querySelector('.new-collections__arrow--prev');
   var nextBtn = section.querySelector('.new-collections__arrow--next');
   var isAnimating = false;
+  var autoSlideInterval;
 
   function getVisibleItems() {
     var width = window.innerWidth;
@@ -228,7 +235,7 @@
   }
 
   function setupSlider() {
-    var items = Array.from(track.children);
+    var items = Array.from(track.children).filter(item => !item.classList.contains('clone'));
     var visibleItems = getVisibleItems();
     var gap = parseInt(getComputedStyle(track).gap) || 0;
 
@@ -313,8 +320,14 @@
     });
   }
 
-  nextBtn.addEventListener("click", slideNext);
-  prevBtn.addEventListener("click", slidePrev);
+  nextBtn.addEventListener("click", () => {
+    slideNext();
+    resetAutoSlide();
+  });
+  prevBtn.addEventListener("click", () => {
+    slidePrev();
+    resetAutoSlide();
+  });
 
   var resizeTimer;
   window.addEventListener('resize', function() {
@@ -322,7 +335,17 @@
     resizeTimer = setTimeout(setupSlider, 250);
   });
 
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(slideNext, 2000); // slide every 1 second
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+  }
+
   setupSlider();
+  startAutoSlide(); // start auto sliding
 })();
 </script>
 
