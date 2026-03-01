@@ -1,312 +1,528 @@
-{% assign section_id = 'new-collections-' | append: section.id %}
+{{ 'home-section.css' | asset_url | stylesheet_tag }}
 
-<section id="{{ section_id }}" class="new-collections">
-  <div class="new-collections__inner">
+<div class="home-collections">
+  <div class="page-width">
+    <div class="home-collections__header">
+      <h2 class="home-collections__title">New Collections</h2>
+      <p class="home-collections__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!</p>
+    </div>
 
-    <button class="new-collections__arrow new-collections__arrow--prev" aria-label="Previous">
-      &#8592;
-    </button>
+    <div class="home-collections__slider">
+      <div class="slider__controls">
+        <button class="slider__arrow slider__arrow--prev" aria-label="Previous slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="slider__arrow slider__arrow--next" aria-label="Next slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
 
-    <div class="new-collections__content">
-      <h2 class="new-collections__title">{{ section.settings.title }}</h2>
-      <p class="new-collections__description">{{ section.settings.description }}</p>
-
-      <div class="new-collections__track-wrapper">
-        <div class="new-collections__track">
-          {% for block in section.blocks %}
-            <div class="new-collections__item" {{ block.shopify_attributes }}>
-              <div class="new-collections__image-wrap">
-                {% if block.settings.image != blank %}
-                  <img
-                    src="{{ block.settings.image | img_url: '600x800', crop: 'center' }}"
-                    alt="{{ block.settings.item_title }}"
-                    class="new-collections__image"
-                    loading="lazy"
-                    width="600"
-                    height="800"
-                  >
-                {% else %}
-                  {{ 'image' | placeholder_svg_tag: 'new-collections__placeholder' }}
-                {% endif %}
-              </div>
-
-              <div class="new-collections__item-body">
-                <h3 class="new-collections__item-title">
-                  {{ block.settings.item_title }}
-                </h3>
-                <p class="new-collections__item-desc">
-                  {{ block.settings.item_description }}
-                </p>
-                <a href="{{ block.settings.button_url }}" class="new-collections__link">
-                  {{ block.settings.button_label }}
-                </a>
+      <div class="slider__container">
+        <div class="slider__wrapper">
+          {% for i in (1..3) %}
+            {% assign image_setting = 'collection_image_' | append: i %}
+            {% assign title_setting = 'collection_title_' | append: i %}
+            {% assign description_setting = 'collection_description_' | append: i %}
+            {% assign button_setting = 'collection_button_' | append: i %}
+            {% assign link_setting = 'collection_link_' | append: i %}
+            
+            <div class="slider__slide">
+              <div class="collection-card">
+                <div class="collection-card__image">
+                  {% if section.settings[image_setting] != blank %}
+                    {{ section.settings[image_setting] | image_url: width: 600 | image_tag: loading: 'lazy' }}
+                  {% else %}
+                    {{ 'collection-image.png' | asset_url | img_tag: 'Collection image' }}
+                  {% endif %}
+                </div>
+                <div class="collection-card__content">
+                  <h3 class="collection-card__title">{{ section.settings[title_setting] | default: 'SOFT LEATHER JACKETS' }}</h3>
+                  <p class="collection-card__description">{{ section.settings[description_setting] | default: 'Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.' }}</p>
+                  <a href="{{ section.settings[link_setting] | default: '#' }}" class="collection-card__button">{{ section.settings[button_setting] | default: 'DISCOVER NOW' }}</a>
+                </div>
               </div>
             </div>
           {% endfor %}
         </div>
       </div>
     </div>
-
-    <button class="new-collections__arrow new-collections__arrow--next" aria-label="Next">
-      &#8594;
-    </button>
-
   </div>
-</section>
+</div>
 
 <style>
-#{{ section_id }} {
-  background-color: #f0ede8;
-  padding: 60px 0 80px;
-  overflow: hidden;
+.home-collections {
+  background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+  padding: {{ section.settings.padding_top | default: 60 }}px 0 {{ section.settings.padding_bottom | default: 60 }}px;
 }
 
-#{{ section_id }} .new-collections__inner {
+.page-width {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 60px;
+  padding: 0 20px;
+}
+
+.home-collections__header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.home-collections__title {
+  font-size: 42px;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #000000;
+  margin: 0 0 20px 0;
+}
+
+.home-collections__description {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666666;
+}
+
+.home-collections__slider {
+  position: relative;
+}
+
+.slider__controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   display: flex;
-  align-items: flex-start;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
 }
 
-#{{ section_id }} .new-collections__content {
-  flex: 1;
-  min-width: 0;
+.slider__arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.3s ease;
+  color: #000000;
 }
 
-#{{ section_id }} .new-collections__title {
-  font-family: Georgia, serif;
-  font-size: 52px;
-  text-align: center;
-  margin-bottom: 24px;
+.slider__arrow:hover {
+  background-color: #f5f5f5;
+  border-color: #cccccc;
 }
 
-#{{ section_id }} .new-collections__description {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 48px;
-  font-size: 14px;
-  color: #888;
-  line-height: 1.7;
+.slider__arrow svg {
+  width: 24px;
+  height: 24px;
 }
 
-#{{ section_id }} .new-collections__track-wrapper {
+.slider__container {
   overflow: hidden;
 }
 
-#{{ section_id }} .new-collections__track {
+.slider__wrapper {
   display: flex;
-  gap: 40px;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
 
-#{{ section_id }} .new-collections__item {
-  flex: 0 0 calc((100% - 80px) / 3);
+.slider__slide {
+  flex: 0 0 calc(33.333% - 20px);
+  margin-right: 30px;
+}
+
+.collection-card {
   display: flex;
   flex-direction: column;
+  background-color: #f8f8f8;
 }
 
-#{{ section_id }} .new-collections__image-wrap {
-  aspect-ratio: 3/4;
+.collection-card__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  margin-bottom: 20px;
 }
 
-#{{ section_id }} .new-collections__image {
+.collection-card__image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-#{{ section_id }} .new-collections__item-title {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+.collection-card__content {
+  padding: 25px;
+  text-align: center;
 }
 
-#{{ section_id }} .new-collections__item-desc {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 16px;
+.collection-card__title {
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 400;
+  color: #000000;
+  margin: 0 0 15px 0;
 }
 
-#{{ section_id }} .new-collections__link {
-  font-size: 12px;
-  text-transform: uppercase;
-  text-decoration: underline;
+.collection-card__description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0 0 25px 0;
 }
 
-#{{ section_id }} .new-collections__arrow {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 22px;
-  padding: 0 15px;
-  color: #aaa;
-  margin-top: 220px;
+.collection-card__button {
+  display: inline-block;
+  padding: 12px 30px;
+  background-color: transparent;
+  border: 1px solid #000000;
+  color: #000000;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
 }
 
-#{{ section_id }} .new-collections__arrow:hover {
-  color: #333;
+.collection-card__button:hover {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 /* Tablet */
-@media (max-width: 992px) {
-  #{{ section_id }} .new-collections__item {
-    flex: 0 0 calc((100% - 24px) / 2);
+@media screen and (max-width: 992px) {
+  .slider__slide {
+    flex: 0 0 calc(50% - 15px);
+    margin-right: 30px;
+  }
+  
+  .slider__slide:last-child {
+    margin-right: 0;
+  }
+  
+  .home-collections__title {
+    font-size: 36px;
   }
 }
 
 /* Mobile */
-@media (max-width: 768px) {
-  #{{ section_id }} .new-collections__arrow {
+@media screen and (max-width: 768px) {
+  .slider__slide {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+  
+  .slider__controls {
     display: none;
   }
+  
+  .slider__wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .home-collections__title {
+    font-size: 28px;
+  }
+  
+  .home-collections__description {
+    font-size: 14px;
+  }
+  
+  .collection-card__content {
+    padding: 20px;
+  }
+  
+  .collection-card__title {
+    font-size: 20px;
+  }
+}
 
-  #{{ section_id }} .new-collections__item {
-    flex: 0 0 100%;
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .page-width {
+    padding: 0 15px;
+  }
+  
+  .collection-card__button {
+    padding: 10px 20px;
+    font-size: 12px;
   }
 }
 </style>
 
 <script>
-(function() {
-  var section = document.getElementById('{{ section_id }}');
-  if (!section) return;
-
-  var track = section.querySelector('.new-collections__track');
-  var prevBtn = section.querySelector('.new-collections__arrow--prev');
-  var nextBtn = section.querySelector('.new-collections__arrow--next');
-
-  var items = Array.from(track.children);
-  var gap = parseInt(getComputedStyle(track).gap) || 0;
-  var itemWidth = items[0].offsetWidth;
-  var isAnimating = false;
-
-  // Clone first and last items for infinite loop
-  var firstClone = items[0].cloneNode(true);
-  var lastClone = items[items.length - 1].cloneNode(true);
-
-  track.appendChild(firstClone);
-  track.insertBefore(lastClone, items[0]);
-
-  // Adjust track to show first real item
-  track.style.transform = `translateX(-${itemWidth + gap}px)`;
-
-  function slideNext() {
-    if (isAnimating) return;
-    isAnimating = true;
-    track.style.transition = "transform 0.6s ease";
-    track.style.transform = `translateX(-${2 * (itemWidth + gap)}px)`;
-
-    track.addEventListener("transitionend", function handler() {
-      // Move first real item to the end
-      track.appendChild(track.children[0]);
-      // Reset without transition
-      track.style.transition = "none";
-      track.style.transform = `translateX(-${itemWidth + gap}px)`;
-      isAnimating = false;
-      track.removeEventListener("transitionend", handler);
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  const slider = document.querySelector('.home-collections__slider');
+  if (!slider) return;
+  
+  const wrapper = slider.querySelector('.slider__wrapper');
+  const slides = slider.querySelectorAll('.slider__slide');
+  const prevBtn = slider.querySelector('.slider__arrow--prev');
+  const nextBtn = slider.querySelector('.slider__arrow--next');
+  
+  let currentIndex = 0;
+  let slideWidth = 0;
+  let slidesPerView = getSlidesPerView();
+  
+  function getSlidesPerView() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 992) return 2;
+    return 3;
   }
-
-  function slidePrev() {
-    if (isAnimating) return;
-    isAnimating = true;
-    // Move last real item to start instantly
-    track.insertBefore(track.children[track.children.length - 1], track.children[0]);
-    track.style.transition = "none";
-    track.style.transform = `translateX(-${2 * (itemWidth + gap)}px)`;
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        track.style.transition = "transform 0.6s ease";
-        track.style.transform = `translateX(-${itemWidth + gap}px)`;
+  
+  function updateSlideWidth() {
+    if (slides.length > 0) {
+      const containerWidth = slider.querySelector('.slider__container').offsetWidth;
+      slidesPerView = getSlidesPerView();
+      const gap = slidesPerView > 1 ? 30 : 0;
+      slideWidth = (containerWidth - (gap * (slidesPerView - 1))) / slidesPerView;
+      
+      slides.forEach(slide => {
+        slide.style.flex = `0 0 ${slideWidth}px`;
       });
-    });
-
-    track.addEventListener("transitionend", function handler() {
-      isAnimating = false;
-      track.removeEventListener("transitionend", handler);
-    });
+      
+      if (slidesPerView === 1) {
+        slides.forEach(slide => {
+          slide.style.marginRight = '0';
+        });
+      } else {
+        slides.forEach((slide, index) => {
+          if (index < slides.length - 1) {
+            slide.style.marginRight = '30px';
+          } else {
+            slide.style.marginRight = '0';
+          }
+        });
+      }
+    }
   }
-
-  nextBtn.addEventListener("click", slideNext);
-  prevBtn.addEventListener("click", slidePrev);
-
-})();
+  
+  function updateSlider() {
+    if (slidesPerView === 1) {
+      // Fade effect for mobile
+      slides.forEach((slide, index) => {
+        if (index === currentIndex) {
+          slide.style.opacity = '1';
+          slide.style.visibility = 'visible';
+          slide.style.position = 'relative';
+        } else {
+          slide.style.opacity = '0';
+          slide.style.visibility = 'hidden';
+          slide.style.position = 'absolute';
+        }
+      });
+    } else {
+      // Slide effect for desktop/tablet
+      slides.forEach(slide => {
+        slide.style.opacity = '1';
+        slide.style.visibility = 'visible';
+        slide.style.position = 'relative';
+      });
+      
+      const gap = slidesPerView > 1 ? 30 : 0;
+      const translateX = -currentIndex * (slideWidth + gap);
+      wrapper.style.transform = `translateX(${translateX}px)`;
+    }
+  }
+  
+  function nextSlide() {
+    const maxIndex = slides.length - slidesPerView;
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateSlider();
+    }
+  }
+  
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  }
+  
+  // Initialize
+  updateSlideWidth();
+  updateSlider();
+  
+  // Set wrapper position relative for absolute positioned children on mobile
+  if (slidesPerView === 1) {
+    wrapper.style.position = 'relative';
+  }
+  
+  // Event listeners
+  nextBtn.addEventListener('click', nextSlide);
+  prevBtn.addEventListener('click', prevSlide);
+  
+  window.addEventListener('resize', function() {
+    const newSlidesPerView = getSlidesPerView();
+    const wasMobile = slidesPerView === 1;
+    const isMobile = newSlidesPerView === 1;
+    
+    slidesPerView = newSlidesPerView;
+    
+    if (wasMobile !== isMobile) {
+      // Reset positions when switching between mobile and desktop
+      currentIndex = 0;
+      if (isMobile) {
+        wrapper.style.position = 'relative';
+        wrapper.style.transform = 'none';
+      } else {
+        wrapper.style.position = 'relative';
+        slides.forEach(slide => {
+          slide.style.position = 'relative';
+          slide.style.opacity = '1';
+          slide.style.visibility = 'visible';
+        });
+      }
+    }
+    
+    updateSlideWidth();
+    updateSlider();
+  });
+});
 </script>
 
 {% schema %}
 {
-  "name": "New Collections",
-  "tag": "section",
-  "class": "section-new-collections",
+  "name": "Home Collections",
   "settings": [
     {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Collection 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_1",
+      "label": "Image"
+    },
+    {
       "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "New Collections"
+      "id": "collection_title_1",
+      "label": "Title",
+      "default": "SOFT LEATHER JACKETS"
     },
     {
       "type": "textarea",
-      "id": "description",
+      "id": "collection_description_1",
       "label": "Description",
-      "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!"
-    }
-  ],
-  "blocks": [
+      "default": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit."
+    },
     {
-      "type": "collection_item",
-      "name": "Collection Item",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "text",
-          "id": "item_title",
-          "label": "Item Title",
-          "default": "Soft Leather Jackets"
-        },
-        {
-          "type": "textarea",
-          "id": "item_description",
-          "label": "Item Description",
-          "default": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit."
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button Label",
-          "default": "Discover Now"
-        },
-        {
-          "type": "url",
-          "id": "button_url",
-          "label": "Button URL"
-        }
-      ]
+      "type": "text",
+      "id": "collection_button_1",
+      "label": "Button Text",
+      "default": "DISCOVER NOW"
+    },
+    {
+      "type": "url",
+      "id": "collection_link_1",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Collection 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_2",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "collection_title_2",
+      "label": "Title",
+      "default": "SOFT LEATHER JACKETS"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_description_2",
+      "label": "Description",
+      "default": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "collection_button_2",
+      "label": "Button Text",
+      "default": "DISCOVER NOW"
+    },
+    {
+      "type": "url",
+      "id": "collection_link_2",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Collection 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "collection_image_3",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "collection_title_3",
+      "label": "Title",
+      "default": "SOFT LEATHER JACKETS"
+    },
+    {
+      "type": "textarea",
+      "id": "collection_description_3",
+      "label": "Description",
+      "default": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "collection_button_3",
+      "label": "Button Text",
+      "default": "DISCOVER NOW"
+    },
+    {
+      "type": "url",
+      "id": "collection_link_3",
+      "label": "Link"
     }
   ],
   "presets": [
     {
-      "name": "New Collections",
-      "blocks": [
-        {
-          "type": "collection_item"
-        },
-        {
-          "type": "collection_item"
-        },
-        {
-          "type": "collection_item"
-        }
-      ]
+      "name": "Home Collections",
+      "category": "Custom"
     }
   ]
 }
