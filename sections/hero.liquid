@@ -92,18 +92,32 @@
 
 #{{ section_id }} .new-collections__track-wrapper {
   overflow: hidden;
+  position: relative;
+  min-height: 400px; /* adjust if needed */
 }
 
 #{{ section_id }} .new-collections__track {
+  position: relative;
   display: flex;
   gap: 40px;
-  transition: transform 0.4s ease;
 }
 
 #{{ section_id }} .new-collections__item {
   flex: 0 0 calc((100% - 80px) / 3);
   display: flex;
   flex-direction: column;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#{{ section_id }} .new-collections__item.active {
+  opacity: 1;
+  transform: scale(1);
+  position: relative;
 }
 
 #{{ section_id }} .new-collections__image-wrap {
@@ -176,52 +190,65 @@
   if (!section) return;
 
   var track = section.querySelector('.new-collections__track');
-  var items = section.querySelectorAll('.new-collections__item');
   var prevBtn = section.querySelector('.new-collections__arrow--prev');
   var nextBtn = section.querySelector('.new-collections__arrow--next');
+
+  var items = Array.from(track.children);
+  var visibleCount = 3; // Adjust visible items per screen
   var currentIndex = 0;
+  var isAnimating = false;
 
-  function getVisible() {
-    if (window.innerWidth <= 768) return 1;
-    if (window.innerWidth <= 992) return 2;
-    return 3;
+  // Initialize first active items
+  function updateActive() {
+    items.forEach((item, index) => {
+      item.classList.remove('active');
+      if (index >= currentIndex && index < currentIndex + visibleCount) {
+        item.classList.add('active');
+      }
+    });
   }
 
-  function updateSlider() {
-    var itemWidth = items[0].offsetWidth;
-    var gap = parseInt(getComputedStyle(track).gap) || 0;
-    track.style.transform =
-      'translateX(-' + currentIndex * (itemWidth + gap) + 'px)';
+  updateActive();
+
+  function next() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    // Reverse popup: remove active from current
+    items.slice(currentIndex, currentIndex + visibleCount).forEach(item => {
+      item.classList.remove('active');
+    });
+
+    // Move index
+    currentIndex += visibleCount;
+    if (currentIndex >= items.length) currentIndex = 0;
+
+    // Popup effect for incoming items
+    setTimeout(() => {
+      updateActive();
+      isAnimating = false;
+    }, 50);
   }
 
-  nextBtn.addEventListener('click', function() {
-    var visible = getVisible();
-    var maxIndex = items.length - visible;
+  function prev() {
+    if (isAnimating) return;
+    isAnimating = true;
 
-    if (currentIndex >= maxIndex) {
-      currentIndex = 0; // loop to start
-    } else {
-      currentIndex++;
-    }
-    updateSlider();
-  });
+    items.slice(currentIndex, currentIndex + visibleCount).forEach(item => {
+      item.classList.remove('active');
+    });
 
-  prevBtn.addEventListener('click', function() {
-    var visible = getVisible();
-    var maxIndex = items.length - visible;
+    currentIndex -= visibleCount;
+    if (currentIndex < 0) currentIndex = items.length - visibleCount;
 
-    if (currentIndex <= 0) {
-      currentIndex = maxIndex; // loop to end
-    } else {
-      currentIndex--;
-    }
-    updateSlider();
-  });
+    setTimeout(() => {
+      updateActive();
+      isAnimating = false;
+    }, 50);
+  }
 
-  window.addEventListener('resize', function() {
-    currentIndex = 0;
-    updateSlider();
-  });
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
 
 })();
 </script>
