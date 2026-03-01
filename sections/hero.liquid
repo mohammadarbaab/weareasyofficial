@@ -1,7 +1,3 @@
-
-
-
-
 {% assign section_id = 'new-collections-' | append: section.id %}
 
 <section id="{{ section_id }}" class="new-collections">
@@ -61,37 +57,40 @@
 <style>
 #{{ section_id }} {
   background-color: #f0ede8;
-  padding: 60px 0 80px;
+  padding: 40px 20px 60px;
   overflow: hidden;
 }
 
 #{{ section_id }} .new-collections__inner {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 60px;
   display: flex;
   align-items: flex-start;
+  gap: 0;
 }
 
 #{{ section_id }} .new-collections__content {
   flex: 1;
   min-width: 0;
+  width: 100%;
 }
 
 #{{ section_id }} .new-collections__title {
   font-family: Georgia, serif;
-  font-size: 52px;
+  font-size: 48px;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  font-weight: normal;
+  letter-spacing: 0.5px;
 }
 
 #{{ section_id }} .new-collections__description {
   text-align: center;
-  max-width: 600px;
-  margin: 0 auto 48px;
+  max-width: 700px;
+  margin: 0 auto 40px;
   font-size: 14px;
-  color: #888;
-  line-height: 1.7;
+  color: #999;
+  line-height: 1.8;
 }
 
 #{{ section_id }} .new-collections__track-wrapper {
@@ -100,12 +99,12 @@
 
 #{{ section_id }} .new-collections__track {
   display: flex;
-  gap: 40px;
+  gap: 30px;
   transition: transform 0.4s ease;
 }
 
 #{{ section_id }} .new-collections__item {
-  flex: 0 0 calc((100% - 80px) / 3);
+  flex: 0 0 calc((100% - 60px)/3);
   display: flex;
   flex-direction: column;
 }
@@ -113,13 +112,14 @@
 #{{ section_id }} .new-collections__image-wrap {
   aspect-ratio: 3/4;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 #{{ section_id }} .new-collections__image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 #{{ section_id }} .new-collections__item-title {
@@ -127,47 +127,82 @@
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 10px;
+  letter-spacing: 0.5px;
 }
 
 #{{ section_id }} .new-collections__item-desc {
   font-size: 13px;
-  color: #888;
+  color: #999;
   margin-bottom: 16px;
+  line-height: 1.6;
 }
 
 #{{ section_id }} .new-collections__link {
   font-size: 12px;
   text-transform: uppercase;
   text-decoration: underline;
+  color: #333;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+#{{ section_id }} .new-collections__link:hover {
+  color: #666;
 }
 
 #{{ section_id }} .new-collections__arrow {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 22px;
-  padding: 0 15px;
-  color: #aaa;
-  margin-top: 220px;
+  font-size: 24px;
+  padding: 0;
+  color: #bbb;
+  flex-shrink: 0;
+  margin-top: 150px;
+  transition: color 0.3s ease;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #{{ section_id }} .new-collections__arrow:hover {
-  color: #333;
+  color: #666;
 }
 
-/* Tablet */
-@media (max-width: 992px) {
+#{{ section_id }} .new-collections__arrow--prev {
+  order: -1;
+  margin-right: 20px;
+}
+
+#{{ section_id }} .new-collections__arrow--next {
+  margin-left: 20px;
+}
+
+/* Tablet: 2 items */
+@media (max-width: 1024px) {
   #{{ section_id }} .new-collections__item {
-    flex: 0 0 calc((100% - 24px) / 2);
+    flex: 0 0 calc((100% - 24px)/2);
   }
 }
 
-/* Mobile */
+/* Small Tablet / Large Mobile: 1 item */
 @media (max-width: 768px) {
-  #{{ section_id }} .new-collections__arrow {
-    display: none;
+  #{{ section_id }} .new-collections__item {
+    flex: 0 0 100%;
   }
+}
 
+/* Mobile: 1 item */
+@media (max-width: 480px) {
+  #{{ section_id }} .new-collections__item {
+    flex: 0 0 100%;
+  }
+}
+
+/* Extra Small Mobile */
+@media (max-width: 360px) {
   #{{ section_id }} .new-collections__item {
     flex: 0 0 100%;
   }
@@ -182,34 +217,69 @@
   var track = section.querySelector('.new-collections__track');
   var prevBtn = section.querySelector('.new-collections__arrow--prev');
   var nextBtn = section.querySelector('.new-collections__arrow--next');
-
-  var items = Array.from(track.children);
-  var gap = parseInt(getComputedStyle(track).gap) || 0;
-  var itemWidth = items[0].offsetWidth;
   var isAnimating = false;
 
-  // Clone first and last items for infinite loop
-  var firstClone = items[0].cloneNode(true);
-  var lastClone = items[items.length - 1].cloneNode(true);
+  function getVisibleItems() {
+    var width = window.innerWidth;
+    if (width <= 480) return 1;
+    if (width <= 768) return 1;
+    if (width <= 1024) return 2;
+    return 3;
+  }
 
-  track.appendChild(firstClone);
-  track.insertBefore(lastClone, items[0]);
+  function setupSlider() {
+    var items = Array.from(track.children);
+    var visibleItems = getVisibleItems();
+    var gap = parseInt(getComputedStyle(track).gap) || 0;
 
-  // Adjust track to show first real item
-  track.style.transform = `translateX(-${itemWidth + gap}px)`;
+    // Remove old clones
+    track.querySelectorAll('.clone').forEach(c => c.remove());
+
+    // Width calculation
+    var trackWidth = track.offsetWidth;
+    var itemWidth = trackWidth / visibleItems - gap * ((visibleItems - 1) / visibleItems);
+
+    // Set item widths
+    items.forEach(item => {
+      item.style.flex = `0 0 ${itemWidth}px`;
+    });
+
+    // Clone items for infinite loop
+    var originalCount = items.length;
+    for (var i = 0; i < originalCount; i++) {
+      var clone = items[i].cloneNode(true);
+      clone.classList.add('clone');
+      track.appendChild(clone);
+    }
+    for (var i = originalCount - 1; i >= 0; i--) {
+      var clone = items[i].cloneNode(true);
+      clone.classList.add('clone');
+      track.insertBefore(clone, items[0]);
+    }
+
+    track.style.transition = 'none';
+    track.style.transform = `translateX(-${originalCount * (itemWidth + gap)}px)`;
+  }
 
   function slideNext() {
     if (isAnimating) return;
     isAnimating = true;
-    track.style.transition = "transform 0.6s ease";
-    track.style.transform = `translateX(-${2 * (itemWidth + gap)}px)`;
+
+    var visibleItems = getVisibleItems();
+    var gap = parseInt(getComputedStyle(track).gap) || 0;
+    var itemWidth = track.offsetWidth / visibleItems - gap * ((visibleItems - 1) / visibleItems);
+
+    var currentTransform = track.style.transform.match(/-?[\d.]+/)[0];
+    var newTransform = parseFloat(currentTransform) - (itemWidth + gap);
+
+    track.style.transition = "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+    track.style.transform = `translateX(${newTransform}px)`;
 
     track.addEventListener("transitionend", function handler() {
-      // Move first real item to the end
-      track.appendChild(track.children[0]);
-      // Reset without transition
+      var items = Array.from(track.children);
+      track.appendChild(items[0]);
       track.style.transition = "none";
-      track.style.transform = `translateX(-${itemWidth + gap}px)`;
+      track.style.transform = `translateX(${parseFloat(newTransform) + (itemWidth + gap)}px)`;
       isAnimating = false;
       track.removeEventListener("transitionend", handler);
     });
@@ -218,15 +288,22 @@
   function slidePrev() {
     if (isAnimating) return;
     isAnimating = true;
-    // Move last real item to start instantly
-    track.insertBefore(track.children[track.children.length - 1], track.children[0]);
+
+    var visibleItems = getVisibleItems();
+    var gap = parseInt(getComputedStyle(track).gap) || 0;
+    var itemWidth = track.offsetWidth / visibleItems - gap * ((visibleItems - 1) / visibleItems);
+
+    var items = Array.from(track.children);
+    track.insertBefore(items[items.length - 1], items[0]);
+
+    var currentTransform = track.style.transform.match(/-?[\d.]+/)[0];
     track.style.transition = "none";
-    track.style.transform = `translateX(-${2 * (itemWidth + gap)}px)`;
+    track.style.transform = `translateX(${parseFloat(currentTransform) - (itemWidth + gap)}px)`;
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        track.style.transition = "transform 0.6s ease";
-        track.style.transform = `translateX(-${itemWidth + gap}px)`;
+        track.style.transition = "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)";
+        track.style.transform = `translateX(${parseFloat(currentTransform)}px)`;
       });
     });
 
@@ -239,6 +316,13 @@
   nextBtn.addEventListener("click", slideNext);
   prevBtn.addEventListener("click", slidePrev);
 
+  var resizeTimer;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setupSlider, 250);
+  });
+
+  setupSlider();
 })();
 </script>
 
@@ -258,7 +342,7 @@
       "type": "textarea",
       "id": "description",
       "label": "Description",
-      "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!"
+      "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat!"
     }
   ],
   "blocks": [
@@ -301,15 +385,9 @@
     {
       "name": "New Collections",
       "blocks": [
-        {
-          "type": "collection_item"
-        },
-        {
-          "type": "collection_item"
-        },
-        {
-          "type": "collection_item"
-        }
+        {"type": "collection_item"},
+        {"type": "collection_item"},
+        {"type": "collection_item"}
       ]
     }
   ]
