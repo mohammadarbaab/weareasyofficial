@@ -11,7 +11,58 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {}
+      "blocks": {
+        "collection_item_y8PmwC": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Feb_26_2026_01_16_39_AM.png",
+            "item_title": "Soft Leather Jackets",
+            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
+            "button_label": "Discover Now",
+            "button_url": ""
+          }
+        },
+        "collection_item_m9rwPw": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/1.png",
+            "item_title": "Soft Leather Jackets",
+            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
+            "button_label": "Discover Now",
+            "button_url": ""
+          }
+        },
+        "collection_item_C4YRLJ": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/3.png",
+            "item_title": "Soft Leather Jackets",
+            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
+            "button_label": "Discover Now",
+            "button_url": ""
+          }
+        },
+        "collection_item_FgnwPU": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/hero-model-2.png",
+            "item_title": "Soft Leather Jackets",
+            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
+            "button_label": "Discover Now",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_y8PmwC",
+        "collection_item_m9rwPw",
+        "collection_item_C4YRLJ",
+        "collection_item_FgnwPU"
+      ],
+      "settings": {
+        "title": "New Collections",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!"
+      }
     },
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
