@@ -375,6 +375,22 @@
     display: block;
   }
 
+  /* ensure the header stays on top of everything else */
+  #header-component[sticky],
+  .header-section {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: var(--layer-temporary); /* higher than hero content */
+  }
+
+  /* push page content down by header height so nothing scrolls under it */
+  body {
+    padding-top: var(--header-height);
+  }
+
   .header[transparent] {
     --language-button-background-color: transparent;
     --language-button-border-color: transparent;
