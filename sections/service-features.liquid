@@ -1,0 +1,143 @@
+{% assign section_id = 'service-features-' | append: section.id %}
+
+<section id="{{ section_id }}" class="service-features">
+  <div class="service-features__container">
+    
+    {% for block in section.blocks %}
+      <div class="service-features__item" {{ block.shopify_attributes }}>
+        
+        {% if block.settings.icon != blank %}
+          <div class="service-features__icon">
+            <img 
+              src="{{ block.settings.icon | image_url: width: 80 }}"
+              alt="{{ block.settings.title }}"
+              loading="lazy"
+              width="40"
+              height="40"
+            >
+          </div>
+        {% endif %}
+
+        <h3 class="service-features__title">
+          {{ block.settings.title }}
+        </h3>
+
+        <p class="service-features__desc">
+          {{ block.settings.description }}
+        </p>
+
+      </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+<style>
+#{{ section_id }} {
+  background: #f4f4f4;
+  padding: 80px 20px;
+}
+
+#{{ section_id }} .service-features__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+#{{ section_id }} .service-features__icon {
+  margin-bottom: 20px;
+}
+
+#{{ section_id }} .service-features__icon img {
+  width: 36px;
+  height: 36px;
+  opacity: 0.6;
+}
+
+#{{ section_id }} .service-features__title {
+  font-size: 28px;
+  font-family: serif;
+  font-weight: 500;
+  margin-bottom: 18px;
+  color: #2d2d2d;
+}
+
+#{{ section_id }} .service-features__desc {
+  font-size: 14px;
+  color: #8a8a8a;
+  line-height: 1.8;
+  max-width: 260px;
+  margin: 0 auto;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  #{{ section_id }} .service-features__container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  #{{ section_id }} {
+    padding: 60px 20px;
+  }
+
+  #{{ section_id }} .service-features__container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  #{{ section_id }} .service-features__title {
+    font-size: 22px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Service Features",
+  "tag": "section",
+  "class": "section-service-features",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Book An Appointment"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "At imperdiet dui accumsan sit amet nulla risus est ultricies quis."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Service Features",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,404 +1,467 @@
+{% comment %}
+  Featured Collection Section - Premium Version
+  Color Scheme: #F7F3EE (Warm Beige)
+  Fully Responsive | Modern E-commerce Design
+{% endcomment %}
+
 <section class="featured-collection">
-  <div class="page-width">
-    
-    {% if section.settings.heading != blank %}
-      <div class="fc-header">
-        <span class="fc-subtitle">Premium Collection</span>
-        <h2 class="fc-heading">{{ section.settings.heading }}</h2>
-        {% if section.settings.description != blank %}
-          <p class="fc-description">{{ section.settings.description }}</p>
-        {% endif %}
-        <div class="fc-divider">
-          <span class="fc-divider-line"></span>
-          <span class="fc-divider-diamond">◆</span>
-          <span class="fc-divider-line"></span>
-        </div>
+  <div class="container">
+    <!-- Section Header -->
+    <div class="section-header">
+      {% if section.settings.subheading != blank %}
+        <span class="section-subtitle">{{ section.settings.subheading }}</span>
+      {% endif %}
+      
+      {% if section.settings.heading != blank %}
+        <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      
+      {% if section.settings.description != blank %}
+        <p class="section-description">{{ section.settings.description }}</p>
+      {% endif %}
+      
+      <div class="section-divider">
+        <span class="divider-line"></span>
+        <span class="divider-icon">✦</span>
+        <span class="divider-line"></span>
       </div>
-    {% endif %}
+    </div>
 
+    <!-- Products Grid -->
     {% if section.settings.products.size > 0 %}
-      <div class="fc-wrapper">
-        <!-- Desktop Grid -->
-        <div class="fc-grid">
-          {% for product in section.settings.products limit: section.settings.products_limit %}
-            <div class="fc-card" data-index="{{ forloop.index0 }}">
-              <div class="fc-card-inner">
+      <div class="products-grid">
+        {% for product in section.settings.products limit: section.settings.products_limit %}
+          {% assign has_sale = false %}
+          {% if product.compare_at_price > product.price %}
+            {% assign has_sale = true %}
+          {% endif %}
+          
+          <div class="product-card" data-product-id="{{ product.id }}" data-index="{{ forloop.index0 }}">
+            <div class="product-card-inner">
+              
+              <!-- Product Badges -->
+              <div class="product-badges">
+                {% if has_sale %}
+                  <span class="badge badge-sale">SALE</span>
+                {% endif %}
                 
-                <!-- Badge for sale/new -->
-                <div class="fc-badge-wrapper">
-                  {% if product.compare_at_price > product.price %}
-                    <span class="fc-badge fc-badge-sale">SALE</span>
-                  {% endif %}
-                  {% if forloop.first %}
-                    <span class="fc-badge fc-badge-new">NEW</span>
-                  {% endif %}
-                </div>
+                {% if product.tags contains 'new' %}
+                  <span class="badge badge-new">NEW</span>
+                {% endif %}
+                
+                {% if product.tags contains 'bestseller' %}
+                  <span class="badge badge-bestseller">BESTSELLER</span>
+                {% endif %}
+              </div>
 
-                <!-- Image with quick view -->
-                <div class="fc-image-wrapper">
-                  <div class="fc-image">
-                    <img
-                      src="{{ product.featured_image | image_url: width: 800 }}"
-                      alt="{{ product.title }}"
-                      loading="lazy"
-                      class="fc-image-front"
-                    >
-                    {% if product.images.size > 1 %}
+              <!-- Product Image with Hover Effect -->
+              <div class="product-image-wrapper">
+                <a href="{{ product.url }}" class="product-image-link">
+                  <div class="product-image-main">
+                    {% if product.featured_image %}
                       <img
-                        src="{{ product.images[1] | image_url: width: 800 }}"
-                        alt="{{ product.title }}"
+                        src="{{ product.featured_image | image_url: width: 600 }}"
+                        alt="{{ product.title | escape }}"
+                        class="product-image product-image-front"
                         loading="lazy"
-                        class="fc-image-hover"
+                        width="600"
+                        height="600"
                       >
+                      
+                      {% if product.images.size > 1 %}
+                        <img
+                          src="{{ product.images[1] | image_url: width: 600 }}"
+                          alt="{{ product.title | escape }}"
+                          class="product-image product-image-hover"
+                          loading="lazy"
+                          width="600"
+                          height="600"
+                        >
+                      {% endif %}
+                    {% else %}
+                      <div class="product-image-placeholder">
+                        <span>No image</span>
+                      </div>
                     {% endif %}
                   </div>
+                </a>
+
+                <!-- Quick Action Buttons -->
+                <div class="product-actions">
+                  <button class="action-btn quick-view-btn" data-product-handle="{{ product.handle }}" aria-label="Quick view">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z"></path>
+                    </svg>
+                  </button>
                   
-                  <!-- Quick action buttons -->
-                  <div class="fc-actions">
-                    <button class="fc-action-btn fc-quick-view" onclick="quickView('{{ product.handle }}', this)">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M22 12c-2.667 4.667-6 7-10 7s-7.333-2.333-10-7c2.667-4.667 6-7 10-7s7.333 2.333 10 7z"></path>
-                      </svg>
-                    </button>
-                    <button class="fc-action-btn fc-wishlist" onclick="addToWishlist('{{ product.handle }}', this)">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                      </svg>
-                    </button>
-                  </div>
+                  <button class="action-btn wishlist-btn" data-product-handle="{{ product.handle }}" aria-label="Add to wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                  </button>
                 </div>
 
-                <!-- Product info -->
-                <div class="fc-info">
-                  <div class="fc-vendor">{{ product.vendor | default: 'NIVROX' }}</div>
-                  <h3 class="fc-title">{{ product.title }}</h3>
-                  
-                  <!-- Rating -->
-                  <div class="fc-rating">
-                    <div class="fc-stars">
-                      <span class="fc-star">★</span>
-                      <span class="fc-star">★</span>
-                      <span class="fc-star">★</span>
-                      <span class="fc-star">★</span>
-                      <span class="fc-star">★</span>
-                    </div>
-                    <span class="fc-reviews">({{ product.metafields.reviews.count | default: 12 }})</span>
-                  </div>
-
-                  <!-- Price -->
-                  <div class="fc-price-wrapper">
-                    {% if product.compare_at_price > product.price %}
-                      <span class="fc-price-compare">{{ product.compare_at_price | money }}</span>
-                      <span class="fc-price-sale">{{ product.price | money }}</span>
-                    {% else %}
-                      <span class="fc-price">{{ product.price | money }}</span>
-                    {% endif %}
-                  </div>
-
-                  <!-- Color options (static example) -->
-                  <div class="fc-colors">
-                    <span class="fc-color-dot" style="background: #000;" title="Black"></span>
-                    <span class="fc-color-dot" style="background: #6b4f3c;" title="Brown"></span>
-                    <span class="fc-color-dot" style="background: #8b8b8b;" title="Grey"></span>
-                    <span class="fc-color-dot" style="background: #c7a14a;" title="Gold"></span>
-                  </div>
-
-                  <!-- Add to cart form -->
-                  <form method="post" action="/cart/add" class="fc-form">
+                <!-- Add to Cart Button (on image hover) -->
+                <div class="product-add-to-cart">
+                  <form method="post" action="/cart/add" class="add-to-cart-form">
                     <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                    <button type="submit" class="fc-btn" onclick="addToCart(event, this)">
-                      <span class="fc-btn-text">Add to Cart</span>
-                      <svg class="fc-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                      </svg>
+                    <button type="submit" class="add-to-cart-btn" data-product-id="{{ product.id }}">
+                      <span class="btn-text">Add to Cart</span>
+                      <span class="btn-icon">→</span>
                     </button>
                   </form>
                 </div>
               </div>
-            </div>
-          {% endfor %}
-        </div>
 
-        <!-- Mobile Slider -->
-        <div class="fc-mobile-slider-container">
-          <button class="fc-mobile-arrow fc-mobile-prev" aria-label="Previous products">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M15 18l-6-6 6-6"/>
-            </svg>
-          </button>
-          <div class="fc-mobile-slider">
-            {% for product in section.settings.products limit: section.settings.products_limit %}
-              <div class="fc-mobile-slide">
-                <div class="fc-card">
-                  <div class="fc-card-inner">
-                    
-                    <!-- Badge for sale/new (mobile) -->
-                    <div class="fc-badge-wrapper">
-                      {% if product.compare_at_price > product.price %}
-                        <span class="fc-badge fc-badge-sale">SALE</span>
-                      {% endif %}
-                      {% if forloop.first %}
-                        <span class="fc-badge fc-badge-new">NEW</span>
-                      {% endif %}
+              <!-- Product Info -->
+              <div class="product-info">
+                {% if section.settings.show_vendor and product.vendor != blank %}
+                  <div class="product-vendor">{{ product.vendor }}</div>
+                {% endif %}
+                
+                <h3 class="product-title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+                
+                <!-- Product Rating -->
+                {% if section.settings.show_rating %}
+                  <div class="product-rating">
+                    <div class="rating-stars">
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
+                      <span class="star">★</span>
                     </div>
-
-                    <div class="fc-image-wrapper">
-                      <div class="fc-image">
-                        <img
-                          src="{{ product.featured_image | image_url: width: 600 }}"
-                          alt="{{ product.title }}"
-                          loading="lazy"
-                          class="fc-image-front"
-                        >
-                      </div>
-                    </div>
-
-                    <div class="fc-info">
-                      <div class="fc-vendor">{{ product.vendor | default: 'NIVROX' }}</div>
-                      <h3 class="fc-title">{{ product.title }}</h3>
-                      
-                      <div class="fc-rating">
-                        <div class="fc-stars">★★★★★</div>
-                        <span class="fc-reviews">({{ product.metafields.reviews.count | default: 12 }})</span>
-                      </div>
-
-                      <div class="fc-price-wrapper">
-                        {% if product.compare_at_price > product.price %}
-                          <span class="fc-price-compare">{{ product.compare_at_price | money }}</span>
-                          <span class="fc-price-sale">{{ product.price | money }}</span>
-                        {% else %}
-                          <span class="fc-price">{{ product.price | money }}</span>
-                        {% endif %}
-                      </div>
-
-                      <form method="post" action="/cart/add" class="fc-form">
-                        <input type="hidden" name="id" value="{{ product.variants.first.id }}">
-                        <button type="submit" class="fc-btn" onclick="addToCart(event, this)">
-                          <span class="fc-btn-text">Add to Cart</span>
-                        </button>
-                      </form>
-                    </div>
+                    <span class="rating-count">({{ product.metafields.reviews.rating_count | default: 12 }})</span>
                   </div>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-          <button class="fc-mobile-arrow fc-mobile-next" aria-label="Next products">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 18l6-6-6-6"/>
-            </svg>
-          </button>
-        </div>
+                {% endif %}
 
-        <!-- Mobile Dots -->
-        <div class="fc-mobile-dots">
-          {% for product in section.settings.products limit: section.settings.products_limit %}
-            <span class="fc-mobile-dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.index0 }}"></span>
-          {% endfor %}
-        </div>
+                <!-- Product Price -->
+                <div class="product-price">
+                  {% if has_sale %}
+                    <span class="price-compare">{{ product.compare_at_price | money }}</span>
+                    <span class="price-sale">{{ product.price | money }}</span>
+                  {% else %}
+                    <span class="price-regular">{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+
+                <!-- Color Options (if available) -->
+                {% if product.options contains 'Color' and section.settings.show_color_options %}
+                  <div class="product-colors">
+                    {% assign color_option_index = 0 %}
+                    {% for option in product.options %}
+                      {% if option == 'Color' or option == 'Colour' %}
+                        {% assign color_option_index = forloop.index0 %}
+                        {% assign values = '' %}
+                        {% for variant in product.variants %}
+                          {% unless values contains variant.options[color_option_index] %}
+                            {% assign values = values | append: variant.options[color_option_index] | append: ',' %}
+                            <span class="color-dot" style="background-color: {{ variant.options[color_option_index] | handleize }}" title="{{ variant.options[color_option_index] }}"></span>
+                          {% endunless %}
+                        {% endfor %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
+
+      <!-- View All Button -->
+      {% if section.settings.show_view_all %}
+        <div class="view-all-container">
+          <a href="{{ section.settings.view_all_link | default: '/collections/all' }}" class="view-all-btn">
+            {{ section.settings.view_all_text | default: 'View All Products' }}
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      {% endif %}
+
     {% else %}
-      <div class="fc-empty">
-        <p>Select products from the theme settings</p>
+      <!-- Empty State -->
+      <div class="empty-state">
+        <p>No products selected. Please select products in the theme settings.</p>
       </div>
     {% endif %}
-
   </div>
 </section>
 
 <style>
-/* ========== VARIABLES ========== */
+/* =============================================================================
+  FEATURED COLLECTION - PREMIUM EDITION
+  Color Scheme: #F7F3EE (Warm Beige)
+  ============================================================================= */
+
+/* CSS Variables */
 :root {
-  --fc-primary: #c7a14a;
-  --fc-primary-dark: #b38f3a;
-  --fc-text-dark: #1a1a1a;
+  --fc-bg: #F7F3EE;
+  --fc-primary: #C7A14A;
+  --fc-primary-dark: #A8863A;
+  --fc-primary-light: rgba(199, 161, 74, 0.15);
+  --fc-text-dark: #1A1A1A;
   --fc-text-light: #666666;
-  --fc-background: #ffffff;
-  --fc-card-bg: #ffffff;
-  --fc-border: #eaeaea;
-  --fc-shadow: rgba(0, 0, 0, 0.04);
-  --fc-shadow-hover: rgba(199, 161, 74, 0.15);
+  --fc-text-muted: #999999;
+  --fc-white: #FFFFFF;
+  --fc-offwhite: #F9F9F9;
+  --fc-border: #E5E5E5;
+  --fc-border-light: #F0F0F0;
+  --fc-success: #10B981;
+  --fc-danger: #EF4444;
+  --fc-warning: #F59E0B;
+  
+  /* Shadows */
+  --fc-shadow-sm: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  --fc-shadow-md: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
+  --fc-shadow-lg: 0 30px 60px -12px rgba(199, 161, 74, 0.15);
+  --fc-shadow-hover: 0 30px 50px -15px rgba(199, 161, 74, 0.25);
+  
+  /* Transitions */
   --fc-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --fc-transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Border Radius */
+  --fc-radius-sm: 8px;
+  --fc-radius-md: 12px;
+  --fc-radius-lg: 20px;
+  --fc-radius-xl: 30px;
+  --fc-radius-full: 9999px;
 }
 
-/* ========== BASE STYLES ========== */
+/* Base Section Styles */
 .featured-collection {
   padding: 80px 20px;
-  background: var(--fc-background);
-  overflow: hidden;
+  /* background-color: var(--fc-bg); */
   position: relative;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.page-width {
+.featured-collection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: radial-gradient(circle at 0% 0%, rgba(199, 161, 74, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.container {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 20px;
   position: relative;
   z-index: 2;
 }
 
-/* ========== HEADER STYLES ========== */
-.fc-header {
+/* =============================================================================
+  Section Header
+  ============================================================================= */
+
+.section-header {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   animation: fadeInUp 0.8s ease forwards;
 }
 
-.fc-subtitle {
+.section-subtitle {
   display: inline-block;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--fc-primary);
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  padding: 0 20px;
+  position: relative;
 }
 
-.fc-heading {
-  font-size: 36px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--fc-text-dark);
-  margin: 0 0 15px;
-  line-height: 1.2;
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.fc-description {
-  font-size: 16px;
-  color: var(--fc-text-light);
-  max-width: 600px;
-  margin: 0 auto 20px;
-  line-height: 1.6;
-}
-
-.fc-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-}
-
-.fc-divider-line {
-  width: 60px;
+.section-subtitle::before,
+.section-subtitle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 30px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--fc-primary), transparent);
 }
 
-.fc-divider-diamond {
-  color: var(--fc-primary);
-  font-size: 12px;
-  transform: rotate(45deg);
-  display: inline-block;
+.section-subtitle::before {
+  left: -15px;
 }
 
-/* ========== GRID LAYOUT (DESKTOP) ========== */
-.fc-grid {
+.section-subtitle::after {
+  right: -15px;
+}
+
+.section-title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 600;
+  color: var(--fc-text-dark);
+  margin: 0 0 20px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  font-size: 18px;
+  color: var(--fc-text-light);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.6;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.divider-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--fc-primary), transparent);
+  border-radius: 2px;
+}
+
+.divider-icon {
+  color: var(--fc-primary);
+  font-size: 20px;
+  animation: rotate 4s linear infinite;
+}
+
+/* =============================================================================
+  Products Grid
+  ============================================================================= */
+
+.products-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   margin-bottom: 40px;
 }
 
-/* ========== CARD STYLES ========== */
-.fc-card {
-  background: transparent;
-  perspective: 1000px;
-  animation: cardAppear 0.6s ease forwards;
+/* Product Card */
+.product-card {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
+  animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Stagger animation */
+/* Stagger animation for cards */
 {% for i in (1..12) %}
-.fc-card:nth-child({{ i }}) {
+.product-card:nth-child({{ i }}) {
   animation-delay: {{ i | times: 0.1 }}s;
 }
 {% endfor %}
 
-.fc-card-inner {
-  background: var(--fc-card-bg);
-  border-radius: 16px;
+.product-card-inner {
+  /* background: var(--fc-white);
+   */
+   background-color: #10B981;
+  border-radius: var(--fc-radius-lg);
   overflow: hidden;
-  box-shadow: 0 10px 30px var(--fc-shadow);
-  transition: var(--fc-transition);
+  box-shadow: var(--fc-shadow-sm);
+  transition: var(--fc-transition-bounce);
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--fc-border-light);
 }
 
-.fc-card-inner:hover {
+.product-card-inner:hover {
   transform: translateY(-8px);
-  box-shadow: 0 25px 50px var(--fc-shadow-hover);
+  box-shadow: var(--fc-shadow-hover);
+  border-color: transparent;
 }
 
-/* ========== BADGE STYLES ========== */
-.fc-badge-wrapper {
+/* Product Badges */
+.product-badges {
   position: absolute;
-  top: 15px;
-  left: 15px;
-  z-index: 20;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
   display: flex;
+  flex-direction: column;
   gap: 8px;
-  pointer-events: none;
 }
 
-.fc-badge {
-  padding: 5px 12px;
+.badge {
+  padding: 6px 14px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  border-radius: 30px;
-  background: white;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-radius: var(--fc-radius-full);
+  background: var(--fc-white);
+  color: var(--fc-text-dark);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   animation: badgePop 0.4s ease;
-  pointer-events: none;
+  border: 1px solid var(--fc-border-light);
+  backdrop-filter: blur(4px);
 }
 
-.fc-badge-sale {
-  background: #ff4b4b;
-  color: white;
+.badge-sale {
+  background: var(--fc-danger);
+  color: var(--fc-white);
+  border-color: var(--fc-danger);
 }
 
-.fc-badge-new {
+.badge-new {
   background: var(--fc-primary);
-  color: white;
+  color: var(--fc-white);
+  border-color: var(--fc-primary);
 }
 
-/* ========== IMAGE STYLES - FIXED ========== */
-.fc-image-wrapper {
+.badge-bestseller {
+  background: var(--fc-warning);
+  color: var(--fc-white);
+  border-color: var(--fc-warning);
+}
+
+/* Product Image */
+.product-image-wrapper {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  background: #f9f9f9;
-  cursor: pointer;
+  background: linear-gradient(45deg, var(--fc-bg), var(--fc-offwhite));
 }
 
-.fc-image {
+.product-image-link {
+  display: block;
   width: 100%;
   height: 100%;
-  position: relative;
+  text-decoration: none;
 }
 
-.fc-image img {
+.product-image-main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.product-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.8s cubic-bezier(0.2, 0.75, 0.3, 1);
   display: block;
 }
 
-.fc-image-front {
+.product-image-front {
   position: relative;
   z-index: 1;
 }
 
-.fc-image-hover {
+.product-image-hover {
   position: absolute;
   top: 0;
   left: 0;
@@ -406,207 +469,286 @@
   height: 100%;
   opacity: 0;
   z-index: 2;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.5s ease;
 }
 
-/* Fixed hover effect - image swap properly */
-.fc-image-wrapper:hover .fc-image-front {
-  transform: scale(1.05);
+.product-image-wrapper:hover .product-image-front {
+  transform: scale(1.1);
 }
 
-.fc-image-wrapper:hover .fc-image-hover {
+.product-image-wrapper:hover .product-image-hover {
   opacity: 1;
-  transform: scale(1.05);
 }
 
-/* ========== QUICK ACTION BUTTONS - FIXED ========== */
-.fc-actions {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+/* Image Placeholder */
+.product-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--fc-bg) 0%, var(--fc-border) 100%);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fc-text-muted);
+  font-size: 14px;
+}
+
+/* Quick Action Buttons */
+.product-actions {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
-  z-index: 30;
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  pointer-events: none;
+  transform: translateX(20px);
+  transition: var(--fc-transition-bounce);
 }
 
-.fc-image-wrapper:hover .fc-actions {
+.product-image-wrapper:hover .product-actions {
   opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  transform: translateX(0);
 }
 
-.fc-action-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: white;
+.action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--fc-radius-full);
+  background: var(--fc-white);
   border: none;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: var(--fc-transition);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--fc-text-dark);
   position: relative;
-  z-index: 31;
+  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--fc-border-light);
 }
 
-.fc-action-btn:hover {
+.action-btn:hover {
   background: var(--fc-primary);
-  color: white;
-  transform: scale(1.1);
-  box-shadow: 0 8px 25px rgba(199, 161, 74, 0.3);
+  color: var(--fc-white);
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 12px 25px rgba(199, 161, 74, 0.3);
+  border-color: var(--fc-primary);
 }
 
-.fc-action-btn:active {
+.action-btn:active {
   transform: scale(0.95);
 }
 
-.fc-action-btn svg {
+.action-btn svg {
   stroke: currentColor;
-  transition: all 0.2s ease;
+  stroke-width: 2.2;
+  transition: all 0.2s;
 }
 
-.fc-action-btn.fc-wishlist.active svg {
-  fill: #ff4b4b;
-  stroke: #ff4b4b;
+.action-btn.wishlist-btn.active svg {
+  fill: var(--fc-danger);
+  stroke: var(--fc-danger);
 }
 
-/* ========== PRODUCT INFO ========== */
-.fc-info {
+/* Add to Cart Button (on image) */
+.product-add-to-cart {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  transform: translateY(100%);
+  transition: var(--fc-transition);
+  padding: 16px;
+}
+
+.product-image-wrapper:hover .product-add-to-cart {
+  transform: translateY(0);
+}
+
+.add-to-cart-btn {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--fc-text-dark);
+  color: var(--fc-white);
+  border: none;
+  border-radius: var(--fc-radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--fc-transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.add-to-cart-btn:hover {
+  background: var(--fc-primary);
+  gap: 15px;
+}
+
+.add-to-cart-btn .btn-icon {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: var(--fc-transition);
+}
+
+.add-to-cart-btn:hover .btn-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.add-to-cart-btn.added {
+  background: var(--fc-success);
+  pointer-events: none;
+}
+
+/* Product Info */
+.product-info {
   padding: 20px;
+  background: var(--fc-white);
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.fc-vendor {
-  font-size: 11px;
+.product-vendor {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fc-primary);
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--fc-text-light);
-  margin-bottom: 5px;
+  margin-bottom: 6px;
 }
 
-.fc-title {
-  font-size: 16px;
+.product-title {
+  font-size: 18px;
   font-weight: 500;
-  color: var(--fc-text-dark);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   line-height: 1.4;
-  transition: color 0.2s ease;
 }
 
-.fc-card:hover .fc-title {
+.product-title a {
+  color: var(--fc-text-dark);
+  text-decoration: none;
+  transition: color 0.2s;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-title a:hover {
   color: var(--fc-primary);
 }
 
 /* Rating */
-.fc-rating {
+.product-rating {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-.fc-stars {
-  color: #ffd700;
+.rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  color: #FFD700;
   font-size: 14px;
-  letter-spacing: 2px;
+  filter: drop-shadow(0 2px 2px rgba(255, 215, 0, 0.2));
 }
 
-.fc-star {
-  display: inline-block;
-}
-
-.fc-reviews {
-  font-size: 12px;
-  color: var(--fc-text-light);
+.rating-count {
+  font-size: 13px;
+  color: var(--fc-text-muted);
 }
 
 /* Price */
-.fc-price-wrapper {
-  margin-bottom: 15px;
-}
-
-.fc-price {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--fc-text-dark);
-}
-
-.fc-price-compare {
-  font-size: 15px;
-  color: var(--fc-text-light);
-  text-decoration: line-through;
-  margin-right: 8px;
-}
-
-.fc-price-sale {
-  font-size: 18px;
-  font-weight: 600;
-  color: #ff4b4b;
-}
-
-/* Color options */
-.fc-colors {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-.fc-color-dot {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid transparent;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
-
-.fc-color-dot:hover {
-  transform: scale(1.15);
-  border-color: var(--fc-primary);
-  box-shadow: 0 4px 12px rgba(199, 161, 74, 0.3);
-}
-
-.fc-color-dot:active {
-  transform: scale(0.95);
-}
-
-/* Add to cart button */
-.fc-form {
-  margin-top: auto;
-}
-
-.fc-btn {
-  width: 100%;
-  height: 48px;
-  background: transparent;
-  border: 1.5px solid var(--fc-text-dark);
-  color: var(--fc-text-dark);
-  text-transform: uppercase;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border-radius: 6px;
+.product-price {
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
+  flex-wrap: wrap;
+}
+
+.price-regular {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fc-text-dark);
+}
+
+.price-sale {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--fc-danger);
+}
+
+.price-compare {
+  font-size: 16px;
+  color: var(--fc-text-muted);
+  text-decoration: line-through;
+}
+
+/* Color Options */
+.product-colors {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+.color-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--fc-radius-full);
+  cursor: pointer;
+  transition: var(--fc-transition-bounce);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--fc-white);
+}
+
+.color-dot:hover {
+  transform: scale(1.2);
+  box-shadow: 0 5px 15px rgba(199, 161, 74, 0.3);
+}
+
+/* View All Button */
+.view-all-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: transparent;
+  color: var(--fc-text-dark);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 2px solid var(--fc-text-dark);
+  border-radius: var(--fc-radius-full);
+  transition: var(--fc-transition);
   position: relative;
   overflow: hidden;
 }
 
-.fc-btn::before {
+.view-all-btn::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -614,167 +756,46 @@
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(199, 161, 74, 0.2);
+  background: var(--fc-text-dark);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
+  z-index: -1;
 }
 
-.fc-btn:hover {
-  background: var(--fc-text-dark);
-  color: white;
+.view-all-btn:hover {
+  color: var(--fc-white);
   border-color: var(--fc-text-dark);
-  gap: 15px;
 }
 
-.fc-btn:active::before {
+.view-all-btn:hover::before {
   width: 300px;
   height: 300px;
 }
 
-.fc-btn-icon {
-  transition: transform 0.3s ease;
-  opacity: 0;
-  transform: translateX(-10px);
+.view-all-btn .btn-arrow {
+  transition: transform 0.3s;
 }
 
-.fc-btn:hover .fc-btn-icon {
-  opacity: 1;
-  transform: translateX(0);
+.view-all-btn:hover .btn-arrow {
+  transform: translateX(5px);
 }
 
-.fc-btn.fc-btn-added {
-  background: #4CAF50;
-  border-color: #4CAF50;
-  color: white;
-  pointer-events: none;
-}
-
-/* ========== MOBILE SLIDER STYLES - FIXED ========== */
-.fc-mobile-slider-container {
-  display: none;
-  position: relative;
-  margin: 0 -10px;
-}
-
-.fc-mobile-slider {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 20px 10px;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE/Edge */
-}
-
-.fc-mobile-slider::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-.fc-mobile-slide {
-  flex: 0 0 calc(85% - 20px);
-  scroll-snap-align: start;
-}
-
-.fc-mobile-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: white;
-  border: 1px solid var(--fc-border);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-  cursor: pointer;
-  z-index: 20;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.fc-mobile-slider-container:hover .fc-mobile-arrow {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.fc-mobile-arrow:hover {
-  background: var(--fc-primary);
-  color: white;
-  border-color: var(--fc-primary);
-  transform: translateY(-50%) scale(1.1);
-}
-
-.fc-mobile-arrow:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.fc-mobile-arrow svg {
-  width: 24px;
-  height: 24px;
-  stroke: currentColor;
-}
-
-.fc-mobile-prev {
-  left: 5px;
-}
-
-.fc-mobile-next {
-  right: 5px;
-}
-
-.fc-mobile-dots {
-  display: none;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 25px;
-}
-
-.fc-mobile-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--fc-border);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.fc-mobile-dot:hover {
-  background: var(--fc-primary);
-  transform: scale(1.2);
-}
-
-.fc-mobile-dot.active {
-  background: var(--fc-primary);
-  width: 28px;
-  border-radius: 12px;
-}
-
-/* ========== EMPTY STATE ========== */
-.fc-empty {
+/* Empty State */
+.empty-state {
   text-align: center;
-  padding: 60px 20px;
-  background: #f9f9f9;
-  border-radius: 12px;
-  color: var(--fc-text-light);
+  padding: 80px 20px;
+  background: var(--fc-white);
+  border-radius: var(--fc-radius-lg);
+  color: var(--fc-text-muted);
+  font-size: 16px;
+  border: 2px dashed var(--fc-border);
 }
 
-/* ========== ANIMATIONS ========== */
+/* =============================================================================
+  Animations
+  ============================================================================= */
+
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes cardAppear {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -786,239 +807,723 @@
 }
 
 @keyframes badgePop {
-  from {
-    transform: scale(0);
+  0% {
     opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
   }
-  to {
-    transform: scale(1);
+  50% {
+    transform: scale(1.1) rotate(2deg);
+  }
+  100% {
     opacity: 1;
+    transform: scale(1) rotate(0);
   }
 }
 
-/* ========== RESPONSIVE BREAKPOINTS ========== */
-@media (max-width: 1200px) {
-  .fc-grid {
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =============================================================================
+  Responsive Design
+  ============================================================================= */
+
+/* Large Desktop */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+  }
+}
+
+/* Desktop */
+@media (max-width: 1199px) {
+  .products-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
   }
 }
 
-@media (max-width: 900px) {
-  .fc-grid {
+/* Tablet */
+@media (max-width: 991px) {
+  .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-}
-
-@media (max-width: 768px) {
+  
   .featured-collection {
     padding: 60px 15px;
   }
-
-  .fc-heading {
-    font-size: 28px;
+  
+  .section-header {
+    margin-bottom: 40px;
   }
-
-  .fc-description {
-    font-size: 15px;
+  
+  .section-title {
+    font-size: 36px;
+  }
+  
+  .section-description {
+    font-size: 16px;
     padding: 0 15px;
   }
-
-  /* Hide desktop grid on mobile */
-  .fc-grid {
-    display: none;
-  }
-
-  /* Show mobile slider */
-  .fc-mobile-slider-container {
-    display: block;
-  }
-
-  .fc-mobile-arrow {
-    opacity: 1;
-    pointer-events: auto;
-    width: 40px;
-    height: 40px;
-  }
-
-  .fc-mobile-dots {
-    display: flex;
-  }
-
-  .fc-actions {
-    display: none; /* Hide on mobile for better touch UX */
-  }
-
-  .fc-colors {
-    justify-content: center;
-  }
   
-  .fc-mobile-arrow svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .fc-heading {
-    font-size: 24px;
-  }
-
-  .fc-subtitle {
-    font-size: 12px;
-  }
-
-  .fc-mobile-slide {
-    flex: 0 0 90%;
-  }
-
-  .fc-info {
-    padding: 15px;
-  }
-
-  .fc-title {
-    font-size: 15px;
-  }
-
-  .fc-price, .fc-price-sale {
+  .product-title {
     font-size: 16px;
   }
-
-  .fc-btn {
-    height: 44px;
-    font-size: 12px;
-  }
   
-  .fc-mobile-prev {
-    left: 0;
-  }
-  
-  .fc-mobile-next {
-    right: 0;
+  .price-regular,
+  .price-sale {
+    font-size: 18px;
   }
 }
 
-/* ========== TOUCH DEVICE OPTIMIZATION ========== */
-@media (hover: none) {
-  .fc-image-wrapper:hover .fc-image-front {
+/* Mobile Landscape */
+@media (max-width: 767px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .featured-collection {
+    padding: 50px 12px;
+  }
+  
+  .section-header {
+    margin-bottom: 30px;
+  }
+  
+  .section-subtitle {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  
+  .section-subtitle::before,
+  .section-subtitle::after {
+    width: 20px;
+  }
+  
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .section-description {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .divider-line {
+    width: 40px;
+  }
+  
+  .product-info {
+    padding: 15px;
+  }
+  
+  .product-vendor {
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  
+  .product-title {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  
+  .product-price {
+    margin-bottom: 12px;
+  }
+  
+  .price-regular,
+  .price-sale {
+    font-size: 16px;
+  }
+  
+  .price-compare {
+    font-size: 14px;
+  }
+  
+  .product-rating {
+    margin-bottom: 8px;
+  }
+  
+  .star {
+    font-size: 12px;
+  }
+  
+  .rating-count {
+    font-size: 12px;
+  }
+  
+  .color-dot {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .badge {
+    padding: 4px 10px;
+    font-size: 10px;
+  }
+  
+  .action-btn {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .action-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .add-to-cart-btn {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  
+  .view-all-btn {
+    padding: 14px 30px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  .section-description {
+    font-size: 14px;
+  }
+  
+  .product-card-inner:hover {
+    transform: translateY(-5px);
+  }
+  
+  .product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .product-add-to-cart {
+    transform: translateY(0);
+    padding: 12px;
+  }
+  
+  .product-info {
+    padding: 18px;
+  }
+  
+  .product-title {
+    font-size: 16px;
+  }
+  
+  .price-regular,
+  .price-sale {
+    font-size: 18px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 360px) {
+  .products-grid {
+    max-width: 280px;
+  }
+  
+  .product-info {
+    padding: 15px;
+  }
+  
+  .product-title {
+    font-size: 15px;
+  }
+  
+  .price-regular,
+  .price-sale {
+    font-size: 16px;
+  }
+  
+  .color-dot {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* =============================================================================
+  Touch Device Optimizations
+  ============================================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+  .product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .product-add-to-cart {
+    transform: translateY(0);
+  }
+  
+  .product-image-wrapper:hover .product-image-front {
     transform: none;
   }
   
-  .fc-image-wrapper:hover .fc-image-hover {
+  .product-image-wrapper:hover .product-image-hover {
     opacity: 0;
   }
   
-  .fc-actions {
-    display: none;
+  .product-card-inner:hover {
+    transform: none;
+    box-shadow: var(--fc-shadow-sm);
   }
   
-  .fc-card-inner:hover {
-    transform: none;
+  .action-btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .add-to-cart-btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  .color-dot {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* =============================================================================
+  Loading States & Animations
+  ============================================================================= */
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.product-card.loading .product-image {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* =============================================================================
+  Print Styles
+  ============================================================================= */
+
+@media print {
+  .featured-collection {
+    padding: 20px 0;
+    background: none;
+  }
+  
+  .product-card-inner {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+  
+  .product-actions,
+  .product-add-to-cart,
+  .view-all-btn {
+    display: none;
   }
 }
 </style>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  // ========== WISHLIST FUNCTIONALITY ==========
-  window.addToWishlist = function(handle, button) {
-    event.preventDefault();
-    event.stopPropagation();
+document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
+  
+  // ===========================================================================
+  // Wishlist Functionality
+  // ===========================================================================
+  class WishlistManager {
+    constructor() {
+      this.wishlistKey = 'wishlist_items';
+      this.wishlist = this.getWishlist();
+      this.init();
+    }
     
-    button.classList.toggle('active');
-    
-    // Get wishlist from localStorage
-    let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-    
-    if (button.classList.contains('active')) {
-      // Add to wishlist
-      if (!wishlist.includes(handle)) {
-        wishlist.push(handle);
-        showNotification('Added to wishlist ❤️');
+    getWishlist() {
+      try {
+        return JSON.parse(localStorage.getItem(this.wishlistKey)) || [];
+      } catch (e) {
+        console.error('Error reading wishlist:', e);
+        return [];
       }
-    } else {
-      // Remove from wishlist
-      wishlist = wishlist.filter(item => item !== handle);
-      showNotification('Removed from wishlist');
     }
     
-    localStorage.setItem('wishlist', JSON.stringify(wishlist));
-  };
-
-  // ========== QUICK VIEW FUNCTIONALITY ==========
-  window.quickView = function(handle, button) {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    // Add loading animation
-    button.style.transform = 'scale(0.9)';
-    setTimeout(() => {
-      button.style.transform = '';
-    }, 200);
-    
-    showNotification('Quick view: ' + handle);
-    // You can replace this with your actual quick view modal
-    console.log('Quick view for:', handle);
-  };
-
-  // ========== ADD TO CART FUNCTIONALITY ==========
-  window.addToCart = function(event, button) {
-    event.preventDefault();
-    
-    // Add loading state
-    button.classList.add('fc-btn-added');
-    const originalText = button.querySelector('.fc-btn-text').textContent;
-    button.querySelector('.fc-btn-text').textContent = 'ADDED!';
-    
-    // Show success notification
-    showNotification('Added to cart successfully! 🛒');
-    
-    // Reset after 2 seconds
-    setTimeout(() => {
-      button.classList.remove('fc-btn-added');
-      button.querySelector('.fc-btn-text').textContent = originalText;
-    }, 2000);
-  };
-
-  // ========== NOTIFICATION SYSTEM ==========
-  function showNotification(message) {
-    // Remove existing notification
-    const existingNotif = document.querySelector('.fc-notification');
-    if (existingNotif) {
-      existingNotif.remove();
+    saveWishlist() {
+      try {
+        localStorage.setItem(this.wishlistKey, JSON.stringify(this.wishlist));
+      } catch (e) {
+        console.error('Error saving wishlist:', e);
+      }
     }
     
-    // Create notification
-    const notification = document.createElement('div');
-    notification.className = 'fc-notification';
-    notification.textContent = message;
-    notification.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: var(--fc-text-dark);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 500;
-      z-index: 9999;
-      animation: slideIn 0.3s ease;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-    `;
+    addToWishlist(productHandle) {
+      if (!this.wishlist.includes(productHandle)) {
+        this.wishlist.push(productHandle);
+        this.saveWishlist();
+        this.showNotification('Added to wishlist ❤️', 'success');
+        return true;
+      }
+      return false;
+    }
     
-    document.body.appendChild(notification);
+    removeFromWishlist(productHandle) {
+      const index = this.wishlist.indexOf(productHandle);
+      if (index > -1) {
+        this.wishlist.splice(index, 1);
+        this.saveWishlist();
+        this.showNotification('Removed from wishlist', 'info');
+        return true;
+      }
+      return false;
+    }
     
-    // Remove after 2 seconds
-    setTimeout(() => {
-      notification.style.animation = 'slideOut 0.3s ease';
+    isInWishlist(productHandle) {
+      return this.wishlist.includes(productHandle);
+    }
+    
+    toggleWishlist(productHandle, button) {
+      if (this.isInWishlist(productHandle)) {
+        this.removeFromWishlist(productHandle);
+        button.classList.remove('active');
+      } else {
+        this.addToWishlist(productHandle);
+        button.classList.add('active');
+      }
+    }
+    
+    showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10B981' : '#1A1A1A'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      `;
+      
+      document.body.appendChild(notification);
+      
       setTimeout(() => {
-        notification.remove();
-      }, 300);
-    }, 2000);
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 2000);
+    }
+    
+    init() {
+      // Initialize wishlist buttons
+      document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        const productHandle = btn.dataset.productHandle;
+        if (this.isInWishlist(productHandle)) {
+          btn.classList.add('active');
+        }
+        
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.toggleWishlist(productHandle, btn);
+        });
+      });
+    }
   }
 
+  // ===========================================================================
+  // Quick View Functionality
+  // ===========================================================================
+  class QuickViewManager {
+    constructor() {
+      this.init();
+    }
+    
+    openQuickView(productHandle) {
+      // Add loading animation
+      const btn = event.currentTarget;
+      btn.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        btn.style.transform = '';
+      }, 200);
+      
+      // Show notification (replace with actual modal)
+      this.showNotification(`Quick view: ${productHandle}`);
+      console.log('Quick view for:', productHandle);
+      
+      // You can implement your modal here
+      // this.loadQuickViewContent(productHandle);
+    }
+    
+    showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification notification-info';
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1A1A1A;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 2000);
+    }
+    
+    init() {
+      document.querySelectorAll('.quick-view-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const productHandle = btn.dataset.productHandle;
+          this.openQuickView(productHandle);
+        });
+      });
+    }
+  }
+
+  // ===========================================================================
+  // Add to Cart Functionality
+  // ===========================================================================
+  class CartManager {
+    constructor() {
+      this.init();
+    }
+    
+    async addToCart(event, form) {
+      event.preventDefault();
+      
+      const button = form.querySelector('.add-to-cart-btn');
+      const originalText = button.querySelector('.btn-text').textContent;
+      
+      // Add loading state
+      button.classList.add('added');
+      button.querySelector('.btn-text').textContent = 'ADDED!';
+      
+      // Show success notification
+      this.showNotification('Added to cart successfully! 🛒');
+      
+      // Get form data
+      const formData = new FormData(form);
+      
+      try {
+        // Make AJAX request to add to cart
+        const response = await fetch('/cart/add.js', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (response.ok) {
+          // Update cart count if needed
+          this.updateCartCount();
+        } else {
+          throw new Error('Failed to add to cart');
+        }
+      } catch (error) {
+        console.error('Cart error:', error);
+        button.classList.remove('added');
+        button.querySelector('.btn-text').textContent = originalText;
+        this.showNotification('Error adding to cart', 'error');
+      }
+      
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        button.classList.remove('added');
+        button.querySelector('.btn-text').textContent = originalText;
+      }, 2000);
+    }
+    
+    updateCartCount() {
+      // Implement cart count update
+      fetch('/cart.js')
+        .then(response => response.json())
+        .then(cart => {
+          const cartCountElements = document.querySelectorAll('.cart-count');
+          cartCountElements.forEach(el => {
+            el.textContent = cart.item_count;
+          });
+        })
+        .catch(error => console.error('Error fetching cart:', error));
+    }
+    
+    showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.className = `notification notification-${type}`;
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? '#10B981' : '#EF4444'};
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 2000);
+    }
+    
+    init() {
+      document.querySelectorAll('.add-to-cart-form').forEach(form => {
+        form.addEventListener('submit', (e) => this.addToCart(e, form));
+      });
+    }
+  }
+
+  // ===========================================================================
+  // Color Options Functionality
+  // ===========================================================================
+  class ColorOptionsManager {
+    constructor() {
+      this.init();
+    }
+    
+    handleColorClick(dot) {
+      // Remove active state from siblings
+      const container = dot.parentElement;
+      container.querySelectorAll('.color-dot').forEach(d => {
+        d.style.borderColor = '';
+        d.style.transform = '';
+      });
+      
+      // Add active state to clicked dot
+      dot.style.borderColor = 'var(--fc-primary)';
+      dot.style.transform = 'scale(1.2)';
+      
+      // Show notification
+      this.showNotification(`Color selected: ${dot.title || 'color'}`);
+    }
+    
+    showNotification(message) {
+      const notification = document.createElement('div');
+      notification.className = 'notification notification-info';
+      notification.textContent = message;
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1A1A1A;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 9999;
+        animation: slideIn 0.3s ease;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          notification.remove();
+        }, 300);
+      }, 1500);
+    }
+    
+    init() {
+      document.querySelectorAll('.color-dot').forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          this.handleColorClick(dot);
+        });
+      });
+    }
+  }
+
+  // ===========================================================================
+  // Lazy Loading for Images
+  // ===========================================================================
+  class LazyLoader {
+    constructor() {
+      if ('IntersectionObserver' in window) {
+        this.initIntersectionObserver();
+      } else {
+        this.initFallback();
+      }
+    }
+    
+    initIntersectionObserver() {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.add('loaded');
+            observer.unobserve(img);
+          }
+        });
+      });
+      
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        imageObserver.observe(img);
+      });
+    }
+    
+    initFallback() {
+      // Simple fallback for older browsers
+      document.querySelectorAll('img[data-src]').forEach(img => {
+        img.src = img.dataset.src;
+      });
+    }
+  }
+
+  // ===========================================================================
+  // Initialize all modules
+  // ===========================================================================
+  
   // Add animation styles
   const style = document.createElement('style');
   style.textContent = `
@@ -1043,213 +1548,92 @@ document.addEventListener("DOMContentLoaded", function() {
         opacity: 0;
       }
     }
+    
+    .notification {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
   `;
   document.head.appendChild(style);
-
-  // ========== MOBILE SLIDER FUNCTIONALITY ==========
-  const slider = document.querySelector('.fc-mobile-slider');
-  const prevBtn = document.querySelector('.fc-mobile-prev');
-  const nextBtn = document.querySelector('.fc-mobile-next');
-  const dots = document.querySelectorAll('.fc-mobile-dot');
-  const slides = document.querySelectorAll('.fc-mobile-slide');
   
-  if (slider && slides.length) {
-    let currentIndex = 0;
-    let slideWidth = slides[0]?.offsetWidth + 20;
-    let maxIndex = slides.length - 1;
-    let isScrolling = false;
-    let autoplayInterval;
-
-    function updateSlideWidth() {
-      slideWidth = slides[0]?.offsetWidth + 20;
-    }
-
-    function updateDots(index) {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    }
-
-    function scrollToSlide(index, smooth = true) {
-      if (isScrolling || index < 0 || index > maxIndex) return;
-      
-      isScrolling = true;
-      currentIndex = index;
-      
-      slider.scrollTo({
-        left: currentIndex * slideWidth,
-        behavior: smooth ? 'smooth' : 'auto'
-      });
-      
-      updateDots(currentIndex);
-      
-      setTimeout(() => {
-        isScrolling = false;
-      }, 500);
-    }
-
-    // Next slide
-    if (nextBtn) {
-      nextBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentIndex < maxIndex) {
-          scrollToSlide(currentIndex + 1);
-        } else {
-          scrollToSlide(0); // Loop back
-        }
-      });
-    }
-
-    // Previous slide
-    if (prevBtn) {
-      prevBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (currentIndex > 0) {
-          scrollToSlide(currentIndex - 1);
-        } else {
-          scrollToSlide(maxIndex); // Loop to end
-        }
-      });
-    }
-
-    // Dot navigation
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => {
-        scrollToSlide(index);
-      });
-    });
-
-    // Update on scroll
-    slider.addEventListener('scroll', () => {
-      if (isScrolling) return;
-      
-      const scrollPosition = slider.scrollLeft;
-      const newIndex = Math.round(scrollPosition / slideWidth);
-      
-      if (newIndex !== currentIndex && newIndex >= 0 && newIndex <= maxIndex) {
-        currentIndex = newIndex;
-        updateDots(currentIndex);
-      }
-    });
-
-    // Touch events
-    let touchStartX = 0;
-    slider.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-
-    slider.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].screenX;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > 50) {
-        if (diff > 0 && currentIndex < maxIndex) {
-          scrollToSlide(currentIndex + 1);
-        } else if (diff < 0 && currentIndex > 0) {
-          scrollToSlide(currentIndex - 1);
-        }
-      }
-    }, { passive: true });
-
-    // Auto-play
-    function startAutoplay() {
-      autoplayInterval = setInterval(() => {
-        if (currentIndex < maxIndex) {
-          scrollToSlide(currentIndex + 1);
-        } else {
-          scrollToSlide(0);
-        }
-      }, 5000);
-    }
-
-    function stopAutoplay() {
-      clearInterval(autoplayInterval);
-    }
-
-    // Start autoplay
-    startAutoplay();
-
-    // Pause on hover/touch
-    slider.addEventListener('mouseenter', stopAutoplay);
-    slider.addEventListener('mouseleave', startAutoplay);
-    slider.addEventListener('touchstart', stopAutoplay);
-    slider.addEventListener('touchend', startAutoplay);
-
-    // Update on resize
-    window.addEventListener('resize', () => {
-      updateSlideWidth();
-      scrollToSlide(currentIndex, false);
-    });
-  }
-
-  // ========== COLOR DOT FUNCTIONALITY ==========
-  document.querySelectorAll('.fc-color-dot').forEach(dot => {
-    dot.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      
-      // Remove active class from siblings
-      this.parentElement.querySelectorAll('.fc-color-dot').forEach(d => {
-        d.style.borderColor = 'transparent';
-      });
-      
-      // Add active class to clicked dot
-      this.style.borderColor = 'var(--fc-primary)';
-      
-      // Show notification
-      showNotification(`Color selected: ${this.title || 'color'}`);
-    });
+  // Initialize managers
+  const wishlistManager = new WishlistManager();
+  const quickViewManager = new QuickViewManager();
+  const cartManager = new CartManager();
+  const colorOptionsManager = new ColorOptionsManager();
+  const lazyLoader = new LazyLoader();
+  
+  // Add loading class to cards for animation
+  document.querySelectorAll('.product-card').forEach(card => {
+    card.classList.add('loading');
+    setTimeout(() => {
+      card.classList.remove('loading');
+    }, 500);
   });
-
-  // ========== RESTORE WISHLIST STATE ==========
-  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
-  wishlist.forEach(handle => {
-    const wishlistBtn = document.querySelector(`.fc-wishlist[onclick*="${handle}"]`);
-    if (wishlistBtn) {
-      wishlistBtn.classList.add('active');
-    }
-  });
+  
+  console.log('Featured Collection initialized successfully');
 });
 </script>
 
+<!-- Add animation styles to head if not already present -->
 <style>
-/* Additional notification style */
-.fc-notification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: var(--fc-text-dark);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  z-index: 9999;
-  animation: slideIn 0.3s ease;
-  box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-}
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideOut {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
 </style>
 
 {% schema %}
 {
-  "name": "Featured Products",
+  "name": "Featured Collection",
   "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Premium Collection"
+    },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "Best Selling Tees"
+      "default": "Featured Products"
     },
     {
       "type": "textarea",
       "id": "description",
       "label": "Description",
-      "default": "Premium knit polos designed for everyday comfort and confident style."
+      "default": "Discover our hand-picked selection of premium products designed for style and comfort."
+    },
+    {
+      "type": "header",
+      "content": "Product Settings"
     },
     {
       "type": "product_list",
       "id": "products",
-      "label": "Select Products"
+      "label": "Select Products",
+      "info": "Choose up to 12 products to display"
     },
     {
       "type": "range",
@@ -1259,11 +1643,64 @@ document.addEventListener("DOMContentLoaded", function() {
       "max": 12,
       "step": 1,
       "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_color_options",
+      "label": "Show color options",
+      "default": true,
+      "info": "Requires 'Color' product option"
+    },
+    {
+      "type": "header",
+      "content": "View All Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show view all button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Button text",
+      "default": "View All Products"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Button link",
+      "default": "/collections/all"
     }
   ],
   "presets": [
     {
-      "name": "Featured Products"
+      "name": "Featured Collection",
+      "category": "Products",
+      "settings": {
+        "heading": "Featured Products",
+        "subheading": "Premium Collection",
+        "description": "Discover our hand-picked selection of premium products designed for style and comfort.",
+        "products_limit": 4,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_color_options": true,
+        "show_view_all": true,
+        "view_all_text": "View All Products"
+      }
     }
   ]
 }

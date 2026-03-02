@@ -122,6 +122,46 @@
         "products_limit": 4
       }
     },
+//     "service_features": {
+//   "type": "service-features",
+//   "blocks": {
+//     "feature_1": {
+//       "type": "feature",
+//       "settings": {
+//         "title": "Book An Appointment",
+//         "description": "At imperdiet dui accumsan sit amet nulla risus est ultricies quis."
+//       }
+//     },
+//     "feature_2": {
+//       "type": "feature",
+//       "settings": {
+//         "title": "Pick Up In Store",
+//         "description": "At imperdiet dui accumsan sit amet nulla risus est ultricies quis."
+//       }
+//     },
+//     "feature_3": {
+//       "type": "feature",
+//       "settings": {
+//         "title": "Special Packaging",
+//         "description": "At imperdiet dui accumsan sit amet nulla risus est ultricies quis."
+//       }
+//     },
+//     "feature_4": {
+//       "type": "feature",
+//       "settings": {
+//         "title": "Free Global Returns",
+//         "description": "At imperdiet dui accumsan sit amet nulla risus est ultricies quis."
+//       }
+//     }
+//   },
+//   "block_order": [
+//     "feature_1",
+//     "feature_2",
+//     "feature_3",
+//     "feature_4"
+//   ],
+//   "settings": {}
+// },
     "info_boxes": {
       "type": "info-boxes",
       "settings": {}
@@ -186,6 +226,7 @@
     "custom_text_zNUkR6",
     "shop_tees_1",
     "info_boxes",
+    // "service_features",
     "image-text-split",
     "image-text-split-s",
     "custom_newsletter",

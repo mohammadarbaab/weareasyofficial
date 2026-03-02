@@ -6,57 +6,132 @@
 </section>
 
 <style>
+/* -----------------------------------------------
+   MODERN HERO TEXT SECTION - FULLY RESPONSIVE
+   Background: #F7F3EE (warm, elegant off-white)
+   Updated with refined typography, subtle depth,
+   and cohesive spacing for ecommerce.
+----------------------------------------------- */
+
+.custom-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 380px; /* ensures hero presence, adapts to content */
+  padding: 80px 24px;
+  background-color: #F7F3EE; /* warm, soft background as requested */
+  margin-top: 0; /* removed top margin for full-width hero appearance */
+  position: relative;
+  /* subtle inner glow / border accent */
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), inset 0 -1px 0 rgba(0,0,0,0.02);
+}
+
+/* optional soft edge fade (can be removed if not needed) */
+.custom-text-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(160, 140, 120, 0.15), transparent);
+}
+
+.custom-text-content {
+  max-width: 900px; /* slightly wider for better readability */
+  width: 100%;
+  font-size: 1.75rem; /* base 28px – more prominent */
+  font-weight: 350; /* light-medium weight, elegant */
+  line-height: 1.5;
+  color: #2E2A27; /* deep warm gray, excellent contrast on #F7F3EE */
+  margin: 0 auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  letter-spacing: -0.01em; /* slight tightening for modern look */
+  text-wrap: pretty; /* improves line breaks */
+  transition: all 0.2s ease;
+  /* subtle text shadow for depth (very light) */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* highlight possible brand keywords (optional) */
+.custom-text-content strong {
+  font-weight: 500;
+  color: #1A1A1A;
+}
+
+/* ------------------- RESPONSIVE TWEAKS ------------------- */
+
+/* Large desktop (optional polish) */
+@media (min-width: 1400px) {
   .custom-text-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 50px 20px;
-    background-color: #f2f2f2;
-    margin-top: 30px;
+    min-height: 420px;
+    padding: 100px 32px;
   }
-
   .custom-text-content {
+    font-size: 2rem; /* 32px */
+    max-width: 1000px;
+  }
+}
+
+/* Tablet landscape / small desktop */
+@media (max-width: 1024px) {
+  .custom-text-container {
+    min-height: 340px;
+    padding: 70px 40px;
+  }
+  .custom-text-content {
+    font-size: 1.65rem; /* ~26px */
     max-width: 800px;
-    width: 100%;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #333;
   }
+}
 
-  /* Tablet */
-  @media (max-width: 1024px) {
-    .custom-text-container {
-      padding: 35px 20px;
-    }
-
-    .custom-text-content {
-      font-size: 15px;
-    }
+/* Tablet portrait */
+@media (max-width: 768px) {
+  .custom-text-container {
+    min-height: 300px;
+    padding: 60px 32px;
   }
-
-  /* Mobile */
-  @media (max-width: 768px) {
-    .custom-text-container {
-      padding: 35px 25px;
-    }
-
-    .custom-text-content {
-      font-size: 14px;
-      line-height: 1.5;
-    }
+  .custom-text-content {
+    font-size: 1.5rem; /* 24px */
+    line-height: 1.5;
+    max-width: 600px;
   }
+}
 
-  /* Small mobile */
-  @media (max-width: 480px) {
-    .custom-text-container {
-      padding: 35px 20px;
-    }
-
-    .custom-text-content {
-      font-size: 13.5px;
-    }
+/* Mobile large */
+@media (max-width: 480px) {
+  .custom-text-container {
+    min-height: 260px;
+    padding: 50px 24px;
+    /* slightly softer padding */
   }
+  .custom-text-content {
+    font-size: 1.35rem; /* ~21.5px – balanced for small screens */
+    line-height: 1.5;
+    max-width: 100%;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 360px) {
+  .custom-text-container {
+    padding: 40px 20px;
+  }
+  .custom-text-content {
+    font-size: 1.25rem; /* 20px */
+  }
+}
+
+/* optional: if heading is uncommented, style it gracefully
+   (but it's commented in your template) */
+.custom-text-container h2 {
+  font-size: 2rem;
+  font-weight: 350;
+  margin-bottom: 1rem;
+  color: #2E2A27;
+  letter-spacing: -0.02em;
+}
 </style>
 
 {% schema %}
