@@ -170,6 +170,18 @@
         "subtext": "Be the first to know about new collections and exclusive offers."
       }
     },
+    "video_section_HCLBhY": {
+      "type": "video-section",
+      "name": "Custom Video Hero",
+      "settings": {
+        "video_url": "",
+        "drop_tag": "Drop 2026",
+        "title": "Live. Now.",
+        "subtext": "Limited styles. Unlimited confidence.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop Now"
+      }
+    },
     "nivrox_reviews": {
       "type": "nivrox-reviews",
       "settings": {
@@ -195,21 +207,10 @@
         "twitter": "https://twitter.com",
         "linkedin": "https://linkdln.com"
       }
-    },
-    "video_section_HCLBhY": {
-      "type": "video-section",
-      "name": "Custom Video Hero",
-      "settings": {
-        "video_url": "",
-        "drop_tag": "Drop 2026",
-        "title": "Live. Now.",
-        "subtext": "Limited styles. Unlimited confidence.",
-        "button_link": "shopify://collections/all",
-        "button_text": "Shop Now"
-      }
     }
   },
   "order": [
+    "video_section_HCLBhY",
     "hero",
     "collection_grid_FQ6ryr",
     "custom_text_zNUkR6",
@@ -219,7 +220,6 @@
     "image-text-split-s",
     "custom_newsletter",
     "nivrox_reviews",
-    "custom_footer",
-    "video_section_HCLBhY"
+    "custom_footer"
   ]
 }
