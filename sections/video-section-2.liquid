@@ -10,14 +10,21 @@
   </video>
 
   <style>
+    /* Prevent horizontal scroll completely */
+    html, body {
+      overflow-x: hidden;
+    }
+
     .cvh-wrapper {
       position: relative;
       width: 100%;
+      max-width: 100%;
       height: 100vh;
       overflow: hidden;
     }
 
     .cvh-wrapper video {
+      display: block; /* removes inline gap */
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -38,62 +45,3 @@
     }
   </style>
 </div>
-
-{% schema %}
-{
-  "name": "Custom Video Hero",
-  "settings": [
-    {
-      "type": "video",
-      "id": "video",
-      "label": "Video File"
-    },
-    {
-      "type": "url",
-      "id": "video_url",
-      "label": "Video URL (MP4)"
-    },
-    {
-      "type": "image_picker",
-      "id": "poster_image",
-      "label": "Poster Image (Recommended)"
-    },
-    {
-      "type": "text",
-      "id": "drop_tag",
-      "label": "Drop Tag",
-      "default": "Drop 2026"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title",
-      "default": "Live. Now."
-    },
-    {
-      "type": "text",
-      "id": "subtext",
-      "label": "Subtext",
-      "default": "Limited styles. Unlimited confidence."
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link",
-      "default": "/collections/all"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Shop Now"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Custom Video Hero",
-      "category": "Hero"
-    }
-  ]
-}
-{% endschema %}
