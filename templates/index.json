@@ -9,6 +9,18 @@
  */
 {
   "sections": {
+    "video_section_HCLBhY": {
+      "type": "video-section",
+      "name": "Custom Video Hero",
+      "settings": {
+        "video_url": "",
+        "drop_tag": "Drop 2026",
+        "title": "Live. Now.",
+        "subtext": "Limited styles. Unlimited confidence.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop Now"
+      }
+    },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -146,7 +158,7 @@
     "image-text-split": {
       "type": "image-text-split",
       "settings": {
-        "image": "shopify://shop_images/model-1.webp",
+        "image": "shopify://shop_images/model-8.png",
         "heading": "DISCOVER DENIM",
         "text": "Elevate your wardrobe with contemporary denim designed for a sharp silhouette, superior comfort, and a clean premium look.",
         "button_label": "SHOP NOW",
@@ -156,7 +168,7 @@
     "image-text-split-s": {
       "type": "image-text-split-s",
       "settings": {
-        "image": "shopify://shop_images/model-1.webp",
+        "image": "shopify://shop_images/model-9.png",
         "heading": "DISCOVER DENIM",
         "text": "Explore our premium Korean-inspired denim collection, crafted with modern fits and refined details for effortless everyday style and lasting comfort.",
         "button_label": "SHOP NOW",
