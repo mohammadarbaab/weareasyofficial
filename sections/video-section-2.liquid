@@ -1,0 +1,81 @@
+<div class="custom-video-only">
+  {% if section.settings.video != blank %}
+    {{
+      section.settings.video
+      | video_tag:
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        playsinline: true,
+        class: 'video-element'
+    }}
+  {% elsif section.settings.video_url != blank %}
+    <video 
+      class="video-element"
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      {% if section.settings.poster_image %}
+        poster="{{ section.settings.poster_image | image_url }}"
+      {% endif %}
+    >
+      <source src="{{ section.settings.video_url }}" type="video/mp4">
+    </video>
+  {% endif %}
+</div>
+
+<style>
+.custom-video-only {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+
+.custom-video-only .video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .custom-video-only {
+    height: 70vh;
+    min-height: 400px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Simple Video Section",
+  "settings": [
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Upload Shopify Hosted Video"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "External MP4 Video URL"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image (Optional)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Simple Video Section",
+      "category": "Media"
+    }
+  ]
+}
+{% endschema %}

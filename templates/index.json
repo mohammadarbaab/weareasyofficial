@@ -182,6 +182,18 @@
         "button_text": "Shop Now"
       }
     },
+     "video_section_HCLBhY_2": {
+      "type": "video-section",
+      "name": "Custom Video Hero 2",
+      "settings": {
+        "video_url": "",
+        "drop_tag": "Drop 2026",
+        "title": "Live. Now.",
+        "subtext": "Limited styles. Unlimited confidence.",
+        "button_link": "shopify://collections/all",
+        "button_text": "Shop Now"
+      }
+    },
     "nivrox_reviews": {
       "type": "nivrox-reviews",
       "settings": {
@@ -218,6 +230,7 @@
     "info_boxes",
     "image-text-split",
     "image-text-split-s",
+      "video_section_HCLBhY_2",
     "custom_newsletter",
     "nivrox_reviews",
     "custom_footer"
