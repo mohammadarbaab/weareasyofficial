@@ -64,6 +64,12 @@
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe voluptas ut dolorum consequuntur, adipisci repellat! Eveniet commodi voluptatem voluptate, eum minima, in suscipit explicabo voluptatibus harum, quibusdam ex repellat eaque!"
       }
     },
+    "custom_video": {
+  "type": "video-section",
+  "settings": {
+    "video_url": "YAHAN_APNI_VIDEO_LINK_DALO"
+  }
+},
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
       "blocks": {
@@ -221,6 +227,7 @@
     }
   },
   "order": [
+    "custom_video",
     "hero",
     "collection_grid_FQ6ryr",
     "custom_text_zNUkR6",
