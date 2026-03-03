@@ -1,0 +1,36 @@
+<div class="video-container">
+  <video autoplay muted loop playsinline>
+    <source src="{{ section.settings.video_url }}" type="video/mp4">
+  </video>
+</div>
+
+<style>
+.video-container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Custom Video Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Video URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Section"
+    }
+  ]
+}
+{% endschema %}
