@@ -1,20 +1,41 @@
-<div class="video-container">
-  <video autoplay muted loop playsinline poster="{{ section.settings.poster_image | asset_url }}">
-  {% if section.settings.video_url != blank %}
-    <source src="{{ section.settings.video_url }}" type="video/mp4">
-  {% elsif section.settings.video != blank %}
-    <source src="{{ section.settings.video | asset_url }}" type="video/mp4">
-  {% else %}
-    <source src="{{ 'vidTrim.mp4' | asset_url }}" type="video/mp4">
-  {% endif %}
-</video>
+<div class="video-container-1">
+  <video autoplay muted loop playsinline>
+    <source src="{{ 'customvideo.mp4' | asset_url }}" type="video/mp4">
+  </video>
 
+ <div class="overlay-content">
+    <div class="content-inner">
+      <span class="drop-tag">
+        {{ section.settings.drop_tag | default: 'Drop 2026' }}
+      </span>
+
+      <h1 class="hero-title">
+        {{ section.settings.title | default: 'Live. Now.' }}
+      </h1>
+
+      <p class="hero-subtext">
+        {{ section.settings.subtext | default: 'Limited styles. Unlimited confidence.' }}
+      </p>
+
+      <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="shop-now-btn">
+        <span>{{ section.settings.button_text | default: 'Shop Now' }}</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M5 12H19M19 12L13 6M19 12L13 18" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 
 <style>
-.video-container {
+.video-container-1 {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   overflow: hidden;
 }
 
