@@ -22,6 +22,15 @@
         "button_text": "Shop Now"
       }
     },
+    "video_section_HCLBhY_2": {
+      "type": "video-section-2",
+      "name": "Custom Video Hero-2",
+      "settings": {
+        "video_url": "",
+       
+        "button_link": "shopify://collections/all",
+      }
+    },
     "hero": {
       "type": "hero",
       "blocks": {
@@ -162,7 +171,7 @@
       "settings": {
         "image": "shopify://shop_images/girls_image.jpg",
         "heading": "CLASSIC WINTER COLLECTION",
-        "text": "Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. Ac sed eu fringilla odio mi.",
+        "text": "Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. Ac sed eu fringilla odio mi. Donec sed odio, sed enim, sed adipiscing. Nunc sed sed amet, sed enim, sed adipiscing. Donec sed odio, sed enim, sed adipiscing. Nunc sed sed amet, sed enim, sed adipiscing.",
         "button_label": "SHOP COLLECTION",
         "button_link": ""
       }
@@ -232,6 +241,7 @@
     "image-text-split",
     "image-text-split-s",
     "custom_newsletter",
+    "video_section_HCLBhY_2",
     "nivrox_reviews",
     "custom_footer"
   ]

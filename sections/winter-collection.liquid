@@ -11,7 +11,8 @@
 
     <div class="winter-content">
 
-      <h2 class="winter-title">
+     <div class="winter-content-inner">
+         <h2 class="winter-title">
         {{ section.settings.heading }}
       </h2>
 
@@ -22,6 +23,7 @@
       <a href="{{ section.settings.button_link }}" class="winter-btn">
         {{ section.settings.button_label }}
       </a>
+     </div>
 
     </div>
 
@@ -32,96 +34,171 @@
 <style>
 
 .winter-collection{
-padding:80px 20px;
-background:#f3f3f3;
+  padding:80px 20px;
+  background:#F7F3EE;
 }
+
+/* ===== CONTAINER ===== */
 
 .winter-container{
-max-width:1200px;
-margin:auto;
-display:grid;
-grid-template-columns:1fr 1fr;
-align-items:center;
-gap:40px;
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:100vh; /* Desktop full height */
 }
 
-/* IMAGE */
+/* ===== IMAGE ===== */
+
+.winter-image{
+  height:100%;
+}
 
 .winter-image img{
-width:100%;
-height:auto;
-display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
-/* CONTENT */
+/* ===== CONTENT ===== */
 
 .winter-content{
-background:#fff;
-padding:70px;
+  background:#fff;
+  height:100vh; /* Desktop full height */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.winter-content-inner{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:80px 60px;
+  max-width:500px;
+  width:100%;
 }
 
 .winter-title{
-font-size:42px;
-font-weight:500;
-letter-spacing:2px;
-margin-bottom:25px;
-line-height:1.2;
+  font-size:36px;
+  font-weight:500;
+  letter-spacing:2px;
+  margin-bottom:25px;
+  line-height:1.2;
 }
 
 .winter-text{
-font-size:16px;
-color:#6b6b6b;
-line-height:1.8;
-margin-bottom:30px;
-max-width:420px;
+  font-size:20px;
+  color:#6b6b6b;
+  line-height:1.8;
+  margin-bottom:30px;
 }
 
 .winter-btn{
-display:inline-block;
-background:#111;
-color:#fff;
-padding:14px 28px;
-text-decoration:none;
-font-size:14px;
-letter-spacing:1px;
+  display:inline-block;
+  background:#111;
+  color:#fff;
+  padding:14px 28px;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:1px;
+  width:fit-content;
+  transition:0.3s ease;
 }
 
 .winter-btn:hover{
-background:#333;
+  background:#333;
 }
 
-/* TABLET */
+
+/* ========================= */
+/* ====== TABLET ====== */
+/* ========================= */
 
 @media(max-width:1024px){
 
-.winter-content{
-padding:50px;
+  .winter-container{
+    min-height:100vh;
+  }
+
+  .winter-content{
+    height:100vh;
+  }
+
+  .winter-content-inner{
+    padding:60px 40px;
+  }
+
+  .winter-title{
+    font-size:34px;
+  }
+
+  .winter-text{
+    font-size:18px;
+  }
+
 }
 
-.winter-title{
-font-size:34px;
-}
 
-}
-
-/* MOBILE */
+/* ========================= */
+/* ====== MOBILE ====== */
+/* ========================= */
 
 @media(max-width:768px){
 
-.winter-container{
-grid-template-columns:1fr;
+  .winter-collection{
+    padding:50px 15px;
+  }
+
+  .winter-container{
+    grid-template-columns:1fr;
+    min-height:auto; /* remove 100vh */
+  }
+
+  .winter-image{
+    height:auto;
+  }
+
+  .winter-image img{
+    height:auto;
+  }
+
+  .winter-content{
+    height:auto; /* remove 100vh */
+    padding:60px 25px;
+  }
+
+  .winter-content-inner{
+    padding:0;
+  }
+
+  .winter-title{
+    font-size:28px;
+  }
+
+  .winter-text{
+    font-size:16px;
+  }
+
 }
 
-.winter-content{
-padding:40px;
-}
 
-.winter-title{
-font-size:28px;
-}
+/* ========================= */
+/* ====== SMALL MOBILE ====== */
+/* ========================= */
+
+@media(max-width:480px){
+
+  .winter-title{
+    font-size:24px;
+  }
+
+  .winter-text{
+    font-size:15px;
+  }
 
 }
-
 </style>
 
 
