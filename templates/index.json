@@ -141,9 +141,17 @@
           "textured-knit-polo-tee",
           "olive-green-knit-polo-tee",
           "blue-knit-polo",
-          "white-shade-line-tshirt"
+          "white-shade-line-tshirt",
+          "korean-paint",
+          "trwoser-brown-xolo",
+          "trwoser-izma-cream",
+          "trowser-xolo-cream",
+          "trwoser-boy-cream",
+          "trowser-xolo-cream-1",
+          "pisma-trwoser-cream",
+          "trwoser-single-trap"
         ],
-        "products_limit": 4,
+        "products_limit": 12,
         "show_vendor": true,
         "show_rating": true,
         "show_color_options": true,
@@ -233,16 +241,15 @@
     "video_section_HCLBhY",
     "hero",
     "collection_grid_FQ6ryr",
+    "custom_text_zNUkR6",
     "shop_tees_1",
     "info_boxes",
     "winter_collection_jLW3LF",
     "image-text-split",
     "image-text-split-s",
-    "custom_text_zNUkR6",
+    "custom_newsletter",
     "video_section_HCLBhY_2",
     "nivrox_reviews",
-    "custom_newsletter",
-    
     "custom_footer"
   ]
 }
