@@ -1,24 +1,47 @@
 <div class="video-container">
-  <video autoplay muted loop playsinline>
-    <source src="{{ 'customvideo.mp4' | asset_url }}" type="video/mp4">
-  </video>
 
- <div class="overlay-content">
+  {% if section.settings.video != blank %}
+    {{
+      section.settings.video
+      | video_tag:
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        playsinline: true,
+        poster: section.settings.poster_image
+    }}
+  {% elsif section.settings.video_url != blank %}
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      {% if section.settings.poster_image %}
+        poster="{{ section.settings.poster_image | image_url: width: 2000 }}"
+      {% endif %}
+    >
+      <source src="{{ section.settings.video_url }}" type="video/mp4">
+    </video>
+  {% endif %}
+
+  <div class="overlay-content">
     <div class="content-inner">
+
       <span class="drop-tag">
-        {{ section.settings.drop_tag | default: 'Drop 2026' }}
+        {{ section.settings.drop_tag }}
       </span>
 
       <h1 class="hero-title">
-        {{ section.settings.title | default: 'Live. Now.' }}
+        {{ section.settings.title }}
       </h1>
 
       <p class="hero-subtext">
-        {{ section.settings.subtext | default: 'Limited styles. Unlimited confidence.' }}
+        {{ section.settings.subtext }}
       </p>
 
-      <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="shop-now-btn">
-        <span>{{ section.settings.button_text | default: 'Shop Now' }}</span>
+      <a href="{{ section.settings.button_link }}" class="shop-now-btn">
+        <span>{{ section.settings.button_text }}</span>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M5 12H19M19 12L13 6M19 12L13 18" 
                 stroke="currentColor" 
@@ -27,8 +50,10 @@
                 stroke-linejoin="round"/>
         </svg>
       </a>
+
     </div>
   </div>
+
 </div>
 
 <style>
@@ -45,33 +70,6 @@
   object-fit: cover;
 }
 
-/* Dark overlay */
-.video-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.video-content h1 {
-  color: #FFFFFF;
-  font-size: 48px;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.video-content p {
-  color: #F5F5F5;
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
 .overlay-content {
   position: absolute;
   inset: 0;
@@ -80,8 +78,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(0.5px);
+  background: rgba(0, 0, 0, 0.35);
 }
 
 .content-inner {
@@ -109,7 +106,7 @@
   color: rgba(255,255,255,0.85);
   padding: 8px 18px;
   border-radius: 40px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
   margin-bottom: 20px;
 }
 
@@ -162,7 +159,7 @@
 }
 
 @media (max-width: 768px) {
-  .custom-video-hero {
+  .video-container {
     height: 70vh;
     min-height: 500px;
   }
@@ -182,7 +179,7 @@
 }
 
 @media (max-width: 480px) {
-  .custom-video-hero {
+  .video-container {
     height: 60vh;
     min-height: 450px;
   }
@@ -214,7 +211,7 @@
     {
       "type": "image_picker",
       "id": "poster_image",
-      "label": "Poster Image (Recommended)"
+      "label": "Poster Image"
     },
     {
       "type": "text",
