@@ -1,27 +1,28 @@
 <div class="cvh-wrapper">
-  <video
-    autoplay
-    muted
-    loop
-    playsinline
-    poster="{{ section.settings.poster_image | asset_url }}"
-  >
-    {% if section.settings.video_url != blank %}
+   {% if section.settings.video != blank %}
+    {{
+      section.settings.video
+      | video_tag:
+        autoplay: true,
+        loop: true,
+        muted: true,
+        controls: false,
+        playsinline: true,
+        poster: section.settings.poster_image
+    }}
+  {% elsif section.settings.video_url != blank %}
+    <video 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      {% if section.settings.poster_image %}
+        poster="{{ section.settings.poster_image | image_url: width: 2000 }}"
+      {% endif %}
+    >
       <source src="{{ section.settings.video_url }}" type="video/mp4">
-    {% elsif section.settings.video != blank %}
-      <source src="{{ section.settings.video | asset_url }}" type="video/mp4">
-    {% else %}
-      <source src="{{ 'vidTrim.mp4' | asset_url }}" type="video/mp4">
-    {% endif %}
-  </video>
-
-  <div class="cvh-overlay">
-    <h1>{{ section.settings.title }}</h1>
-    <p>{{ section.settings.subtext }}</p>
-    {% if section.settings.button_link != blank %}
-      <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_text }}</a>
-    {% endif %}
-  </div>
+    </video>
+  {% endif %}
 
   <style>
     html,
@@ -76,40 +77,16 @@
   "name": "Custom Video Hero-2",
   "settings": [
     {
-      "type": "video_url",
-      "id": "video_url",
-      "label": "Video URL"
-    },
-    {
-      "type": "file",
+      "type": "video",
       "id": "video",
-      "label": "Upload Video"
-    },
-    {
-      "type": "image_picker",
-      "id": "poster_image",
-      "label": "Poster Image"
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Title"
-    },
-    {
-      "type": "text",
-      "id": "subtext",
-      "label": "Subtext"
+      "label": "Video File"
     },
     {
       "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
+      "id": "video_url",
+      "label": "Video URL (MP4)"
     },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text"
-    }
+  
   ],
   "presets": [
     {
