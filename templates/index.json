@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "video_section_HCLBhY": {
@@ -11,14 +20,6 @@
         "subtext": "Limited styles. Unlimited confidence.",
         "button_link": "shopify://collections/all",
         "button_text": "Shop Now"
-      }
-    },
-    "video_section_HCLBhY_2": {
-      "type": "video-section-2",
-      "name": "Custom Video Hero-2",
-      "settings": {
-        "video_url": "",
-        "button_link": "shopify://collections/all"
       }
     },
     "hero": {
@@ -191,6 +192,14 @@
       "settings": {
         "heading": "SUBSCRIBE TO OUR EMAILS",
         "subtext": "Be the first to know about new collections and exclusive offers."
+      }
+    },
+    "video_section_HCLBhY_2": {
+      "type": "video-section-2",
+      "name": "Custom Video Hero-2",
+      "settings": {
+        "video": "shopify://files/videos/vid - Trim.mp4",
+        "video_url": ""
       }
     },
     "nivrox_reviews": {
