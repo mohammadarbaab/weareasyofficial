@@ -13,6 +13,7 @@
       "type": "video-section",
       "name": "Custom Video Hero",
       "settings": {
+        "video": "shopify://files/videos/customvideo.mp4",
         "video_url": "",
         "drop_tag": "Drop 2026",
         "title": "Live. Now.",
@@ -155,6 +156,17 @@
       "type": "info-boxes",
       "settings": {}
     },
+    "winter_collection_jLW3LF": {
+      "type": "winter-collection",
+      "name": "Winter Collection",
+      "settings": {
+        "image": "shopify://shop_images/girls_image.jpg",
+        "heading": "CLASSIC WINTER COLLECTION",
+        "text": "Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. Ac sed eu fringilla odio mi.",
+        "button_label": "SHOP COLLECTION",
+        "button_link": ""
+      }
+    },
     "image-text-split": {
       "type": "image-text-split",
       "settings": {
@@ -182,39 +194,6 @@
         "subtext": "Be the first to know about new collections and exclusive offers."
       }
     },
-    "video_section_HCLBhY": {
-      "type": "video-section",
-      "name": "Custom Video Hero",
-      "settings": {
-        "video_url": "",
-        "drop_tag": "Drop 2026",
-        "title": "Live. Now.",
-        "subtext": "Limited styles. Unlimited confidence.",
-        "button_link": "shopify://collections/all",
-        "button_text": "Shop Now"
-      }
-    },
-    //  "video_section_2": {
-    //   "type": "video-section-2",
-    //   "name": "Custom Video Hero 2",
-    //   "settings": {
-    //     "video_url": "",
-    //     "drop_tag": "Drop 2026",
-    //     "title": "Live. Now.",
-    //     "subtext": "Limited styles. Unlimited confidence.",
-    //     "button_link": "shopify://collections/all",
-    //     "button_text": "Shop Now"
-    //   }
-    // },
-    "winter_collection": {
-  "type": "winter-collection",
-  "settings": {
-    "heading": "CLASSIC WINTER COLLECTION",
-    "text": "Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a.",
-    "button_label": "SHOP COLLECTION",
-    "button_link": "shopify://collections/all"
-  }
-},
     "nivrox_reviews": {
       "type": "nivrox-reviews",
       "settings": {
@@ -249,10 +228,9 @@
     "custom_text_zNUkR6",
     "shop_tees_1",
     "info_boxes",
-    "winter_collection",
+    "winter_collection_jLW3LF",
     "image-text-split",
     "image-text-split-s",
-    // "video_section_2",
     "custom_newsletter",
     "nivrox_reviews",
     "custom_footer"
