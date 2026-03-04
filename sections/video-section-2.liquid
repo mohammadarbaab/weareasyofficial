@@ -1,5 +1,11 @@
 <div class="cvh-wrapper">
-  <video autoplay muted loop playsinline poster="{{ section.settings.poster_image | asset_url }}">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="{{ section.settings.poster_image | asset_url }}"
+  >
     {% if section.settings.video_url != blank %}
       <source src="{{ section.settings.video_url }}" type="video/mp4">
     {% elsif section.settings.video != blank %}
@@ -9,34 +15,53 @@
     {% endif %}
   </video>
 
+  <div class="cvh-overlay">
+    <h1>{{ section.settings.title }}</h1>
+    <p>{{ section.settings.subtext }}</p>
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="btn">{{ section.settings.button_text }}</a>
+    {% endif %}
+  </div>
+
   <style>
-    /* Prevent horizontal scroll completely */
-    html, body {
+    html,
+    body {
       overflow-x: hidden;
     }
-
     .cvh-wrapper {
       position: relative;
       width: 100%;
-      max-width: 100%;
       height: 100vh;
       overflow: hidden;
     }
-
     .cvh-wrapper video {
-      display: block; /* removes inline gap */
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
-
+    .cvh-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      text-align: center;
+    }
+    .cvh-overlay .btn {
+      padding: 10px 20px;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      margin-top: 10px;
+      display: inline-block;
+    }
     @media (max-width: 768px) {
       .cvh-wrapper {
         height: 70vh;
         min-height: 500px;
       }
     }
-
     @media (max-width: 480px) {
       .cvh-wrapper {
         height: 60vh;
@@ -45,3 +70,52 @@
     }
   </style>
 </div>
+
+{% schema %}
+{
+  "name": "Custom Video Hero-2",
+  "settings": [
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video URL"
+    },
+    {
+      "type": "file",
+      "id": "video",
+      "label": "Upload Video"
+    },
+    {
+      "type": "image_picker",
+      "id": "poster_image",
+      "label": "Poster Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Video Hero-2",
+      "category": "Video"
+    }
+  ]
+}
+{% endschema %}
