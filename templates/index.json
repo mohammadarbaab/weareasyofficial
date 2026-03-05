@@ -128,7 +128,7 @@
       "name": "Custom Text",
       "settings": {
         "heading": "ABOUT NIVROX",
-        "text": "Welcome to Nivrox – where modern style meets everyday comfort. Discover premium trousers and t-shirts designed for a perfect fit, clean look, and confident feel."
+        "text": "Nivrox is a modern fashion brand focused on clean silhouettes, premium fabrics, and everyday comfort. Our collections are designed to deliver effortless style with a confident and contemporary look."
       }
     },
     "shop_tees_1": {
@@ -170,7 +170,7 @@
       "settings": {
         "image": "shopify://shop_images/girls_image.jpg",
         "heading": "CLASSIC WINTER COLLECTION",
-        "text": "Dignissim lacus, turpis ut suspendisse vel tellus. Turpis purus, gravida orci, fringilla a. Ac sed eu fringilla odio mi. Donec sed odio, sed enim, sed adipiscing. Nunc sed sed amet, sed enim, sed adipiscing. Donec sed odio, sed enim, sed adipiscing. Nunc sed sed amet, sed enim, sed adipiscing.",
+        "text": "Discover the winter collection from Nivrox featuring premium fabrics, modern tailoring, and timeless designs. Built for comfort, warmth, and effortless style throughout the season.",
         "button_label": "SHOP COLLECTION",
         "button_link": ""
       }
