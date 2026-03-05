@@ -76,6 +76,8 @@
   padding: 30px 20px 30px;
   position: relative;
   overflow: hidden;
+   transform-origin: center;
+  transition: transform 1.4s ease, opacity 1.4s ease;
 }
 
 /* subtle texture overlay */
@@ -89,7 +91,8 @@
   z-index: 0;
 }
 
-#{{ section_id }} .new-collections__inner {
+/* Initial state: invisible and scaled down */
+.new-collections__inner {
   max-width: 1440px;
   margin: 0 auto;
   display: flex;
@@ -97,8 +100,18 @@
   justify-content: center;
   position: relative;
   z-index: 2;
-  /* background-color: orange; */
   gap: 10px;
+
+  /* Animation defaults: start half size and invisible */
+  transform: scale(0.5);
+  opacity: 0;
+  transition: transform 1.5s ease-out, opacity 1.5s ease-out; /* slow & smooth */
+}
+
+/* Bloom / pop-in class */
+.new-collections__inner.bloom {
+  transform: scale(1);
+  opacity: 1;
 }
 
 #{{ section_id }} .new-collections__content {
@@ -548,6 +561,25 @@
   setupSlider();
   startAutoSlide();
 })();
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector(".new-collections__inner");
+
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("bloom"); // animation trigger
+          observer.unobserve(entry.target); // once animation runs, stop observing
+        }
+      });
+    },
+    { threshold: 0.3 } // jab 30% div visible ho tab trigger
+  );
+
+  if (section) {
+    observer.observe(section);
+  }
+});
 </script>
 
 {% schema %}

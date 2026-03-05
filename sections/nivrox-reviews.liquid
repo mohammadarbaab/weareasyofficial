@@ -46,40 +46,40 @@
 
             <!-- Review text with elegant typography -->
             <div class="nr-text-wrapper">
-              <p class="nr-text">
-                {% if forloop.index == 1 %}
-                  Absolutely outstanding quality! The fabric is so premium and comfortable. Best purchase ever!
-                {% elsif forloop.index == 2 %}
-                  Perfect fit and amazing design. Received so many compliments. Will definitely buy again.
-                {% elsif forloop.index == 3 %}
-                  Excellent customer service and fast shipping. The product exceeded my expectations.
-                {% elsif forloop.index == 4 %}
-                  Worth every penny! The attention to detail is remarkable. My new favorite brand.
-                {% else %}
-                  Five stars all the way! Superior quality and elegant style. Highly recommended!
-                {% endif %}
-                <span class="nr-product-name">{{ product.title }}</span> 
-                from Nivrox.
-              </p>
+            <p class="nr-text">
+{% if forloop.index == 1 %}
+  I ordered these trousers from Nivrox and the fitting is perfect. The fabric quality feels premium and very comfortable for daily wear.
+{% elsif forloop.index == 2 %}
+  Maine Nivrox se trousers order kiya tha aur honestly quality bahut achhi hai. Fit bhi bilkul perfect hai.
+{% elsif forloop.index == 3 %}
+  Very comfortable trousers. The stitching and fabric quality are excellent. Definitely worth the price.
+{% elsif forloop.index == 4 %}
+  First time Nivrox se order kiya tha aur product kaafi premium nikla. Fabric soft hai aur look bhi stylish hai.
+{% else %}
+  Amazing quality trousers. Perfect fitting and great style. I will definitely order again.
+{% endif %}
+<span class="nr-product-name">{{ product.title }}</span> 
+from Nivrox.
+</p>
             </div>
 
             <!-- Author info with decorative element -->
-            <div class="nr-author-wrapper">
-              <span class="nr-author-dash">—</span>
-              <span class="nr-author">
-                {% if forloop.index == 1 %}
-                  Sarah M.
-                {% elsif forloop.index == 2 %}
-                  James K.
-                {% elsif forloop.index == 3 %}
-                  Priya S.
-                {% elsif forloop.index == 4 %}
-                  Michael R.
-                {% else %}
-                  Emma T.
-                {% endif %}
-              </span>
-            </div>
+         <div class="nr-author-wrapper">
+  <span class="nr-author-dash">—</span>
+  <span class="nr-author">
+    {% if forloop.index == 1 %}
+      Rahul Sharma
+    {% elsif forloop.index == 2 %}
+      Ayesha Khan
+    {% elsif forloop.index == 3 %}
+      Vikram Patel
+    {% elsif forloop.index == 4 %}
+      Neha Gupta
+    {% else %}
+      Imran Shaikh
+    {% endif %}
+  </span>
+</div>
 
             <!-- Verified badge -->
             <div class="nr-verified-badge">
@@ -128,7 +128,7 @@
   margin-top: 80px;
   margin-bottom: 80px;
   padding: 50px 40px;
-  background: #f3f3f3;
+  background: #F7F3EE;
   overflow: hidden;
   position: relative;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
