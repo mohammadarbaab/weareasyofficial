@@ -1,0 +1,157 @@
+{% comment %}
+Custom Product Page
+{% endcomment %}
+
+<div class="custom-product-page">
+
+  <!-- PRODUCT GALLERY -->
+  <div class="product-gallery">
+    {% for media in product.media %}
+      <div class="product-media{% unless forloop.first %} hidden{% endunless %}" data-media-id="{{ media.id }}">
+        {% if media.media_type == 'image' %}
+          <img src="{{ media.preview_image | img_url: '800x' }}" alt="{{ product.title }}">
+        {% elsif media.media_type == 'video' %}
+          <video controls>
+            <source src="{{ media.video.preview_image | file_url }}" type="video/mp4">
+          </video>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-info">
+
+    <!-- Title -->
+    <h1 class="product-title">{{ product.title }}</h1>
+
+    <!-- Price -->
+    <div class="product-price" id="product-price">
+      {% if product.compare_at_price_max > product.price %}
+        <span class="sale-price">{{ product.price | money }}</span>
+        <span class="original-price">{{ product.compare_at_price_max | money }}</span>
+      {% else %}
+        <span class="regular-price">{{ product.price | money }}</span>
+      {% endif %}
+    </div>
+
+    <!-- Variant Selectors -->
+    {% if product.variants.size > 1 %}
+      <div class="variant-selectors">
+        {% for option in product.options_with_values %}
+          <label>{{ option.name }}</label>
+          <select class="variant-select" data-option-index="{{ forloop.index0 }}">
+            {% for value in option.values %}
+              <option value="{{ value | escape }}">
+                {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <!-- Description -->
+    <div class="product-description">{{ product.description }}</div>
+
+    <!-- Form -->
+    {% form 'product', product, id: 'product-form' %}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="variant-id">
+
+      <div class="product-buttons">
+        <button type="submit" class="add-cart-btn">Add to Cart</button>
+        {{ form | payment_button }}
+      </div>
+    {% endform %}
+
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+.custom-product-page {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+  display: flex;
+  gap: 40px;
+}
+.product-gallery { flex: 1; }
+.product-media { margin-bottom: 10px; }
+.product-media img, .product-media video { width: 100%; border-radius: 8px; }
+.product-media.hidden { display: none; }
+
+.product-info { flex: 1; }
+.product-title { font-size: 30px; font-weight: 700; margin-bottom: 10px; }
+.product-price { font-size: 22px; color: #e63946; margin-bottom: 20px; }
+.sale-price { font-weight: bold; }
+.original-price { text-decoration: line-through; margin-left: 8px; color: #888; }
+
+.product-description { margin: 20px 0; line-height: 1.6; }
+
+.variant-select { width: 100%; padding: 10px; margin: 10px 0; }
+
+.product-buttons { display: flex; gap: 10px; margin-top: 20px; }
+.add-cart-btn { background: black; color: white; border: none; padding: 12px 25px; cursor: pointer; }
+
+@media (max-width:768px) {
+  .custom-product-page { flex-direction: column; }
+}
+</style>
+
+<!-- Scripts -->
+<script>
+const variantSelectors = document.querySelectorAll('.variant-select');
+const variantInput = document.getElementById('variant-id');
+const productPriceEl = document.getElementById('product-price');
+const mediaBlocks = document.querySelectorAll('.product-media');
+
+function findVariantByOptions(selectedOptions) {
+  return product.variants.find(variant => {
+    return variant.options.every((opt, i) => opt == selectedOptions[i]);
+  });
+}
+
+// Initialize selected options
+let selectedOptions = Array.from(variantSelectors).map(sel => sel.value);
+
+// Update variant & price on option change
+variantSelectors.forEach((sel, index) => {
+  sel.addEventListener('change', () => {
+    selectedOptions[index] = sel.value;
+    const selectedVariant = findVariantByOptions(selectedOptions);
+    if (selectedVariant) {
+      variantInput.value = selectedVariant.id;
+      // Update price
+      let priceHTML = '';
+      if (selectedVariant.compare_at_price > selectedVariant.price) {
+        priceHTML = `<span class="sale-price">${Shopify.formatMoney(selectedVariant.price)}</span>
+                     <span class="original-price">${Shopify.formatMoney(selectedVariant.compare_at_price)}</span>`;
+      } else {
+        priceHTML = `<span class="regular-price">${Shopify.formatMoney(selectedVariant.price)}</span>`;
+      }
+      productPriceEl.innerHTML = priceHTML;
+
+      // Show variant media if exists
+      mediaBlocks.forEach(block => {
+        if(block.dataset.mediaId == selectedVariant.featured_media?.id){
+          block.classList.remove('hidden');
+        } else {
+          block.classList.add('hidden');
+        }
+      });
+    }
+  });
+});
+
+// Trigger change to set initial state
+variantSelectors.forEach(sel => sel.dispatchEvent(new Event('change')));
+</script>
+
+{% schema %}
+{
+  "name": "Custom Product",
+  "settings": [],
+  "presets": [{"name": "Custom Product"}]
+}
+{% endschema %}
