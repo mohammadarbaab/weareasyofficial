@@ -410,10 +410,27 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "custom_footer_z7qah9": {
+      "type": "custom-footer",
+      "name": "Custom Footer",
+      "settings": {
+        "logo_text": "WearEasy Official",
+        "menu_1_title": "LINKS",
+        "footer_menu_1": "home",
+        "menu_2_title": "LEGAL",
+        "footer_menu_2": "legal",
+        "description": "Premium everyday essentials designed with comfort and modern style in mind.",
+        "facebook": "",
+        "instagram": "",
+        "twitter": "",
+        "linkedin": ""
+      }
     }
   },
   "order": [
     "main",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "custom_footer_z7qah9"
   ]
 }

@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "section": {
       "type": "section",
@@ -214,6 +215,8 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
@@ -224,10 +227,27 @@
         "padding-block-start": 0,
         "padding-block-end": 32
       }
+    },
+    "custom_footer_JQz7zg": {
+      "type": "custom-footer",
+      "name": "Custom Footer",
+      "settings": {
+        "logo_text": "WearEasy Official",
+        "menu_1_title": "LINKS",
+        "footer_menu_1": "home",
+        "menu_2_title": "LEGAL",
+        "footer_menu_2": "legal",
+        "description": "Premium everyday essentials designed with comfort and modern style in mind.",
+        "facebook": "",
+        "instagram": "",
+        "twitter": "",
+        "linkedin": ""
+      }
     }
   },
   "order": [
     "section",
-    "main"
+    "main",
+    "custom_footer_JQz7zg"
   ]
 }
