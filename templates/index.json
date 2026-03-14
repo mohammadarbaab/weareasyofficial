@@ -84,6 +84,16 @@
             "button_label": "Discover Now",
             "button_url": "shopify://collections/boys-trousers"
           }
+        },
+        "collection_item_pF49bf": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Mar_15_2026_04_50_11_AM.png",
+            "item_title": "Men’s Premium Picks",
+            "item_description": "Sculpted from premium lambskin, a modern icon for the discerning.",
+            "button_label": "Discover Now",
+            "button_url": "shopify://collections/boys-trousers"
+          }
         }
       },
       "block_order": [
@@ -92,7 +102,8 @@
         "collection_item_m9rwPw",
         "collection_item_C4YRLJ",
         "collection_item_FgnwPU",
-        "collection_item_jUtmgT"
+        "collection_item_jUtmgT",
+        "collection_item_pF49bf"
       ],
       "settings": {
         "title": "FEATURED COLLECTIONS",
