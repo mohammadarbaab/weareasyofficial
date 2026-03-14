@@ -39,10 +39,10 @@
           "type": "collection_item",
           "settings": {
             "image": "shopify://shop_images/ChatGPT_Image_Mar_2_2026_02_56_32_AM.png",
-            "item_title": "Men's Printed Shirts",
+            "item_title": "Smart Casual Women Wear",
             "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
             "button_label": "Discover Collection",
-            "button_url": ""
+            "button_url": "shopify://collections/girls-trousers"
           }
         },
         "collection_item_m9rwPw": {
