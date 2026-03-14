@@ -74,6 +74,16 @@
             "button_label": "Discover Now",
             "button_url": ""
           }
+        },
+        "collection_item_jUtmgT": {
+          "type": "collection_item",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Mar_6_2026_01_28_17_AM_e8a26b26-b3a9-4aac-801b-539ef5b80bbe.png",
+            "item_title": "Modern Men Collection",
+            "item_description": "Sculpted from premium lambskin, a modern icon for the discerning.",
+            "button_label": "Discover Now",
+            "button_url": "shopify://collections/boys-trousers"
+          }
         }
       },
       "block_order": [
@@ -81,7 +91,8 @@
         "collection_item_y8PmwC",
         "collection_item_m9rwPw",
         "collection_item_C4YRLJ",
-        "collection_item_FgnwPU"
+        "collection_item_FgnwPU",
+        "collection_item_jUtmgT"
       ],
       "settings": {
         "title": "FEATURED COLLECTIONS",
