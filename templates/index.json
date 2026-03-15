@@ -22,94 +22,6 @@
         "button_text": "Shop Collection"
       }
     },
-    "hero": {
-      "type": "hero",
-      "blocks": {
-        "collection_item_h43mnB": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPTImageFeb24_2026_07_43_30AM.png",
-            "item_title": "Women's Straight Fit Trousers",
-            "item_description": "Sculpted from premium lambskin, a modern icon for the discerning.",
-            "button_label": "Discover Collection",
-            "button_url": "shopify://collections/girls-trousers"
-          }
-        },
-        "collection_item_y8PmwC": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_2_2026_02_56_32_AM.png",
-            "item_title": "Smart Casual Women Wear",
-            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
-            "button_label": "Discover Collection",
-            "button_url": "shopify://collections/girls-trousers"
-          }
-        },
-        "collection_item_m9rwPw": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_2_2026_02_54_34_AM.png",
-            "item_title": "Smart Casual Women Wear",
-            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
-            "button_label": "Discover Collection",
-            "button_url": "shopify://collections/girls-trousers"
-          }
-        },
-        "collection_item_C4YRLJ": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_12_2026_09_09_03_PM.png",
-            "item_title": "Modern Men Collection",
-            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
-            "button_label": "Discover Collection",
-            "button_url": "shopify://collections/boys-trousers"
-          }
-        },
-        "collection_item_FgnwPU": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_2_2026_02_58_16_AM_3c36b792-57b3-447c-b380-f160d89875d8.png",
-            "item_title": "Soft Leather Jackets",
-            "item_description": "Scelerisque duis aliquam qui lorem ipsum dolor amet, consectetur adipiscing elit.",
-            "button_label": "Discover Now",
-            "button_url": ""
-          }
-        },
-        "collection_item_jUtmgT": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_6_2026_01_28_17_AM_e8a26b26-b3a9-4aac-801b-539ef5b80bbe.png",
-            "item_title": "Modern Men Collection",
-            "item_description": "Sculpted from premium lambskin, a modern icon for the discerning.",
-            "button_label": "Discover Now",
-            "button_url": "shopify://collections/boys-trousers"
-          }
-        },
-        "collection_item_pF49bf": {
-          "type": "collection_item",
-          "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Mar_15_2026_04_50_11_AM.png",
-            "item_title": "Men’s Premium Picks",
-            "item_description": "Sculpted from premium lambskin, a modern icon for the discerning.",
-            "button_label": "Discover Now",
-            "button_url": "shopify://collections/boys-trousers"
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_h43mnB",
-        "collection_item_y8PmwC",
-        "collection_item_m9rwPw",
-        "collection_item_C4YRLJ",
-        "collection_item_FgnwPU",
-        "collection_item_jUtmgT",
-        "collection_item_pF49bf"
-      ],
-      "settings": {
-        "title": "FEATURED COLLECTIONS",
-        "description": "Explore the latest styles from Nivrox. Modern silhouettes, premium fabrics, and everyday comfort designed for effortless style."
-      }
-    },
     "collection_grid_FQ6ryr": {
       "type": "collection-grid",
       "blocks": {
@@ -265,10 +177,9 @@
   },
   "order": [
     "video_section_HCLBhY",
-    "hero",
     "collection_grid_FQ6ryr",
-    "custom_text_zNUkR6",
     "shop_tees_1",
+    "custom_text_zNUkR6",
     "info_boxes",
     "winter_collection_jLW3LF",
     "image-text-split",

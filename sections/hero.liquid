@@ -103,9 +103,9 @@
   gap: 15px;
 
   /* initial state for scroll animation */
-  transform: scale(0.5);
-  opacity: 0;
-  transition: transform 1.5s ease-out, opacity 1.5s ease-out;
+  {% comment %} transform: scale(0.5); {% endcomment %}
+  {% comment %} opacity: 0; {% endcomment %}
+  {% comment %} transition: transform 1.5s ease-out, opacity 1.5s ease-out; {% endcomment %}
 }
 
 /* bloom effect – refined */
@@ -180,6 +180,7 @@
   margin: 0 -5px;
   background: transparent;
   mask: linear-gradient(90deg, transparent 0%, black 6%, black 94%, transparent 100%);
+
 }
 
 #{{ section_id }} .new-collections__track {
@@ -187,7 +188,7 @@
   gap: 30px;
   transition: transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
   will-change: transform;
-    max-width:1200px
+    max-width:1200px;
   padding: 12px 0 20px; /* space for shadow */
 }
 
