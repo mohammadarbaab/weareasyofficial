@@ -5,10 +5,13 @@
     <div class="footer-navbar">
 
       <!-- LOGO -->
-      <div class="footer-logo">
-        <h4>{{ section.settings.logo_text }}</h4>
-      </div>
-
+     <div class="footer-logo">
+  {% if section.settings.logo_image != blank %}
+    <img src="{{ section.settings.logo_image | image_url }}" alt="logo">
+  {% else %}
+    <h4>{{ section.settings.logo_text }}</h4>
+  {% endif %}
+</div>
       <!-- LINKS COLUMN 1 -->
       <div class="links">
         <h4>{{ section.settings.menu_1_title }}</h4>
@@ -126,6 +129,10 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 40px;
+}
+.footer-logo img{
+  width:120px;
+  height:auto;
 }
 
 .footer-navbar h4,
@@ -284,7 +291,7 @@
       "type": "text",
       "id": "logo_text",
       "label": "Brand Name",
-      "default": "WearEasy Official"
+      "default": "Nivrox"
     },
     {
       "type": "text",
@@ -292,6 +299,11 @@
       "label": "Menu 1 Heading",
       "default": "LINKS"
     },
+    {
+  "type": "image_picker",
+  "id": "logo_image",
+  "label": "Footer Logo"
+},
     {
       "type": "link_list",
       "id": "footer_menu_1",
