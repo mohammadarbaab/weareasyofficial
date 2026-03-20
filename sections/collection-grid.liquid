@@ -44,10 +44,11 @@
   display: flex;
   justify-content: center;
   padding: 80px 20px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  {% comment %} background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); {% endcomment %}
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   position: relative;
   overflow: hidden;
+  
 }
 
 /* Add decorative elements */
@@ -58,7 +59,8 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+
+  {% comment %} background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent); {% endcomment %}
 }
 
 .collection-grid::after {
@@ -68,7 +70,7 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+  {% comment %} background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent); {% endcomment %}
 }
 
 .collection-wrapper {
@@ -76,7 +78,7 @@
   width: 100%;
   position: relative;
   z-index: 2;
-  /* background-color: orange; */
+  {% comment %} background-color: orange; {% endcomment %}
 
   opacity: 0;
   transform: scale(0.6);
@@ -555,7 +557,7 @@
 /* ========== DARK MODE SUPPORT ========== */
 @media (prefers-color-scheme: dark) {
   .collection-grid {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    {% comment %} background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); {% endcomment %}
   }
   
   .collection-grid::before,
